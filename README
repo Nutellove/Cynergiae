@@ -1,0 +1,12 @@
+Hello there !
+Nothing much to be found here.
+
+This is a sandbox for Cynergiae.
+
+--------------------------------------------------------------------------------
+
+Git CheatSheet
+
+git add file1 file2
+git commit -m 'Commit comment'
+git push origin master
