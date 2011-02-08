@@ -17,7 +17,7 @@ Execute <code>install_symfony.sh</code> to install sf2 vendors.
 Later, you might execute <pre>update_symfony.sh</pre> to pull changes from
 vendors' repositories.
 
-<hr />
+--------------------------------------------------------------------------------
 
 Git CheatSheet
 --------------
