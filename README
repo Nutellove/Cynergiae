@@ -6,15 +6,21 @@ This is a sandbox for Cynergiae.
 --------------------------------------------------------------------------------
 
 INSTALL NOTES
+=============
 
 CD to your project directory and then clone the repo :
 git clone git@github.com:Nutellove/Cynergiae.git cynergiae
 
-Execute install_symfony.sh
+Execute <code>install_symfony.sh</code> to install sf2 vendors.
 
---------------------------------------------------------------------------------
+
+Later, you might execute <pre>update_symfony.sh</pre> to pull changes from
+vendors' repositories.
+
+<hr />
 
 Git CheatSheet
+--------------
 
 git add file1 file2 folder1 etc
 git commit -a -m 'Commit comment'
