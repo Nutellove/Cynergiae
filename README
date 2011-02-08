@@ -17,6 +17,6 @@ Execute install_symfony.sh
 Git CheatSheet
 
 git add file1 file2 folder1 etc
-git commit -m 'Commit comment'
+git commit -a -m 'Commit comment'
 git push origin master
 git pull origin master
