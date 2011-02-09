@@ -11,10 +11,10 @@ INSTALL NOTES
 CD to your project directory and then clone the repo :
 git clone git@github.com:Nutellove/Cynergiae.git cynergiae
 
-Execute <code>install_symfony.sh</code> to install sf2 vendors.
+Execute install_symfony.sh to install sf2 vendors.
 
 
-Later, you might execute <pre>update_symfony.sh</pre> to pull changes from
+Later, you might execute update_symfony.sh to pull changes from
 vendors' repositories.
 
 --------------------------------------------------------------------------------
