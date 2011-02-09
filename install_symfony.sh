@@ -38,6 +38,9 @@ fi
 # move to sf installation dir
 cd vendor
 
+# make sure git has line feed correctly configured
+git config --global core.autocrlf input
+
 # clone from git read-only repo
 git clone https://github.com/symfony/symfony.git symfony
 
@@ -80,3 +83,4 @@ echo "---------- Twig Cloned !"
 git clone git://github.com/zendframework/zf2.git zend
 
 echo "---------- Zend Cloned !"
+echo "========== DONE !"

@@ -30,7 +30,7 @@ Later, you might execute update_symfony.sh to pull changes from vendors' reposit
 Git CheatSheet
 --------------
 
-git add file1 file2 folder1 etc
+> git add file1 file2 folder1 etc
 
 git commit -a -m 'Commit comment'
 
