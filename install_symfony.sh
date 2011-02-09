@@ -6,7 +6,27 @@
 
 echo "----- Installing Symfony and Friends -----"
 
-# remove dir
+# create/empty tmp files dirs
+cd app
+if [ -d "cache" ]; then
+  echo "Emptying app/cache directory"
+  #rm -rf cache/*
+else
+  echo "Creating app/cache directory"
+  mkdir cache
+fi
+if [ -d "logs" ]; then
+  echo "Emptying app/logs directory"
+  #rm -rf logs/*
+else
+  echo "Creating app/logs directory"
+  mkdir logs
+fi
+chmod 777 cache
+chmod 777 logs
+cd ..
+
+# empty vendor dir
 if [ -d "vendor" ]; then
   echo "Emptying vendor directory"
   rm -rf vendor/*

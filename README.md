@@ -17,7 +17,8 @@ git clone git@github.com:Nutellove/Cynergiae.git cynergiae
 
 Execute install_symfony.sh to
 
-* create vendor directory
+* create/empty app/logs and app/cache and chmod them
+* create/empty vendor directory
 * clone sf2 in vendor/symfony from github
 * clone usual sf2 vendors (doctrine, twig...)
 
