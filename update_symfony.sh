@@ -51,3 +51,5 @@ cd $CURRENT/zend && git pull
 
 echo "---------- Zend Pulled !"
 
+echo "========== DONE !"
+

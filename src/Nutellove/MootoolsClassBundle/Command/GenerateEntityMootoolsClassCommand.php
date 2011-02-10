@@ -21,7 +21,8 @@ use Doctrine\ORM\Tools\EntityGenerator;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 /**
- * Initialize a new Mootools Class Base entity inside a bundle.
+ * Generate new Mootools Classes and associated Controllers and Routes
+ * for an entity inside a bundle.
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
@@ -58,6 +59,8 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+    	echo "Executed Mootools Command";
+    	return;
         $bundle = $this->application->getKernel()->getBundle($input->getArgument('bundle'));
 
         $entity = $input->getArgument('entity');
