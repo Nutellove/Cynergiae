@@ -1,7 +1,10 @@
+# Stoopid Windows© files
 .DS_Store
 Thumbs.db
 desktop.ini
+# Vendors (update them via script)
 vendor/*
+# Eclipse-generated files
 .settings/*
 .project
 .buildpath
