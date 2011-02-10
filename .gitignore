@@ -2,3 +2,6 @@
 Thumbs.db
 desktop.ini
 vendor/*
+.settings/*
+.project
+.buildpath
