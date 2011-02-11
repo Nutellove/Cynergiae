@@ -26,7 +26,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-class GenerateEntityMootoolsClassCommand extends DoctrineCommand
+class GenerateEntityMootoolsClassCommand extends MootoolsClassCommand
 {
     protected function configure()
     {

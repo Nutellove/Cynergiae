@@ -11,7 +11,7 @@
 
 namespace Nutellove\MootoolsClassBundle\Command;
 
-use Symfony\Bundle\DoctrineBundle\Command;
+use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
 
 /**
  * Base class for MootoolsClass console commands to extend from.
