@@ -2,9 +2,12 @@
 .DS_Store
 Thumbs.db
 desktop.ini
-# Vendors (update them via script)
-vendor/*
 # Eclipse-generated files
 .settings/*
 .project
 .buildpath
+# Vendors (update them via script)
+vendor/*
+# Bundles (excepted my own)
+src/*
+!src/Nutellove
