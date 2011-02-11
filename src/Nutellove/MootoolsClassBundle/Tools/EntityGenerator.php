@@ -17,14 +17,14 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Doctrine\ORM\Tools;
+namespace Nutellove\MootoolsClassBundle\Tools;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo,
     Doctrine\ORM\Mapping\AssociationMapping,
     Doctrine\Common\Util\Inflector;
 
 /**
- * Generic class used to generate PHP5 entity classes from ClassMetadataInfo instances
+ * Generic class used to generate Mootools entity base classes from ClassMetadataInfo instances
  *
  *     [php]
  *     $classes = $em->getClassMetadataFactory()->getAllMetadata();
@@ -36,35 +36,28 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo,
  *     $generator->setUpdateEntityIfExists(true);
  *     $generator->generate($classes, '/path/to/generate/entities');
  *
- * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link    www.doctrine-project.org
- * @since   2.0
- * @version $Revision$
- * @author  Benjamin Eberlei <kontakt@beberlei.de>
- * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author  Jonathan Wage <jonwage@gmail.com>
- * @author  Roman Borschel <roman@code-factory.org>
+ * @author  Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-class EntityGenerator
+class MootoolsBaseEntityGenerator
 {
     /**
      * @var bool
      */
     private $_backupExisting = true;
 
-    /** The extension to use for written php files */
-    private $_extension = '.php';
+    /** The extension to use for written javascript files */
+    private $_extension = '.class.js';
 
     /** Whether or not the current ClassMetadataInfo instance is new or old */
     private $_isNew = true;
 
     private $_staticReflection = array();
 
-    /** Number of spaces to use for indention in generated code */
-    private $_numSpaces = 4;
+    /** Number of spaces to use for indentation in generated code */
+    private $_numSpaces = 2;
 
-    /** The actual spaces to use for indention */
-    private $_spaces = '    ';
+    /** The actual spaces to use for indentation */
+    private $_spaces = '  ';
 
     /** The class all generated entities should extend */
     private $_classToExtend;
@@ -77,10 +70,11 @@ class EntityGenerator
      */
     private $_annotationsPrefix = '';
 
-    /** Whether or not to generated sub methods */
+    /** Whether or not to generated stub methods */
     private $_generateEntityStubMethods = false;
 
     /** Whether or not to update the entity class if it exists already */
+    // TODO : look into that
     private $_updateEntityIfExists = false;
 
     /** Whether or not to re-generate entity class if it exists already */
