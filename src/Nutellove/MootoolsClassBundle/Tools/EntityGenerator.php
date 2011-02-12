@@ -159,6 +159,7 @@ initialize : function ()
 },
 ';
 
+
   /**
    * Generate and write entity classes for the given array of ClassMetadataInfo instances
    *
