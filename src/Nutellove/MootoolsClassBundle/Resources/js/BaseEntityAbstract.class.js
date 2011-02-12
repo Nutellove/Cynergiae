@@ -21,12 +21,18 @@ var BaseEntityAbstract = new Class({
     this.setOptions (options);
   },
 
+  log: function(msg){
+    if (console && console.log){
+      console.log (msg);
+    }
+  },
+  
   /**
    * 
    */
   initializeSaveRequest: function(){
-	if (!this.saveRequest) {
-    var that = this; // better than bind() sometimes
+    if (!this.saveRequest) {
+      var that = this; // better than bind() sometimes
       this.saveRequest = new Request.JSON ({
         url: this.url,
         onSuccess: function(json, text){

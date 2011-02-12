@@ -13,7 +13,7 @@ INSTALL NOTES
 
 CD to your project directory and then clone the repo :
 
-git clone git@github.com:Nutellove/Cynergiae.git cynergiae
+$ git clone git@github.com:Nutellove/Cynergiae.git cynergiae
 
 Execute install_symfony.sh to
 
@@ -30,10 +30,10 @@ Later, you might execute update_symfony.sh to pull changes from vendors' reposit
 Git CheatSheet
 --------------
 
-> git add file1 file2 folder1 etc
-
-git commit -a -m 'Commit comment'
-
-git push origin master
-
-git pull origin master
+    $ git add file1 file2 folder1 etc
+    
+    $ git commit -a -m 'Commit comment'
+    
+    $ git push origin master
+    
+    $ git pull origin master
