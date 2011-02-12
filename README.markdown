@@ -13,7 +13,7 @@ INSTALL NOTES
 
 CD to your project directory and then clone the repo :
 
-$ git clone git@github.com:Nutellove/Cynergiae.git cynergiae
+    $ git clone git@github.com:Nutellove/Cynergiae.git cynergiae
 
 Execute install_symfony.sh to
 
