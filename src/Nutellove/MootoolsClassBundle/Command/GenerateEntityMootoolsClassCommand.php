@@ -54,9 +54,6 @@ EOT
   protected function execute(InputInterface $input, OutputInterface $output)
   {
 
-    echo "Executed Mootools Command\n";
-    //return;
-
     $bundle = $this->application->getKernel()->getBundle($input->getArgument('bundle'));
 
     $entity = $input->getArgument('entity');
@@ -64,41 +61,16 @@ EOT
     $mappingType = $input->getOption('mapping-type');
 
 ////////////////////////////////////////////////////////////////////////////////
+    // Fetching the metadata for this Bundle/Entity
     $metadatas = $this->getBundleMetadatas($bundle);
     $class = $metadatas[$fullEntityClassName];
+
 ////////////////////////////////////////////////////////////////////////////////
-
-
-//    $class = new ClassMetadataInfo($fullEntityClassName);
-//    $class->mapField(array('fieldName' => 'id', 'type' => 'integer', 'id' => true));
-//    $class->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_AUTO);
-
-//    //Map the specified fields
-//    $fields = $input->getOption('fields');
-//    if ($fields) {
-//      $e = explode(' ', $fields);
-//      foreach ($e as $value) {
-//        $e = explode(':', $value);
-//        $name = $e[0];
-//        if (strlen($name)) {
-//          $type = isset($e[1]) ? $e[1] : 'string';
-//          preg_match_all('/(.*)\((.*)\)/', $type, $matches);
-//          $type = isset($matches[1][0]) ? $matches[1][0] : $type;
-//          $length = isset($matches[2][0]) ? $matches[2][0] : null;
-//          $class->mapField(array(
-//            'fieldName' => $name,
-//            'type' => $type,
-//            'length' => $length
-//          ));
-//        }
-//      }
-//    }
-
     // Setup a new exporter for the mapping type specified
     $cme = new ClassMetadataExporter();
     $exporter = $cme->getExporter($mappingType);
 
-    $entityPath = $bundle->getPath().'/Entity/Mootools/'.$entity.'.js';
+    $entityPath = $bundle->getPath().'/Entity/Mootools/'.$entity.'.class.js';
     if (file_exists($entityPath)) {
       throw new \RuntimeException(sprintf("Entity %s already exists.", $class->name));
     }
@@ -108,16 +80,8 @@ EOT
       $entityCode = $exporter->exportClassMetadata($class);
       $mappingPath = $mappingCode = false;
     } else {
-//      $mappingType = 'yaml' == $mappingType ? 'yml' : $mappingType;
-//      $mappingPath = $bundle->getPath().'/Resources/config/doctrine/metadata/orm/'.str_replace('\\', '.', $fullEntityClassName).'.dcm.'.$mappingType;
-//      $mappingCode = $exporter->exportClassMetadata($class);
-
       $entityGenerator = $this->getEntityGenerator();
       $entityCode = $entityGenerator->generateEntityClass($class);
-
-//      if (file_exists($mappingPath)) {
-//        throw new \RuntimeException(sprintf("Cannot generate entity when mapping <info>%s</info> already exists", $mappingPath));
-//      }
     }
 
     $output->writeln(sprintf('Generating entity for "<info>%s</info>"', $bundle->getName()));
@@ -127,15 +91,6 @@ EOT
       mkdir($dir, 0777, true);
     }
     file_put_contents($entityPath, $entityCode);
-
-//    if ($mappingPath) {
-//      $output->writeln(sprintf('  > mapping into <info>%s</info>', $mappingPath));
-//
-//      if (!is_dir($dir = dirname($mappingPath))) {
-//        mkdir($dir, 0777, true);
-//      }
-//      file_put_contents($mappingPath, $mappingCode);
-//    }
 
   }
 }
