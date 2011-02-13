@@ -9,6 +9,9 @@ var BaseEntityAbstract = new Class({
   Implements: [Options],
   options: {},
   
+  entityProperties: {},
+  entityMethods: {},
+  
   /**
    * Constructor
    * 
@@ -40,7 +43,7 @@ var BaseEntityAbstract = new Class({
   },
   
   getControllerUrl: function(){
-    
+    // FIXME
   },
   
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,13 +55,14 @@ var BaseEntityAbstract = new Class({
     if (!this.saveRequest) {
       var that = this; // better than bind() sometimes
       this.saveRequest = new Request.JSON ({
-        url: this.getControllerUrl(),
+        url:       this.getControllerUrl(),
+        method:    'post',
         onSuccess: function(json, text){
-        that.log ("Save of "+that.getFullEntityName()+" successful.");
-      },
-      onFailure: function(){
-        that.error ("Save of "+that.getFullEntityName()+" failed.");
-      }
+          that.log ("Save of "+that.getFullEntityName()+" successful.");
+        },
+        onFailure: function(){
+          that.error ("Save of "+that.getFullEntityName()+" failed.");
+        }
       });
     }
   },
@@ -70,7 +74,8 @@ var BaseEntityAbstract = new Class({
     if (!this.loadRequest) {
       var that = this; // better than bind() sometimes
       this.loadRequest = new Request.JSON ({
-        url: this.getControllerUrl(),
+        url:       this.getControllerUrl(),
+        method:    'get',
         onSuccess: function(json, text){
           that.loadJSON (json);
           that.log ("Load of "+that.getFullEntityName()+" successful.");
@@ -89,7 +94,8 @@ var BaseEntityAbstract = new Class({
    */
   loadJSON: function(json)
   {
-
+    this.log (json);
+    this.entityProperties = json;
   },
 
   /**
@@ -97,18 +103,23 @@ var BaseEntityAbstract = new Class({
    */
   saveJSON: function()
   {
+    var json = JSON.encode(this.entityProperties);
 
+    return json;
   },
 
 ////////////////////////////////////////////////////////////////////////////////
 
-  load: function(){
-    
+  load: function()
+  {
+    this.initializeLoadRequest();
+    this.loadRequest.send();
   },
   
   save: function()
   {
-    
+    this.initializeSaveRequest();
+    this.saveRequest.post(this.entityProperties);
   },
 
 ////////////////////////////////////////////////////////////////////////////////

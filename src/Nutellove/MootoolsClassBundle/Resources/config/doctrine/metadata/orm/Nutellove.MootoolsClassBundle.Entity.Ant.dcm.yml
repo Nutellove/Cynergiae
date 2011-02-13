@@ -1,0 +1,39 @@
+# http://www.doctrine-project.org/docs/orm/2.0/en/reference/yaml-mapping.html
+
+Nutellove\MootoolsClassBundle\Entity\Ant:
+  type: entity
+#  table: cms_users
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 50
+#  oneToOne:
+#    address:
+#      targetEntity: Address
+#      joinColumn:
+#        name: address_id
+#        referencedColumnName: id
+#  oneToMany:
+#    phonenumbers:
+#      targetEntity: Phonenumber
+#      mappedBy: user
+#      cascade: cascadePersist
+#  manyToMany:
+#    groups:
+#      targetEntity: Group
+#      joinTable:
+#        name: cms_users_groups
+#        joinColumns:
+#          user_id:
+#            referencedColumnName: id
+#        inverseJoinColumns:
+#          group_id:
+#            referencedColumnName: id
+#  lifecycleCallbacks:
+#    prePersist: [ doStuffOnPrePersist, doOtherStuffOnPrePersistToo ]
+#    postPersist: [ doStuffOnPostPersist ]

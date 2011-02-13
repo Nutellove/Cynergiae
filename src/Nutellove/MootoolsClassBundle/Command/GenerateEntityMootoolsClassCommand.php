@@ -2,7 +2,7 @@
 
 /*
  * This file is part of the Nutellove project.
- * 
+ *
  * © author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -19,6 +19,7 @@ use Symfony\Component\Console\Output\Output;
 use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
 use Doctrine\ORM\Tools\EntityGenerator;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+//use Doctrine\ORM\EntityManager;
 
 /**
  * Generate new Mootools Classes and associated Controllers and Routes
@@ -35,20 +36,13 @@ class GenerateEntityMootoolsClassCommand extends MootoolsClassCommand
       ->setDescription('Generate a new Mootools Class entity inside a bundle.')
       ->addArgument('bundle', InputArgument::REQUIRED, 'The bundle to initialize the entity in.')
       ->addArgument('entity', InputArgument::REQUIRED, 'The entity class to initialize.')
-      ->addOption('mapping-type', null, InputOption::VALUE_OPTIONAL, 'The mapping type to to use for the entity.', 'xml')
+      ->addOption('mapping-type', null, InputOption::VALUE_OPTIONAL, 'The mapping type to to use for the entity.', 'yaml')
       ->addOption('fields', null, InputOption::VALUE_OPTIONAL, 'The fields to create with the new entity.')
       ->setHelp(<<<EOT
 The <info>mootools:generate:entity</info> task (re)generate a new Mootools Class Base entity, creates if needed an extended Mootools Class entity in which you'll write your custom own javascript logic, and (re)generates the Routes and Controllers needed for PHP/JS synchronization via AJAX, all that inside a bundle :
 
-  <info>./app/console mootools:generate:entity "MyCustomBundle" "User\Group"</info>
+  <info>./app/console mootools:generate:entity "MyCustomBundle" "MyEntity"</info>
 
---- DO NOT MIND TEXT BELOW ---
-
-The above would initialize a new entity in the following entity namespace <info>Bundle\MyCustomBundle\Entity\User\Group</info>.
-
-You can also optionally specify the fields you want to generate in the new entity:
-
-  <info>./app/console doctrine:generate:entity "MyCustomBundle" "User\Group" --fields="name:string(255) description:text"</info>
 EOT
     );
   }
@@ -59,15 +53,31 @@ EOT
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
-  
-    echo "Executed Mootools Command";
-    return;
-    
+
+    echo "Executed Mootools Command\n";
+    //return;
+
     $bundle = $this->application->getKernel()->getBundle($input->getArgument('bundle'));
 
     $entity = $input->getArgument('entity');
     $fullEntityClassName = $bundle->getNamespace().'\\Entity\\'.$entity;
     $mappingType = $input->getOption('mapping-type');
+
+////////////////////////////////////////////////////////////////////////////////
+    //$emHelper = $this->getHelper('em');
+
+    /* @var $em \Doctrine\ORM\EntityManager */
+    //$em = $emHelper->getEntityManager();
+
+    //MootoolsClassCommand::setApplicationEntityManager($this->application, 'yml');
+
+    //$foundBundle = $this->findBundle($input->getArgument('bundle'));
+    //$metadatas = $this->getBundleMetadatas($foundBundle);
+
+    var_dump ($metadatas);
+    return;
+////////////////////////////////////////////////////////////////////////////////
+
 
     $class = new ClassMetadataInfo($fullEntityClassName);
     $class->mapField(array('fieldName' => 'id', 'type' => 'integer', 'id' => true));
