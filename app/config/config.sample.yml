@@ -3,7 +3,7 @@ app.config:
     error_handler: null
     csrf_protection:
         enabled: true
-        secret:  xxxxxxxxxx
+        secret: xxxxxxxxxx
     router:        { resource: "%kernel.root_dir%/config/routing.yml" }
     validation:    { enabled: true, annotations: true }
     templating:    { engines: ['twig'] } #assets_version: SomeVersionScheme

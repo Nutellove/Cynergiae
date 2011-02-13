@@ -2,7 +2,7 @@
 
 Nutellove\MootoolsClassBundle\Entity\Ant:
   type: entity
-#  table: cms_users
+  table: ant
   id:
     id:
       type: integer

@@ -22,8 +22,11 @@ Execute install_symfony.sh to
 * clone sf2 in vendor/symfony from github
 * clone usual sf2 vendors (doctrine, twig...)
 
+You also need to configure these files :
 
-Later, you might execute update_symfony.sh to pull changes from vendors' repositories.
+* app/config/config.yml (you may rename config.sample.yml and work from it)
+
+Later, you might execute <code>update_symfony.sh</code> to pull changes from vendors' repositories.
 
 --------------------------------------------------------------------------------
 
@@ -37,3 +40,4 @@ Git CheatSheet
     $ git push origin master
     
     $ git pull origin master
+
