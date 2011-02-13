@@ -2,7 +2,7 @@ CYNERGIÆ SANDBOX
 ================
 
 Hello !
-Nothing much to be found here.
+Nothing much to be found here, this is mostly a learner's project.
 
 This is a sandbox for Cynergiæ.
 
@@ -24,7 +24,7 @@ Execute `install_symfony.sh` to
 
 You also need to configure these files :
 
-* app/config/config.yml (you may rename config.sample.yml and work from it)
+* `app/config/config.yml` (you may rename `config.sample.yml` and work from it)
 
 Later, you might execute `update_symfony.sh` to pull changes from vendors' repositories.
 

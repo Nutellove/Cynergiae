@@ -12,6 +12,9 @@ Nutellove\MootoolsClassBundle\Entity\Ant:
     name:
       type: string
       length: 50
+    size:
+      type: integer
+      default: 10
 #  oneToOne:
 #    address:
 #      targetEntity: Address

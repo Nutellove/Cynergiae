@@ -12,6 +12,7 @@
 namespace Nutellove\MootoolsClassBundle\Command;
 
 use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
+use Nutellove\MootoolsClassBundle\Tools\MootoolsBaseEntityGenerator;
 
 /**
  * Base class for MootoolsClass console commands to extend from.
@@ -24,6 +25,22 @@ use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
  */
 abstract class MootoolsClassCommand extends DoctrineCommand
 {
+
+    protected function getEntityGenerator()
+    {
+        $entityGenerator = new MootoolsBaseEntityGenerator();
+        if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
+            $entityGenerator->setAnnotationPrefix("orm:");
+        }
+
+        $entityGenerator->setGenerateAnnotations(false);
+        $entityGenerator->setGenerateStubMethods(true);
+        $entityGenerator->setRegenerateEntityIfExists(true);
+        $entityGenerator->setUpdateEntityIfExists(false);
+        $entityGenerator->setNumSpaces(2);
+
+        return $entityGenerator;
+    }
 
 }
 
@@ -59,7 +76,7 @@ abstract class MootoolsClassCommand extends DoctrineCommand
 #{
 #    /**
 #     * Convenience method to push the helper sets of a given entity manager into the application.
-#     * 
+#     *
 #     * @param Application $application
 #     * @param string $emName
 #     */
