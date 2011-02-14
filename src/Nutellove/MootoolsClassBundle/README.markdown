@@ -1,17 +1,14 @@
-# PROBLEM
-Find out how to create custom column attribute in property mapping (see http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#property-mapping)
-
 # IMPORTANT
 
-This bundle is NOT finished nor working right now. Its aim is to provide easy Mootools Class integration for each Entity you define in the Doctrine 2 ORM.
-The generated classes will provide the usual save() and load() methods (or maybe persist() ?)
+This bundle is **NOT finished nor working** right now. Its aim is to provide easy Mootools Class integration for each Entity you define in the Doctrine 2 ORM.
+The generated classes will provide the usual save() and load() methods (or maybe persist() ?), but from Javascript, and you won't even have to see XHR at all!
 
 There are many, **many** things to do to improve this Bundle, such as :
 
 * Making it work :
   * Javascript
-    * Abstract Class (50%)
-    * Base Class Generation (50%)
+    * Abstract Class (60%)
+    * Base Class Generation (60%)
     * Class Initialization (10%)
   * PHP
     * Abstract Controller (0%)
@@ -69,6 +66,7 @@ Mootools is pure javascript awesomeness.
 - Fabien Potencier, for he taught me *a lot*
 - Jonathan Wage, cause he's awesome too
 - Aaron Newton, kudos to his super-cow-powers
+- *You*, smart FOSS lover !
 
 
 
