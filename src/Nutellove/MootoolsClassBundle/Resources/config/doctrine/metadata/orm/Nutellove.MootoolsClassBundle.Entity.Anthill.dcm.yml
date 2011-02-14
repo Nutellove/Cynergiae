@@ -1,8 +1,8 @@
 # http://www.doctrine-project.org/docs/orm/2.0/en/reference/yaml-mapping.html
 
-Nutellove\MootoolsClassBundle\Entity\Ant:
+Nutellove\MootoolsClassBundle\Entity\Anthill:
   type: entity
-  table: ant
+  table: anthill
   id:
     id:
       type: integer
@@ -15,10 +15,11 @@ Nutellove\MootoolsClassBundle\Entity\Ant:
     size:
       type: integer
       default: 10
-  manyToOne:
-    anthill:
-      targetEntity: Anthill
-      inversedBy: ants
+
+  oneToMany:
+    ants:
+      targetEntity: Ant
+      mappedBy: anthill
 
 #  oneToOne:
 #    address:
@@ -26,10 +27,6 @@ Nutellove\MootoolsClassBundle\Entity\Ant:
 #      joinColumn:
 #        name: address_id
 #        referencedColumnName: id
-#  oneToMany:
-#    phonenumbers:
-#      targetEntity: Phonenumber
-#      mappedBy: user
 #      cascade: cascadePersist
 #  manyToMany:
 #    groups:

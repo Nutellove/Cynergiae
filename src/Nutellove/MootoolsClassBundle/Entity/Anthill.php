@@ -3,9 +3,9 @@
 namespace Nutellove\MootoolsClassBundle\Entity;
 
 /**
- * Nutellove\MootoolsClassBundle\Entity\Ant
+ * Nutellove\MootoolsClassBundle\Entity\Anthill
  */
-class Ant
+class Anthill
 {
     /**
      * @var integer $id
@@ -23,11 +23,15 @@ class Ant
     private $size;
 
     /**
-     * @var Nutellove\MootoolsClassBundle\Entity\Anthill
+     * @var Nutellove\MootoolsClassBundle\Entity\Ant
      */
-    private $anthill;
+    private $ants;
 
-
+    public function __construct()
+    {
+        $this->ants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -79,22 +83,22 @@ class Ant
     }
 
     /**
-     * Set anthill
+     * Add ants
      *
-     * @param Nutellove\MootoolsClassBundle\Entity\Anthill $anthill
+     * @param Nutellove\MootoolsClassBundle\Entity\Ant $ants
      */
-    public function setAnthill(\Nutellove\MootoolsClassBundle\Entity\Anthill $anthill)
+    public function addAnts(\Nutellove\MootoolsClassBundle\Entity\Ant $ants)
     {
-        $this->anthill = $anthill;
+        $this->ants[] = $ants;
     }
 
     /**
-     * Get anthill
+     * Get ants
      *
-     * @return Nutellove\MootoolsClassBundle\Entity\Anthill $anthill
+     * @return Doctrine\Common\Collections\Collection $ants
      */
-    public function getAnthill()
+    public function getAnts()
     {
-        return $this->anthill;
+        return $this->ants;
     }
 }

@@ -38,7 +38,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo,
  *
  * @author  Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-class MootoolsBaseEntityGenerator
+class MootoolsEntityGenerator
 {
   /**
    * @var bool
