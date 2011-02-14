@@ -4,18 +4,19 @@ This bundle is NOT finished nor working right now. Its aim is to provide easy Mo
 The generated classes will provide the usual save() and load() methods (or maybe persist() ?)
 
 There are many, **many** things to do to improve this Bundle, such as :
+
 * Making it work :
-    * Javascript
-        * Abstract Class (50%)
-        * Base Class Generation (50%)
-        * Class Initialization (10%)
-    * PHP
-        * Abstract Controller (0%)
-        * Base Controller Generation (0%)
-        * Controller Initialization (0%)
-    * Routing
-    * Find a way to regroup all HTML `<script type="text/javascript">` inclusions needed, maybe generate symlinks under `/web`
-    * Find how to require Mootools ≥ 1.3 in dependencies
+  * Javascript
+    * Abstract Class (50%)
+    * Base Class Generation (50%)
+    * Class Initialization (10%)
+  * PHP
+    * Abstract Controller (0%)
+    * Base Controller Generation (0%)
+    * Controller Initialization (0%)
+  * Routing
+  * Find a way to regroup all HTML `<script type="text/javascript">` inclusions needed, maybe generate symlinks under `/web`
+  * Find how to require Mootools ≥ 1.3 in dependencies
 * Cleaning up my messy, feature-testing code
 * Move Ant & Anthill Entities to Tests
 * Writing up Tests (I swear I'll take time to write some, and then some more)
@@ -50,16 +51,16 @@ Therefore, the first time you execute the command-line for a given Bundle/Entity
 After that, only the 2 Base files will be re-generated.
 If I'm not miskaten, the heritage behavior is similar to the Doctrine 1.2 PHP Classes generation from schema.
 
-## WHY NOT JQUERY ?
+## WHY NOT JQUERY?
 
 Hah! Be my guest!
 Mootools is pure javascript awesomeness.
 
 ## THANKS
 
-Fabien Potencier, for he taught me *a lot*
-Jonathan Wage, cause he's awesome too
-Aaron Newton, kudos to the super-cow-powers
+- Fabien Potencier, for he taught me *a lot*
+- Jonathan Wage, cause he's awesome too
+- Aaron Newton, kudos to his super-cow-powers
 
 
 
