@@ -16,6 +16,10 @@ Nutellove\MootoolsClassBundle\Entity\Ant:
     size:
       type: integer
       default: 10
+    is_hungry:
+      type: boolean
+      default: false
+      mootools: both
   manyToOne:
     anthill:
       targetEntity: Anthill

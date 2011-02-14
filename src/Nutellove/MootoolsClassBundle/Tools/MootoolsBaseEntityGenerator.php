@@ -594,10 +594,10 @@ initialize : function ()
   private function _generateEntityStubMethods(ClassMetadataInfo $metadata)
   {
     $methods = array();
-
+    //var_dump ($metadata);
     foreach ($metadata->fieldMappings as $fieldMapping) {
       // FIXME
-      var_dump ($fieldMapping);
+      //var_dump ($fieldMapping);
       if ( isset($fieldMapping['mootools']) ) {
       if ( ! isset($fieldMapping['id']) || ! $fieldMapping['id'] || $metadata->generatorType == ClassMetadataInfo::GENERATOR_TYPE_NONE) {
         if ($code = $this->_generateEntityStubMethod($metadata, 'set', $fieldMapping['fieldName'], $fieldMapping['type'])) {

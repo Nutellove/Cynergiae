@@ -14,6 +14,10 @@ namespace Nutellove\MootoolsClassBundle\Command;
 use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
 use Nutellove\MootoolsClassBundle\Tools\MootoolsBaseEntityGenerator;
 
+// DEBUG
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
+
 /**
  * Base class for MootoolsClass console commands to extend from.
  *
@@ -40,6 +44,44 @@ abstract class MootoolsClassCommand extends DoctrineCommand
         $entityGenerator->setNumSpaces(2);
 
         return $entityGenerator;
+    }
+
+    //use Nutellove\MootoolsClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver;
+
+    protected function getBundleMetadatas(Bundle $bundle)
+    {
+        $namespace = $bundle->getNamespace();
+        $bundleMetadatas = array();
+        $entityManagers = $this->getDoctrineEntityManagers();
+        foreach ($entityManagers as $key => $em) {
+            $cmf = new DisconnectedClassMetadataFactory();
+            $cmf->setEntityManager($em);
+
+            // We need to add our own Customized Drivers for the mootools field attribute
+            $driverChain = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+            $driverChain->addDriver(new \Nutellove\MootoolsClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver(
+                array(
+                    0 => '/home/tonioth/htdocs/cynergiae_git/src/Nutellove/MootoolsClassBundle/Resources/config/doctrine/metadata/orm'
+                )),
+                'Nutellove\\MootoolsClassBundle\\Entity'
+            );
+
+            $em->getConfiguration()->setMetadataDriverImpl($driverChain);
+
+            echo "Driver : ";
+            var_dump ($em->getConfiguration()->getMetadataDriverImpl());
+
+            $metadatas = $cmf->getAllMetadata();
+            echo "Metas : ";
+            var_dump ($metadatas);
+            foreach ($metadatas as $metadata) {
+                if (strpos($metadata->name, $namespace) === 0) {
+                    $bundleMetadatas[$metadata->name] = $metadata;
+                }
+            }
+        }
+
+        return $bundleMetadatas;
     }
 
 }

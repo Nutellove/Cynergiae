@@ -28,10 +28,39 @@ var BaseAnt = new Class({
   size,
 
   /**
+   * @var boolean is_hungry
+   */
+  is_hungry,
+
+  /**
    * @var Nutellove\MootoolsClassBundle\Entity\Anthill
    */
   anthill,
 
+
+  
+  /**
+   * Set is_hungry
+   *
+   * @param boolean  isHungry
+   */
+  setIsHungry: function (isHungry)
+  {
+    this.is_hungry = isHungry;
+  },
+  
+
+  
+  /**
+   * Get is_hungry
+   *
+   * @return boolean  isHungry
+   */
+  getIsHungry: function ()
+  {
+    return this.is_hungry;
+  },
+  
 
   
   /**
