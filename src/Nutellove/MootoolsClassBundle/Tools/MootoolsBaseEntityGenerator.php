@@ -48,6 +48,9 @@ class MootoolsBaseEntityGenerator
   /** The extension to use for written javascript files */
   private $_extension = '.class.js';
 
+  /** The name of the attribute that holds mootools information **/
+  private $_mootoolsAttributeName = 'mootools';
+
   /** Whether or not the current ClassMetadataInfo instance is new or old */
   private $_isNew = true;
 
@@ -591,46 +594,119 @@ initialize : function ()
     }
   }
 
+  /**
+   * Generate the setters and getters stubs
+   * @param  ClassMetadataInfo $metadata
+   * @return string The JS Code
+   */
   private function _generateEntityStubMethods(ClassMetadataInfo $metadata)
   {
     $methods = array();
     //var_dump ($metadata);
     foreach ($metadata->fieldMappings as $fieldMapping) {
+      // Setter, do we need it ?
       // FIXME
-      //var_dump ($fieldMapping);
-      if ( isset($fieldMapping['mootools']) ) {
-      if ( ! isset($fieldMapping['id']) || ! $fieldMapping['id'] || $metadata->generatorType == ClassMetadataInfo::GENERATOR_TYPE_NONE) {
-        if ($code = $this->_generateEntityStubMethod($metadata, 'set', $fieldMapping['fieldName'], $fieldMapping['type'])) {
-          $methods[] = $code;
+      if ( isset($fieldMapping['mootools']) && ( $fieldMapping['mootools'] ) ) {
+        if ( ! isset($fieldMapping['id']) || ! $fieldMapping['id'] || $metadata->generatorType == ClassMetadataInfo::GENERATOR_TYPE_NONE) {
+          if ($code = $this->_generateEntityStubMethod($metadata, 'set', $fieldMapping['fieldName'], $fieldMapping['type'])) {
+            $methods[] = $code;
+          }
         }
       }
 
-      if ($code = $this->_generateEntityStubMethod($metadata, 'get', $fieldMapping['fieldName'], $fieldMapping['type'])) {
-        $methods[] = $code;
-      }
-      }
+        if ($code = $this->_generateEntityStubMethod($metadata, 'get', $fieldMapping['fieldName'], $fieldMapping['type'])) {
+          $methods[] = $code;
+        }
     }
 
-    foreach ($metadata->associationMappings as $associationMapping) {
-      if ($associationMapping['type'] & ClassMetadataInfo::TO_ONE) {
-        if ($code = $this->_generateEntityStubMethod($metadata, 'set', $associationMapping['fieldName'], $associationMapping['targetEntity'])) {
-          $methods[] = $code;
-        }
-        if ($code = $this->_generateEntityStubMethod($metadata, 'get', $associationMapping['fieldName'], $associationMapping['targetEntity'])) {
-          $methods[] = $code;
-        }
-      } else if ($associationMapping['type'] & ClassMetadataInfo::TO_MANY) {
-        if ($code = $this->_generateEntityStubMethod($metadata, 'add', $associationMapping['fieldName'], $associationMapping['targetEntity'])) {
-          $methods[] = $code;
-        }
-        if ($code = $this->_generateEntityStubMethod($metadata, 'get', $associationMapping['fieldName'], 'Doctrine\Common\Collections\Collection')) {
-          $methods[] = $code;
-        }
-      }
-    }
+//    foreach ($metadata->associationMappings as $associationMapping) {
+//      if ($associationMapping['type'] & ClassMetadataInfo::TO_ONE) {
+//        if ($code = $this->_generateEntityStubMethod($metadata, 'set', $associationMapping['fieldName'], $associationMapping['targetEntity'])) {
+//          $methods[] = $code;
+//        }
+//        if ($code = $this->_generateEntityStubMethod($metadata, 'get', $associationMapping['fieldName'], $associationMapping['targetEntity'])) {
+//          $methods[] = $code;
+//        }
+//      } else if ($associationMapping['type'] & ClassMetadataInfo::TO_MANY) {
+//        if ($code = $this->_generateEntityStubMethod($metadata, 'add', $associationMapping['fieldName'], $associationMapping['targetEntity'])) {
+//          $methods[] = $code;
+//        }
+//        if ($code = $this->_generateEntityStubMethod($metadata, 'get', $associationMapping['fieldName'], 'Doctrine\Common\Collections\Collection')) {
+//          $methods[] = $code;
+//        }
+//      }
+//    }
 
     return implode("\n\n", $methods);
   }
+
+////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Check if the field associated to the passed $fieldMapping is the ID
+   * @param  array $fieldMapping
+   * @return boolean
+   */
+  protected function _isIdField ($fieldMapping)
+  {
+    if ( ! isset($fieldMapping['id']) || ! $fieldMapping['id'] ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Checks if Mootools Class has write access to the field associated to passed $fieldMapping
+   * @param  array $fieldMapping
+   * @return boolean
+   */
+  protected function _canJavascriptWriteField ($fieldMapping)
+  {
+    // Can never write ID
+    if ( $this->_isIdField($fieldMapping) ) {
+      return false;
+    }
+    if ( isset($fieldMapping[$this->_mootoolsAttributeName]) ) {
+      switch ($fieldMapping[$this->_mootoolsAttributeName]) {
+        case 'rw':
+        case 'w':
+        case 'write':
+          return true;
+        default:
+          return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Checks if Mootools Class has read access to the field associated to passed fieldMapping
+   * @param  array $fieldMapping
+   * @return boolean
+   */
+  protected function _canJavascriptReadField ($fieldMapping)
+  {
+    // Can always read ID
+    if ( $this->_isIdField($fieldMapping) ) {
+      return true;
+    }
+    if ( isset($fieldMapping[$this->_mootoolsAttributeName]) ) {
+      switch ($fieldMapping[$this->_mootoolsAttributeName]) {
+        case 'rw':
+        case 'r':
+        case 'read':
+          return true;
+        default:
+          return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+////////////////////////////////////////////////////////////////////////////////
 
   private function _generateEntityLifecycleCallbackMethods(ClassMetadataInfo $metadata)
   {
