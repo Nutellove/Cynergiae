@@ -26,7 +26,7 @@ There are many, **many** things to do to improve this Bundle, such as :
 
     $ app/console mootools:generate:entity <bundle> <entity>
 
-Replace <bundle> and <entity> by the names of the Bundle and Entity you want to
+Replace `<bundle>` and `<entity>` by the names of the Bundle and Entity you want to
 generate the Mootools Classes of.
 
 ## WHAT IS IT?
@@ -34,14 +34,19 @@ generate the Mootools Classes of.
 Each Doctrine 2 Entity converted to Mootools will need a total of 6 files :
 
 ### Javascript Mootools Classes
+
 * `Nutellove/MootoolsClassBundle/Resources/js/BaseEntityAbstract.class.js` is a static (non-generated) Class that holds the XHR magic
 * `Entity/Mootools/Base/Base<Entity>.class.js` is a generated Mootools Entity Base Class that extends the above BaseEntityAbstract Class, you should *not* manually edit this file
 * `Entity/Mootools/<Entity>.class.js` extends the above Base class, is initially generated empty and not overwritten, so you might write your custom logic inside 
 
 ### PHP AJAX Controllers
+
 * Abstract (shared by all Controllers)
 * Base (re-generated each time)
 * Final (initially empty, then user-defined)
+
+NOTE : In the above paths, `<Entity>` is your Entity Name, without namespace. (may cause problems!)
+
 TODO :)
 But there'll be 3 files, on the same model than JS ones : Abstract, Base, and Final.
 

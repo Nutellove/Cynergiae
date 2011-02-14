@@ -12,6 +12,7 @@ Nutellove\MootoolsClassBundle\Entity\Ant:
     name:
       type: string
       length: 50
+      mootools: ~
     size:
       type: integer
       default: 10

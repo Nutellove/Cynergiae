@@ -35,66 +35,6 @@ var BaseAnt = new Class({
 
   
   /**
-   * Get id
-   *
-   * @return integer  id
-   */
-  getId: function ()
-  {
-    return this.id;
-  },
-  
-
-  
-  /**
-   * Set name
-   *
-   * @param string  name
-   */
-  setName: function (name)
-  {
-    this.name = name;
-  },
-  
-
-  
-  /**
-   * Get name
-   *
-   * @return string  name
-   */
-  getName: function ()
-  {
-    return this.name;
-  },
-  
-
-  
-  /**
-   * Set size
-   *
-   * @param integer  size
-   */
-  setSize: function (size)
-  {
-    this.size = size;
-  },
-  
-
-  
-  /**
-   * Get size
-   *
-   * @return integer  size
-   */
-  getSize: function ()
-  {
-    return this.size;
-  },
-  
-
-  
-  /**
    * Set anthill
    *
    * @param Nutellove\MootoolsClassBundle\Entity\Anthill  anthill

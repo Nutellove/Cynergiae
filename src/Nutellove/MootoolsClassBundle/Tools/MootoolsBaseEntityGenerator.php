@@ -596,6 +596,9 @@ initialize : function ()
     $methods = array();
 
     foreach ($metadata->fieldMappings as $fieldMapping) {
+      // FIXME
+      var_dump ($fieldMapping);
+      if ( isset($fieldMapping['mootools']) ) {
       if ( ! isset($fieldMapping['id']) || ! $fieldMapping['id'] || $metadata->generatorType == ClassMetadataInfo::GENERATOR_TYPE_NONE) {
         if ($code = $this->_generateEntityStubMethod($metadata, 'set', $fieldMapping['fieldName'], $fieldMapping['type'])) {
           $methods[] = $code;
@@ -604,6 +607,7 @@ initialize : function ()
 
       if ($code = $this->_generateEntityStubMethod($metadata, 'get', $fieldMapping['fieldName'], $fieldMapping['type'])) {
         $methods[] = $code;
+      }
       }
     }
 
