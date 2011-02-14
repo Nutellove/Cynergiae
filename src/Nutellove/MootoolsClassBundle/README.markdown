@@ -50,3 +50,18 @@ Therefore, the first time you execute the command-line for a given Bundle/Entity
 After that, only the 2 Base files will be re-generated.
 If I'm not miskaten, the heritage behavior is similar to the Doctrine 1.2 PHP Classes generation from schema.
 
+## WHY NOT JQUERY ?
+
+Hah! Be my guest!
+Mootools is pure javascript awesomeness.
+
+## THANKS
+
+Fabien Potencier, for he taught me *a lot*
+Jonathan Wage, cause he's awesome too
+Aaron Newton, kudos to the super-cow-powers
+
+
+
+
+
