@@ -1,3 +1,6 @@
+# PROBLEM
+Find out how to create custom column attribute in property mapping (see http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#property-mapping)
+
 # IMPORTANT
 
 This bundle is NOT finished nor working right now. Its aim is to provide easy Mootools Class integration for each Entity you define in the Doctrine 2 ORM.
