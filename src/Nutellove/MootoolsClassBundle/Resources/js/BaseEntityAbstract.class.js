@@ -137,10 +137,10 @@ var BaseEntityAbstract = new Class({
   /**
    * Loads the passed JSON in the properties of the JS Entity
    */
-  loadJSON: function(json)
+  loadJSON: function(jsonProperties)
   {
-    this.log (json);
-    this.entityProperties = json;
+    this.log (jsonProperties);
+    this.entityProperties = jsonProperties;
     this.hasLoaded = true;
   },
 
@@ -170,8 +170,10 @@ var BaseEntityAbstract = new Class({
    */
   save: function()
   {
-    this.initializeSaveRequest();
-    this.saveRequest.post(this.entityProperties);
+    if (this.hasLoaded && this.hasChanged) {
+      this.initializeSaveRequest();
+      this.saveRequest.post(this.entityProperties);
+    }
   },
 
 ////////////////////////////////////////////////////////////////////////////////
