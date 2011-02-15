@@ -6,8 +6,11 @@
  */
 
 var BaseEntityAbstract = new Class({
+
   Implements: [Options],
-  options: {},
+  options: {
+    controllerBaseUrl: 'mootools' // The left-most part of the controller route
+  },
 
   entityProperties: {},
   entityMethods: {},
@@ -32,7 +35,7 @@ var BaseEntityAbstract = new Class({
   log: function(msg)
   {
     if (console && console.log) {
-      console.log (this._getFullEntityName(), msg);
+      console.log (this._getLogPrefix(), msg);
     }
 
     return this;
@@ -41,7 +44,7 @@ var BaseEntityAbstract = new Class({
   error: function(msg)
   {
     if (console && console.error) {
-      console.error (this._getFullEntityName(), msg);
+      console.error (this._getLogPrefix(), msg);
     }
 
     return this;
@@ -54,10 +57,22 @@ var BaseEntityAbstract = new Class({
     return this.bundle+'/'+this.entity;
   },
 
+  _getLogPrefix: function()
+  {
+    var r = this._getFullEntityName();
+    if (this.getId && this.getId()) {
+      r += ' - #' + this.getId();
+    }
+
+    return r;
+  },
+
   _getControllerUrl: function()
   {
-    // FIXME
+    return this.options.controllerBaseUrl +'/'+ this.bundle +'/'+ this.entity +'/';
   },
+
+////////////////////////////////////////////////////////////////////////////////
 
   _getProperty: function(varName)
   {
@@ -96,7 +111,7 @@ var BaseEntityAbstract = new Class({
     if (!this.saveRequest) {
       var that = this; // better than bind() sometimes
       this.saveRequest = new Request.JSON ({
-        url:       this._getControllerUrl(),
+        url:       this._getControllerUrl() + 'save',
         method:    'post',
         onSuccess: function(json, text){
           that.log ("Save of "+that._getFullEntityName()+" successful.");
@@ -117,7 +132,7 @@ var BaseEntityAbstract = new Class({
     if (!this.loadRequest) {
       var that = this; // better than bind() sometimes
       this.loadRequest = new Request.JSON ({
-        url:       this._getControllerUrl(),
+        url:       this._getControllerUrl() + 'load',
         method:    'get',
         onSuccess: function(json, text){
           that.loadJSON (json);
@@ -163,6 +178,8 @@ var BaseEntityAbstract = new Class({
   {
     this.initializeLoadRequest();
     this.loadRequest.send();
+
+    return this;
   },
 
   /**
@@ -173,7 +190,11 @@ var BaseEntityAbstract = new Class({
     if (this.hasLoaded && this.hasChanged) {
       this.initializeSaveRequest();
       this.saveRequest.post(this.entityProperties);
+    } else {
+      this.log("Trying to save though nothing has changed.");
     }
+
+    return this;
   },
 
 ////////////////////////////////////////////////////////////////////////////////
