@@ -52,18 +52,6 @@ var BaseAnt = new Class({
 
   
   /**
-   * Set name
-   *
-   * @param string  name
-   */
-  setName: function (name)
-  {
-    this.name = name;
-  },
-  
-
-  
-  /**
    * Get name
    *
    * @return string  name
@@ -71,18 +59,6 @@ var BaseAnt = new Class({
   getName: function ()
   {
     return this.name;
-  },
-  
-
-  
-  /**
-   * Get size
-   *
-   * @return integer  size
-   */
-  getSize: function ()
-  {
-    return this.size;
   },
   
 

@@ -85,10 +85,10 @@ EOT
       $baseEntityCode = $baseEntityGenerator->generateEntityClass($class);
     }
 
-    $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $entityPath));
+    $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $baseEntityPath));
 
     if (file_exists($baseEntityPath)) {
-      $output->writeln(sprintf("  > Mootools Base Entity <info>%s</info> already exists, overwriting.", $entityPath));
+      $output->writeln(sprintf("  > Mootools Base Entity <info>%s</info> already exists, overwriting.", $baseEntityPath));
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     }
 
