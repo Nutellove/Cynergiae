@@ -72,30 +72,30 @@ EOT
 
 ////////////////////////////////////////////////////////////////////////////////
     // Generation of the Base Mootools Entity
-    $output->writeln(sprintf('Generating Mootools Base Entity for "<info>%s</info>"', $bundle->getName()));
+    $output->writeln(sprintf('Generating Mootools Entities for "<info>%s</info>"', $bundle->getName()));
 
-    $entityPath = $bundle->getPath().'/Entity/Mootools/Base/Base'.$entity.'.class.js';
+    $baseEntityPath = $bundle->getPath().'/Entity/Mootools/Base/Base'.$entity.'.class.js';
 
     if ('annotation' === $mappingType) {
-      $exporter->setEntityGenerator($this->getEntityGenerator());
-      $entityCode = $exporter->exportClassMetadata($class);
-      $mappingPath = $mappingCode = false;
+      $exporter->setEntityGenerator($this->getBaseEntityGenerator());
+      $baseEntityCode = $exporter->exportClassMetadata($class);
+      //$mappingPath = $mappingCode = false;
     } else {
-      $entityGenerator = $this->getEntityGenerator();
-      $entityCode = $entityGenerator->generateEntityClass($class);
+      $baseEntityGenerator = $this->getBaseEntityGenerator();
+      $baseEntityCode = $baseEntityGenerator->generateEntityClass($class);
     }
 
-    $output->writeln(sprintf('  > Entity <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $entityPath));
+    $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $entityPath));
 
-    if (file_exists($entityPath)) {
+    if (file_exists($baseEntityPath)) {
       $output->writeln(sprintf("  > Mootools Base Entity <info>%s</info> already exists, overwriting.", $entityPath));
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     }
 
-    if (!is_dir($dir = dirname($entityPath))) {
+    if (!is_dir($dir = dirname($baseEntityPath))) {
       mkdir($dir, 0777, true);
     }
-    file_put_contents($entityPath, $entityCode);
+    file_put_contents($baseEntityPath, $baseEntityCode);
 
 ////////////////////////////////////////////////////////////////////////////////
     // Generation (if needed) of the Mootools Entity

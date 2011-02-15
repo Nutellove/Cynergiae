@@ -12,11 +12,14 @@
 namespace Nutellove\MootoolsClassBundle\Command;
 
 use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
-use Nutellove\MootoolsClassBundle\Tools\MootoolsBaseEntityGenerator;
-
-// DEBUG
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use Doctrine\ORM\Mapping\Driver\DriverChain;
 use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
+
+use Nutellove\MootoolsClassBundle\Tools\MootoolsBaseEntityGenerator;
+use Nutellove\MootoolsClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver;
+
 
 /**
  * Base class for MootoolsClass console commands to extend from.
@@ -30,7 +33,7 @@ use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
 abstract class MootoolsClassCommand extends DoctrineCommand
 {
 
-    protected function getEntityGenerator()
+    protected function getBaseEntityGenerator()
     {
         $entityGenerator = new MootoolsBaseEntityGenerator();
         if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
@@ -52,28 +55,28 @@ abstract class MootoolsClassCommand extends DoctrineCommand
     {
         $namespace = $bundle->getNamespace();
         $bundleMetadatas = array();
+        // We need to add our own Customized Drivers for the mootools field attribute
+        $driverChain = new DriverChain();
+        $driverChain->addDriver(new MootoolsClassYamlDriver(
+            array(
+                0 => __DIR__ . '/../Resources/config/doctrine/metadata/orm'
+            )),
+            'Nutellove\\MootoolsClassBundle\\Entity' // ?
+        );
         $entityManagers = $this->getDoctrineEntityManagers();
         foreach ($entityManagers as $key => $em) {
+            $em->getConfiguration()->setMetadataDriverImpl($driverChain);
+
             $cmf = new DisconnectedClassMetadataFactory();
             $cmf->setEntityManager($em);
 
-            // We need to add our own Customized Drivers for the mootools field attribute
-            $driverChain = new \Doctrine\ORM\Mapping\Driver\DriverChain();
-            $driverChain->addDriver(new \Nutellove\MootoolsClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver(
-                array(
-                    0 => '/home/tonioth/htdocs/cynergiae_git/src/Nutellove/MootoolsClassBundle/Resources/config/doctrine/metadata/orm'
-                )),
-                'Nutellove\\MootoolsClassBundle\\Entity'
-            );
-
-            $em->getConfiguration()->setMetadataDriverImpl($driverChain);
-
-            echo "Driver : ";
-            var_dump ($em->getConfiguration()->getMetadataDriverImpl());
+            //echo "Driver : ";
+            //var_dump ($em->getConfiguration()->getMetadataDriverImpl());
 
             $metadatas = $cmf->getAllMetadata();
-            echo "Metas : ";
-            var_dump ($metadatas);
+
+            //echo "Metas : ";
+            //var_dump ($metadatas);
             foreach ($metadatas as $metadata) {
                 if (strpos($metadata->name, $namespace) === 0) {
                     $bundleMetadatas[$metadata->name] = $metadata;

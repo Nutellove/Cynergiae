@@ -40,6 +40,54 @@ var BaseAnt = new Class({
 
   
   /**
+   * Get id
+   *
+   * @return integer  id
+   */
+  getId: function ()
+  {
+    return this.id;
+  },
+  
+
+  
+  /**
+   * Set name
+   *
+   * @param string  name
+   */
+  setName: function (name)
+  {
+    this.name = name;
+  },
+  
+
+  
+  /**
+   * Get name
+   *
+   * @return string  name
+   */
+  getName: function ()
+  {
+    return this.name;
+  },
+  
+
+  
+  /**
+   * Get size
+   *
+   * @return integer  size
+   */
+  getSize: function ()
+  {
+    return this.size;
+  },
+  
+
+  
+  /**
    * Set is_hungry
    *
    * @param boolean  isHungry
@@ -59,30 +107,6 @@ var BaseAnt = new Class({
   getIsHungry: function ()
   {
     return this.is_hungry;
-  },
-  
-
-  
-  /**
-   * Set anthill
-   *
-   * @param Nutellove\MootoolsClassBundle\Entity\Anthill  anthill
-   */
-  setAnthill: function (anthill)
-  {
-    this.anthill = anthill;
-  },
-  
-
-  
-  /**
-   * Get anthill
-   *
-   * @return Nutellove\MootoolsClassBundle\Entity\Anthill  anthill
-   */
-  getAnthill: function ()
-  {
-    return this.anthill;
   },
   
 });

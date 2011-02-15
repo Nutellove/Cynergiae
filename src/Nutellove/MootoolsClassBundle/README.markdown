@@ -7,7 +7,7 @@ There are many, **many** things to do to improve this Bundle, such as :
 
 * Making it work :
   * Javascript
-    * Abstract Class (60%)
+    * Abstract Class (70%)
     * Base Class Generation (60%)
     * Class Initialization (10%)
   * PHP
@@ -15,8 +15,9 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Base Controller Generation (0%)
     * Controller Initialization (0%)
   * Routing
-  * Find a way to regroup all HTML `<script type="text/javascript">` inclusions needed, maybe generate symlinks under `/web`
+  * Find a way to regroup all HTML `<script type="text/javascript">` inclusions needed, maybe generate symlinks under `/web` and/or use a Minifying Bundle
   * Find how to require Mootools ≥ 1.3 in dependencies
+  * Add options in config
 * Cleaning up my messy, feature-testing code
 * Move Ant & Anthill Entities to Tests
 * Writing up Tests (I swear I'll take time to write some, and then some more)
