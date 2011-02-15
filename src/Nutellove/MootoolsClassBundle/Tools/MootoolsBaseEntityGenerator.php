@@ -594,6 +594,8 @@ initialize : function ()
     }
   }
 
+////////////////////////////////////////////////////////////////////////////////
+
   /**
    * Generate the setters and getters stubs
    * @param  ClassMetadataInfo $metadata
@@ -605,8 +607,7 @@ initialize : function ()
     //var_dump ($metadata);
     foreach ($metadata->fieldMappings as $fieldMapping) {
       // Setter, do we need it ?
-      // FIXME
-      if ( isset($fieldMapping['mootools']) && ( $fieldMapping['mootools'] ) ) {
+      if ( $this->_canJavascriptWriteField ($fieldMapping) ) {
         if ( ! isset($fieldMapping['id']) || ! $fieldMapping['id'] || $metadata->generatorType == ClassMetadataInfo::GENERATOR_TYPE_NONE) {
           if ($code = $this->_generateEntityStubMethod($metadata, 'set', $fieldMapping['fieldName'], $fieldMapping['type'])) {
             $methods[] = $code;
@@ -614,9 +615,12 @@ initialize : function ()
         }
       }
 
+      // Getter, do we need it ?
+      if ( $this->_canJavascriptReadField ($fieldMapping) ) {
         if ($code = $this->_generateEntityStubMethod($metadata, 'get', $fieldMapping['fieldName'], $fieldMapping['type'])) {
           $methods[] = $code;
         }
+      }
     }
 
 //    foreach ($metadata->associationMappings as $associationMapping) {

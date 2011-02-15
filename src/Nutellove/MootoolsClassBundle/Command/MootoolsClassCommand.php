@@ -49,7 +49,17 @@ abstract class MootoolsClassCommand extends DoctrineCommand
         return $entityGenerator;
     }
 
-    //use Nutellove\MootoolsClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver;
+    protected function getEntityGenerator()
+    {
+        $entityGenerator = new MootoolsEntityGenerator();
+        if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
+            $entityGenerator->setAnnotationPrefix("orm:");
+        }
+
+        $entityGenerator->setNumSpaces(2);
+
+        return $entityGenerator;
+    }
 
     protected function getBundleMetadatas(Bundle $bundle)
     {
