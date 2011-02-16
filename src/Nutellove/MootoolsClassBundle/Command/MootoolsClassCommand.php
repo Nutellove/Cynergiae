@@ -40,10 +40,15 @@ abstract class MootoolsClassCommand extends DoctrineCommand
             $entityGenerator->setAnnotationPrefix("orm:");
         }
 
-        $entityGenerator->setGenerateAnnotations(false);
-        $entityGenerator->setGenerateStubMethods(true);
-        $entityGenerator->setRegenerateEntityIfExists(true);
-        $entityGenerator->setUpdateEntityIfExists(false);
+        // Commented those both here and in the Class def
+//        $entityGenerator->setGenerateAnnotations(false);
+//        $entityGenerator->setGenerateStubMethods(true);
+//        $entityGenerator->setRegenerateEntityIfExists(true);
+//        $entityGenerator->setUpdateEntityIfExists(false);
+
+        // Let's extend the Base Abstract Class
+        $entityGenerator->setClassToExtend ("BaseEntityAbstract");
+        // TODO : get space value from options, and default to 4
         $entityGenerator->setNumSpaces(2);
 
         return $entityGenerator;
@@ -56,6 +61,7 @@ abstract class MootoolsClassCommand extends DoctrineCommand
             $entityGenerator->setAnnotationPrefix("orm:");
         }
 
+        // TODO : get space value from options, and default to 4
         $entityGenerator->setNumSpaces(2);
 
         return $entityGenerator;
@@ -64,6 +70,7 @@ abstract class MootoolsClassCommand extends DoctrineCommand
     protected function getBundleMetadatas(Bundle $bundle)
     {
         $namespace = $bundle->getNamespace();
+        echo "Namespace : " . $namespace . "\n";
         $bundleMetadatas = array();
         // We need to add our own Customized Drivers for the mootools field attribute
         $driverChain = new DriverChain();
@@ -71,7 +78,7 @@ abstract class MootoolsClassCommand extends DoctrineCommand
             array(
                 0 => __DIR__ . '/../Resources/config/doctrine/metadata/orm'
             )),
-            'Nutellove\\MootoolsClassBundle\\Entity' // ?
+            $namespace . '\\Entity' // What is this used for ? TODO
         );
         $entityManagers = $this->getDoctrineEntityManagers();
         foreach ($entityManagers as $key => $em) {
@@ -80,13 +87,11 @@ abstract class MootoolsClassCommand extends DoctrineCommand
             $cmf = new DisconnectedClassMetadataFactory();
             $cmf->setEntityManager($em);
 
-            //echo "Driver : ";
-            //var_dump ($em->getConfiguration()->getMetadataDriverImpl());
-
             $metadatas = $cmf->getAllMetadata();
 
             //echo "Metas : ";
             //var_dump ($metadatas);
+
             foreach ($metadatas as $metadata) {
                 if (strpos($metadata->name, $namespace) === 0) {
                     $bundleMetadatas[$metadata->name] = $metadata;

@@ -26,15 +26,17 @@ use Doctrine\ORM\Mapping\Driver\YamlDriver;
 
 /**
  * The YamlDriver reads the mapping metadata from yaml schema files.
- * That driver looks for the `mootools`
+ * That driver looks for the `mootools` attribute in addition of the usual field
+ * attributes (type, length, ...)
  */
 class MootoolsClassYamlDriver extends YamlDriver {
+
   /**
    * @override
    */
   public function loadMetaDataForClass ($className, ClassMetadataInfo $metadata)
   {
-    // Load the parent, which loads the metadata with usual fiel attributes
+    // Load the parent, which loads the metadata with usual field attributes
     parent::loadMetaDataForClass ($className, $metadata);
 
     // We add to metadata the info about mootools field attribute
@@ -54,7 +56,5 @@ class MootoolsClassYamlDriver extends YamlDriver {
 
       }
     }
-
-    // hey
   }
 }
