@@ -15,35 +15,26 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information, see
  * <http://nutellove.free.fr>.
+ *
+ * Copied and then hacked from Doctrine's PHP EntityGenerator.
+ * This ain't going to get me a Cleanest Code award soon... -_- But it WORKS !
+ *
  */
 
 namespace Nutellove\MootoolsClassBundle\Tools;
 
-use Doctrine\ORM\Mapping\ClassMetadataInfo,
-    Doctrine\ORM\Mapping\AssociationMapping,
-    Doctrine\Common\Util\Inflector;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\AssociationMapping;
+use Doctrine\Common\Util\Inflector;
 
 /**
- * Generic class used to generate Mootools entity base classes from ClassMetadataInfo instances
- *
- *   [php]
- *   $classes = $em->getClassMetadataFactory()->getAllMetadata();
- *
- *   $generator = new \Doctrine\ORM\Tools\EntityGenerator();
- *   $generator->setGenerateAnnotations(true);
- *   $generator->setGenerateStubMethods(true);
- *   $generator->setRegenerateEntityIfExists(false);
- *   $generator->setUpdateEntityIfExists(true);
- *   $generator->generate($classes, '/path/to/generate/entities');
+ * Generic class used to generate Mootools Entity Base classes
+ * from ClassMetadataInfo instances
  *
  * @author  Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
 class MootoolsBaseEntityGenerator
 {
-  /**
-   * @var bool
-   */
-  private $_backupExisting = true;
 
   /** The extension to use for written javascript files */
   private $_extension = '.class.js';
@@ -65,23 +56,19 @@ class MootoolsBaseEntityGenerator
   /** The class all generated entities should extend */
   private $_classToExtend;
 
-  /** Whether or not to generation annotations */
-  private $_generateAnnotations = false;
-
   /**
    * @var string
    */
   private $_annotationsPrefix = '';
 
-  /** Whether or not to generated stub methods */
-  private $_generateEntityStubMethods = false;
+//  /** Whether or not to generated stub methods */
+//  private $_generateEntityStubMethods = false;
 
-  /** Whether or not to update the entity class if it exists already */
-  // TODO : look into that
-  private $_updateEntityIfExists = false;
+//	/** Whether or not to update the entity class if it exists already */
+//  private $_updateEntityIfExists = false;
 
-  /** Whether or not to re-generate entity class if it exists already */
-  private $_regenerateEntityIfExists = false;
+//  /** Whether or not to re-generate entity class if it exists already */
+//  private $_regenerateEntityIfExists = false;
 
   private static $_classTemplate =
 '
@@ -108,7 +95,7 @@ var Base<entityClassName> = new Class({
  */
 <methodName>: function ()
 {
-<spaces>return this.<fieldName>;
+<spaces>return this.getParameter("<fieldName>");
 },
 ';
 
@@ -121,7 +108,7 @@ var Base<entityClassName> = new Class({
  */
 <methodName>: function (<variableName>)
 {
-<spaces>this.<fieldName> = <variableName>;
+<spaces>this.setParameter("<fieldName>", <variableName>);
 },
 ';
 
@@ -142,29 +129,33 @@ var Base<entityClassName> = new Class({
 },
 ';
 
-  private static $_lifecycleCallbackMethodTemplate =
+  private static $_constructorMethodTemplate =
 '
-/**
- * @<name>
- */
-<methodName>: function ()
+initialize: function ()
 {
-<spaces>// Add your code here
+<spaces>// Call parent constructor
+<spaces>this.parent (<bundleName>, <entityName>);
+<spaces>/* COLLECTIONS FROM ASSOCIATIONS
+<spaces><collections>
+<spaces>*/
 },
 ';
 
-  private static $_constructorMethodTemplate =
-'
-initialize : function ()
-{
-/* COLLECTIONS (?)
-<spaces><collections>
-*/
-},
-';
+//  private static $_lifecycleCallbackMethodTemplate =
+//'
+///**
+// * @<name>
+// */
+//<methodName>: function ()
+//{
+//<spaces>// Add your code here
+//},
+//';
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
+//// PUBLIC OPTION MUTATORS ////////////////////////////////////////////////////
 
   /**
    * Set the number of spaces the exported class should base its indentation on
@@ -402,7 +393,6 @@ initialize : function ()
   private function _generateEntityBody(ClassMetadataInfo $metadata)
   {
     $fieldMappingProperties = $this->_generateEntityFieldMappingProperties($metadata);
-    $stubMethods = $this->_generateEntityStubMethods ? $this->_generateEntityStubMethods($metadata) : null;
     //$associationMappingProperties = $this->_generateEntityAssociationMappingProperties($metadata);
     //$lifecycleCallbackMethods = $this->_generateEntityLifecycleCallbackMethods($metadata);
 
@@ -418,9 +408,7 @@ initialize : function ()
 
     $code[] = $this->_generateEntityConstructor($metadata);
 
-    if ($stubMethods) {
-      $code[] = $stubMethods;
-    }
+    $code[] = $this->_generateEntityStubMethods($metadata);
 
     //if ($lifecycleCallbackMethods) {
     //  $code[] = $lifecycleCallbackMethods;
@@ -437,12 +425,20 @@ initialize : function ()
       return '';
     }
 
-    $collections = array();
-    foreach ($metadata->associationMappings AS $mapping) {
-      if ($mapping['type'] & ClassMetadataInfo::TO_MANY) {
-        $collections[] = 'this.'.$mapping['fieldName'].' = new Array();';
-      }
-    }
+    $search = array (
+      '<collections>',
+      '<entityName>',
+      '<bundleName>',
+    );
+
+    
+//    $collections = array();
+//    foreach ($metadata->associationMappings AS $mapping) {
+//      if ($mapping['type'] & ClassMetadataInfo::TO_MANY) {
+//        $collections[] = 'this.'.$mapping['fieldName'].' = new Array();';
+//      }
+//    }
+    
     if ($collections) {
       return $this->_prefixCodeWithSpaces(str_replace("<collections>", implode("\n", $collections), self::$_constructorMethodTemplate));
     }
@@ -484,97 +480,16 @@ initialize : function ()
     return substr($metadata->name, 0, strrpos($metadata->name, '\\'));
   }
 
-////////////////////////////////////////////////////////////////////////////////
-//// ENTITY DOCBLOCKS //////////////////////////////////////////////////////////
-  
-  private function _generateEntityDocBlock(ClassMetadataInfo $metadata)
-  {
-    $lines = array();
-    $lines[] = '/**';
-    $lines[] = ' * '.$metadata->name;
-
-    if ($this->_generateAnnotations) {
-      $lines[] = ' *';
-
-      $methods = array(
-        '_generateTableAnnotation',
-				'_generateInheritanceAnnotation',
-        '_generateDiscriminatorColumnAnnotation',
-        '_generateDiscriminatorMapAnnotation'
-      );
-
-      foreach ($methods as $method) {
-        if ($code = $this->$method($metadata)) {
-          $lines[] = ' * ' . $code;
-        }
-      }
-
-      if ($metadata->isMappedSuperclass) {
-        $lines[] = ' * @' . $this->_annotationsPrefix . 'MappedSupperClass';
-      } else {
-        $lines[] = ' * @' . $this->_annotationsPrefix . 'Entity';
-      }
-
-      if ($metadata->customRepositoryClassName) {
-        $lines[count($lines) - 1] .= '(repositoryClass="' . $metadata->customRepositoryClassName . '")';
-      }
-
-      if (isset($metadata->lifecycleCallbacks) && $metadata->lifecycleCallbacks) {
-        $lines[] = ' * @' . $this->_annotationsPrefix . 'HasLifecycleCallbacks';
-      }
-    }
-
-    $lines[] = ' */';
-
-    return implode("\n", $lines);
-  }
-
-  private function _generateTableAnnotation($metadata)
-  {
-    $table = array();
-    if ($metadata->table['name']) {
-      $table[] = 'name="' . $metadata->table['name'] . '"';
-    }
-
-    return '@' . $this->_annotationsPrefix . 'Table(' . implode(', ', $table) . ')';
-  }
-
-  private function _generateInheritanceAnnotation($metadata)
-  {
-    if ($metadata->inheritanceType != ClassMetadataInfo::INHERITANCE_TYPE_NONE) {
-      return '@' . $this->_annotationsPrefix . 'InheritanceType("'.$this->_getInheritanceTypeString($metadata->inheritanceType).'")';
-    }
-  }
-
-  private function _generateDiscriminatorColumnAnnotation($metadata)
-  {
-    if ($metadata->inheritanceType != ClassMetadataInfo::INHERITANCE_TYPE_NONE) {
-      $discrColumn = $metadata->discriminatorValue;
-      $columnDefinition = 'name="' . $discrColumn['name']
-        . '", type="' . $discrColumn['type']
-        . '", length=' . $discrColumn['length'];
-
-      return '@' . $this->_annotationsPrefix . 'DiscriminatorColumn(' . $columnDefinition . ')';
-    }
-  }
-
-  private function _generateDiscriminatorMapAnnotation($metadata)
-  {
-    if ($metadata->inheritanceType != ClassMetadataInfo::INHERITANCE_TYPE_NONE) {
-      $inheritanceClassMap = array();
-
-      foreach ($metadata->discriminatorMap as $type => $class) {
-        $inheritanceClassMap[] .= '"' . $type . '" = "' . $class . '"';
-      }
-
-      return '@' . $this->_annotationsPrefix . 'DiscriminatorMap({' . implode(', ', $inheritanceClassMap) . '})';
-    }
-  }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-
+  /**
+   * Generates the code for the definition of the class properties
+   *
+   * @param  ClassMetadataInfo $metadata
+   * @return string
+   */
   private function _generateEntityFieldMappingProperties(ClassMetadataInfo $metadata)
   {
     $lines = array();
@@ -614,7 +529,7 @@ initialize : function ()
       '<variableType>'    => $variableType,
       '<variableName>'    => Inflector::camelize($fieldName),
       '<methodName>'    => $methodName,
-      '<fieldName>'     => $fieldName
+      '<fieldName>'     => $fieldName,
     );
 
     $method = str_replace(
@@ -626,171 +541,162 @@ initialize : function ()
     return $this->_prefixCodeWithSpaces($method);
   }
 
-  private function _generateLifecycleCallbackMethod($name, $methodName, $metadata)
-  {
-    if ($this->_hasMethod($methodName, $metadata)) {
-      return;
-    }
-
-    $replacements = array(
-      '<name>'    => $this->_annotationsPrefix . $name,
-      '<methodName>'  => $methodName,
-    );
-
-    $method = str_replace(
-      array_keys($replacements),
-      array_values($replacements),
-      self::$_lifecycleCallbackMethodTemplate
-    );
-
-    return $this->_prefixCodeWithSpaces($method);
-  }
-
-  private function _generateJoinColumnAnnotation(array $joinColumn)
-  {
-    $joinColumnAnnot = array();
-
-    if (isset($joinColumn['name'])) {
-      $joinColumnAnnot[] = 'name="' . $joinColumn['name'] . '"';
-    }
-
-    if (isset($joinColumn['referencedColumnName'])) {
-      $joinColumnAnnot[] = 'referencedColumnName="' . $joinColumn['referencedColumnName'] . '"';
-    }
-
-    if (isset($joinColumn['unique']) && $joinColumn['unique']) {
-      $joinColumnAnnot[] = 'unique=' . ($joinColumn['unique'] ? 'true' : 'false');
-    }
-
-    if (isset($joinColumn['nullable'])) {
-      $joinColumnAnnot[] = 'nullable=' . ($joinColumn['nullable'] ? 'true' : 'false');
-    }
-
-    if (isset($joinColumn['onDelete'])) {
-      $joinColumnAnnot[] = 'onDelete=' . ($joinColumn['onDelete'] ? 'true' : 'false');
-    }
-
-    if (isset($joinColumn['onUpdate'])) {
-      $joinColumnAnnot[] = 'onUpdate=' . ($joinColumn['onUpdate'] ? 'true' : 'false');
-    }
-
-    if (isset($joinColumn['columnDefinition'])) {
-      $joinColumnAnnot[] = 'columnDefinition="' . $joinColumn['columnDefinition'] . '"';
-    }
-
-    return '@' . $this->_annotationsPrefix . 'JoinColumn(' . implode(', ', $joinColumnAnnot) . ')';
-  }
+////////////////////////////////////////////////////////////////////////////////
+//// DOCBLOCKS /////////////////////////////////////////////////////////////////
 
   private function _generateAssociationMappingPropertyDocBlock(array $associationMapping, ClassMetadataInfo $metadata)
   {
     $lines = array();
     $lines[] = $this->_spaces . '/**';
+    $lines[] = $this->_spaces . ' * ASSOCIATION';
     $lines[] = $this->_spaces . ' * @var ' . $associationMapping['targetEntity'];
 
-    if ($this->_generateAnnotations) {
-      $lines[] = $this->_spaces . ' *';
-
-      $type = null;
-      switch ($associationMapping['type']) {
-        case ClassMetadataInfo::ONE_TO_ONE:
-          $type = 'OneToOne';
-          break;
-        case ClassMetadataInfo::MANY_TO_ONE:
-          $type = 'ManyToOne';
-          break;
-        case ClassMetadataInfo::ONE_TO_MANY:
-          $type = 'OneToMany';
-          break;
-        case ClassMetadataInfo::MANY_TO_MANY:
-          $type = 'ManyToMany';
-          break;
-      }
-      $typeOptions = array();
-
-      if (isset($associationMapping['targetEntity'])) {
-        $typeOptions[] = 'targetEntity="' . $associationMapping['targetEntity'] . '"';
-      }
-
-      if (isset($associationMapping['inversedBy'])) {
-        $typeOptions[] = 'inversedBy="' . $associationMapping['inversedBy'] . '"';
-      }
-
-      if (isset($associationMapping['mappedBy'])) {
-        $typeOptions[] = 'mappedBy="' . $associationMapping['mappedBy'] . '"';
-      }
-
-      if ($associationMapping['cascade']) {
-        $cascades = array();
-
-        if ($associationMapping['isCascadePersist']) $cascades[] = '"persist"';
-        if ($associationMapping['isCascadeRemove']) $cascades[] = '"remove"';
-        if ($associationMapping['isCascadeDetach']) $cascades[] = '"detach"';
-        if ($associationMapping['isCascadeMerge']) $cascades[] = '"merge"';
-        if ($associationMapping['isCascadeRefresh']) $cascades[] = '"refresh"';
-
-        $typeOptions[] = 'cascade={' . implode(',', $cascades) . '}';
-      }
-
-      if (isset($associationMapping['orphanRemoval']) && $associationMapping['orphanRemoval']) {
-        $typeOptions[] = 'orphanRemoval=' . ($associationMapping['orphanRemoval'] ? 'true' : 'false');
-      }
-
-      $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . '' . $type . '(' . implode(', ', $typeOptions) . ')';
-
-      if (isset($associationMapping['joinColumns']) && $associationMapping['joinColumns']) {
-        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'JoinColumns({';
-
-        $joinColumnsLines = array();
-
-        foreach ($associationMapping['joinColumns'] as $joinColumn) {
-          if ($joinColumnAnnot = $this->_generateJoinColumnAnnotation($joinColumn)) {
-            $joinColumnsLines[] = $this->_spaces . ' *   ' . $joinColumnAnnot;
-          }
-        }
-
-        $lines[] = implode(",\n", $joinColumnsLines);
-        $lines[] = $this->_spaces . ' * })';
-      }
-
-      if (isset($associationMapping['joinTable']) && $associationMapping['joinTable']) {
-        $joinTable = array();
-        $joinTable[] = 'name="' . $associationMapping['joinTable']['name'] . '"';
-
-        if (isset($associationMapping['joinTable']['schema'])) {
-          $joinTable[] = 'schema="' . $associationMapping['joinTable']['schema'] . '"';
-        }
-
-        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'JoinTable(' . implode(', ', $joinTable) . ',';
-        $lines[] = $this->_spaces . ' *   joinColumns={';
-
-        foreach ($associationMapping['joinTable']['joinColumns'] as $joinColumn) {
-          $lines[] = $this->_spaces . ' *   ' . $this->_generateJoinColumnAnnotation($joinColumn);
-        }
-
-        $lines[] = $this->_spaces . ' *   },';
-        $lines[] = $this->_spaces . ' *   inverseJoinColumns={';
-
-        foreach ($associationMapping['joinTable']['inverseJoinColumns'] as $joinColumn) {
-          $lines[] = $this->_spaces . ' *   ' . $this->_generateJoinColumnAnnotation($joinColumn);
-        }
-
-        $lines[] = $this->_spaces . ' *   }';
-        $lines[] = $this->_spaces . ' * )';
-      }
-
-      if (isset($associationMapping['orderBy'])) {
-        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'OrderBy({';
-
-        foreach ($associationMapping['orderBy'] as $name => $direction) {
-          $lines[] = $this->_spaces . ' *   "' . $name . '"="' . $direction . '",';
-        }
-
-        $lines[count($lines) - 1] = substr($lines[count($lines) - 1], 0, strlen($lines[count($lines) - 1]) - 1);
-        $lines[] = $this->_spaces . ' * })';
-      }
-    }
+//    if ($this->_generateAnnotations) {
+//      $lines[] = $this->_spaces . ' *';
+//
+//      $type = null;
+//      switch ($associationMapping['type']) {
+//        case ClassMetadataInfo::ONE_TO_ONE:
+//          $type = 'OneToOne';
+//          break;
+//        case ClassMetadataInfo::MANY_TO_ONE:
+//          $type = 'ManyToOne';
+//          break;
+//        case ClassMetadataInfo::ONE_TO_MANY:
+//          $type = 'OneToMany';
+//          break;
+//        case ClassMetadataInfo::MANY_TO_MANY:
+//          $type = 'ManyToMany';
+//          break;
+//      }
+//      $typeOptions = array();
+//
+//      if (isset($associationMapping['targetEntity'])) {
+//        $typeOptions[] = 'targetEntity="' . $associationMapping['targetEntity'] . '"';
+//      }
+//
+//      if (isset($associationMapping['inversedBy'])) {
+//        $typeOptions[] = 'inversedBy="' . $associationMapping['inversedBy'] . '"';
+//      }
+//
+//      if (isset($associationMapping['mappedBy'])) {
+//        $typeOptions[] = 'mappedBy="' . $associationMapping['mappedBy'] . '"';
+//      }
+//
+//      if ($associationMapping['cascade']) {
+//        $cascades = array();
+//
+//        if ($associationMapping['isCascadePersist']) $cascades[] = '"persist"';
+//        if ($associationMapping['isCascadeRemove']) $cascades[] = '"remove"';
+//        if ($associationMapping['isCascadeDetach']) $cascades[] = '"detach"';
+//        if ($associationMapping['isCascadeMerge']) $cascades[] = '"merge"';
+//        if ($associationMapping['isCascadeRefresh']) $cascades[] = '"refresh"';
+//
+//        $typeOptions[] = 'cascade={' . implode(',', $cascades) . '}';
+//      }
+//
+//      if (isset($associationMapping['orphanRemoval']) && $associationMapping['orphanRemoval']) {
+//        $typeOptions[] = 'orphanRemoval=' . ($associationMapping['orphanRemoval'] ? 'true' : 'false');
+//      }
+//
+//      $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . '' . $type . '(' . implode(', ', $typeOptions) . ')';
+//
+//      if (isset($associationMapping['joinColumns']) && $associationMapping['joinColumns']) {
+//        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'JoinColumns({';
+//
+//        $joinColumnsLines = array();
+//
+//        foreach ($associationMapping['joinColumns'] as $joinColumn) {
+//          if ($joinColumnAnnot = $this->_generateJoinColumnAnnotation($joinColumn)) {
+//            $joinColumnsLines[] = $this->_spaces . ' *   ' . $joinColumnAnnot;
+//          }
+//        }
+//
+//        $lines[] = implode(",\n", $joinColumnsLines);
+//        $lines[] = $this->_spaces . ' * })';
+//      }
+//
+//      if (isset($associationMapping['joinTable']) && $associationMapping['joinTable']) {
+//        $joinTable = array();
+//        $joinTable[] = 'name="' . $associationMapping['joinTable']['name'] . '"';
+//
+//        if (isset($associationMapping['joinTable']['schema'])) {
+//          $joinTable[] = 'schema="' . $associationMapping['joinTable']['schema'] . '"';
+//        }
+//
+//        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'JoinTable(' . implode(', ', $joinTable) . ',';
+//        $lines[] = $this->_spaces . ' *   joinColumns={';
+//
+//        foreach ($associationMapping['joinTable']['joinColumns'] as $joinColumn) {
+//          $lines[] = $this->_spaces . ' *   ' . $this->_generateJoinColumnAnnotation($joinColumn);
+//        }
+//
+//        $lines[] = $this->_spaces . ' *   },';
+//        $lines[] = $this->_spaces . ' *   inverseJoinColumns={';
+//
+//        foreach ($associationMapping['joinTable']['inverseJoinColumns'] as $joinColumn) {
+//          $lines[] = $this->_spaces . ' *   ' . $this->_generateJoinColumnAnnotation($joinColumn);
+//        }
+//
+//        $lines[] = $this->_spaces . ' *   }';
+//        $lines[] = $this->_spaces . ' * )';
+//      }
+//
+//      if (isset($associationMapping['orderBy'])) {
+//        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'OrderBy({';
+//
+//        foreach ($associationMapping['orderBy'] as $name => $direction) {
+//          $lines[] = $this->_spaces . ' *   "' . $name . '"="' . $direction . '",';
+//        }
+//
+//        $lines[count($lines) - 1] = substr($lines[count($lines) - 1], 0, strlen($lines[count($lines) - 1]) - 1);
+//        $lines[] = $this->_spaces . ' * })';
+//      }
+//    }
 
     $lines[] = $this->_spaces . ' */';
+
+    return implode("\n", $lines);
+  }
+
+  private function _generateEntityDocBlock(ClassMetadataInfo $metadata)
+  {
+    $lines = array();
+    $lines[] = '/**';
+    $lines[] = ' * '.$metadata->name;
+
+//    if ($this->_generateAnnotations) {
+//      $lines[] = ' *';
+//
+//      $methods = array(
+//        '_generateTableAnnotation',
+//				'_generateInheritanceAnnotation',
+//        '_generateDiscriminatorColumnAnnotation',
+//        '_generateDiscriminatorMapAnnotation'
+//      );
+//
+//      foreach ($methods as $method) {
+//        if ($code = $this->$method($metadata)) {
+//          $lines[] = ' * ' . $code;
+//        }
+//      }
+//
+//      if ($metadata->isMappedSuperclass) {
+//        $lines[] = ' * @' . $this->_annotationsPrefix . 'MappedSupperClass';
+//      } else {
+//        $lines[] = ' * @' . $this->_annotationsPrefix . 'Entity';
+//      }
+//
+//      if ($metadata->customRepositoryClassName) {
+//        $lines[count($lines) - 1] .= '(repositoryClass="' . $metadata->customRepositoryClassName . '")';
+//      }
+//
+//      if (isset($metadata->lifecycleCallbacks) && $metadata->lifecycleCallbacks) {
+//        $lines[] = ' * @' . $this->_annotationsPrefix . 'HasLifecycleCallbacks';
+//      }
+//    }
+
+    $lines[] = ' */';
 
     return implode("\n", $lines);
   }
@@ -800,76 +706,6 @@ initialize : function ()
     $lines = array();
     $lines[] = $this->_spaces . '/**';
     $lines[] = $this->_spaces . ' * @var ' . $fieldMapping['type'] . ' ' . $fieldMapping['fieldName'];
-
-    if ($this->_generateAnnotations) {
-      $lines[] = $this->_spaces . ' *';
-
-      $column = array();
-      if (isset($fieldMapping['columnName'])) {
-        $column[] = 'name="' . $fieldMapping['columnName'] . '"';
-      }
-
-      if (isset($fieldMapping['type'])) {
-        $column[] = 'type="' . $fieldMapping['type'] . '"';
-      }
-
-      if (isset($fieldMapping['length'])) {
-        $column[] = 'length=' . $fieldMapping['length'];
-      }
-
-      if (isset($fieldMapping['precision'])) {
-        $column[] = 'precision=' .  $fieldMapping['precision'];
-      }
-
-      if (isset($fieldMapping['scale'])) {
-        $column[] = 'scale=' . $fieldMapping['scale'];
-      }
-
-      if (isset($fieldMapping['nullable'])) {
-        $column[] = 'nullable=' .  var_export($fieldMapping['nullable'], true);
-      }
-
-      if (isset($fieldMapping['columnDefinition'])) {
-        $column[] = 'columnDefinition="' . $fieldMapping['columnDefinition'] . '"';
-      }
-
-      if (isset($fieldMapping['unique'])) {
-        $column[] = 'unique=' . var_export($fieldMapping['unique'], true);
-      }
-
-      $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'Column(' . implode(', ', $column) . ')';
-
-      if (isset($fieldMapping['id']) && $fieldMapping['id']) {
-        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'Id';
-
-        if ($generatorType = $this->_getIdGeneratorTypeString($metadata->generatorType)) {
-          $lines[] = $this->_spaces.' * @' . $this->_annotationsPrefix . 'GeneratedValue(strategy="' . $generatorType . '")';
-        }
-
-        if ($metadata->sequenceGeneratorDefinition) {
-          $sequenceGenerator = array();
-
-          if (isset($metadata->sequenceGeneratorDefinition['sequenceName'])) {
-            $sequenceGenerator[] = 'sequenceName="' . $metadata->sequenceGeneratorDefinition['sequenceName'] . '"';
-          }
-
-          if (isset($metadata->sequenceGeneratorDefinition['allocationSize'])) {
-            $sequenceGenerator[] = 'allocationSize="' . $metadata->sequenceGeneratorDefinition['allocationSize'] . '"';
-          }
-
-          if (isset($metadata->sequenceGeneratorDefinition['initialValue'])) {
-            $sequenceGenerator[] = 'initialValue="' . $metadata->sequenceGeneratorDefinition['initialValue'] . '"';
-          }
-
-          $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'SequenceGenerator(' . implode(', ', $sequenceGenerator) . ')';
-        }
-      }
-
-      if (isset($fieldMapping['version']) && $fieldMapping['version']) {
-        $lines[] = $this->_spaces . ' * @' . $this->_annotationsPrefix . 'Version';
-      }
-    }
-
     $lines[] = $this->_spaces . ' */';
 
     return implode("\n", $lines);
@@ -885,6 +721,12 @@ initialize : function ()
 
     return implode("\n", $lines);
   }
+////////////////////////////////////////////////////////////////////////////////
+
+  
+  
+////////////////////////////////////////////////////////////////////////////////
+//// WEIRD STUFF ///////////////////////////////////////////////////////////////
 
   private function _getInheritanceTypeString($type)
   {
@@ -945,7 +787,8 @@ initialize : function ()
         throw new \InvalidArgumentException('Invalid provided IdGeneratorType: ' . $type);
     }
   }
-  
+////////////////////////////////////////////////////////////////////////////////
+
   
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -1087,13 +930,6 @@ initialize : function ()
 //    $this->_generateEntityStubMethods = $bool;
 //  }
 
-//  /**
-//   * Should an existing entity be backed up if it already exists?
-//   */
-//  public function setBackupExisting($bool)
-//  {
-//    $this->_backupExisting = $bool;
-//  }
 
 //  private function _generateEntityNamespace(ClassMetadataInfo $metadata)
 //  {
@@ -1152,6 +988,102 @@ initialize : function ()
 //    return "";
 //  }
 
+//  private function _generateLifecycleCallbackMethod($name, $methodName, $metadata)
+//  {
+//    if ($this->_hasMethod($methodName, $metadata)) {
+//      return;
+//    }
+//
+//    $replacements = array(
+//      '<name>'    => $this->_annotationsPrefix . $name,
+//      '<methodName>'  => $methodName,
+//    );
+//
+//    $method = str_replace(
+//      array_keys($replacements),
+//      array_values($replacements),
+//      self::$_lifecycleCallbackMethodTemplate
+//    );
+//
+//    return $this->_prefixCodeWithSpaces($method);
+//  }
+
+//  private function _generateTableAnnotation($metadata)
+//  {
+//    $table = array();
+//    if ($metadata->table['name']) {
+//      $table[] = 'name="' . $metadata->table['name'] . '"';
+//    }
+//
+//    return '@' . $this->_annotationsPrefix . 'Table(' . implode(', ', $table) . ')';
+//  }
+//
+//  private function _generateInheritanceAnnotation($metadata)
+//  {
+//    if ($metadata->inheritanceType != ClassMetadataInfo::INHERITANCE_TYPE_NONE) {
+//      return '@' . $this->_annotationsPrefix . 'InheritanceType("'.$this->_getInheritanceTypeString($metadata->inheritanceType).'")';
+//    }
+//  }
+//
+//  private function _generateDiscriminatorColumnAnnotation($metadata)
+//  {
+//    if ($metadata->inheritanceType != ClassMetadataInfo::INHERITANCE_TYPE_NONE) {
+//      $discrColumn = $metadata->discriminatorValue;
+//      $columnDefinition = 'name="' . $discrColumn['name']
+//        . '", type="' . $discrColumn['type']
+//        . '", length=' . $discrColumn['length'];
+//
+//      return '@' . $this->_annotationsPrefix . 'DiscriminatorColumn(' . $columnDefinition . ')';
+//    }
+//  }
+//
+//  private function _generateDiscriminatorMapAnnotation($metadata)
+//  {
+//    if ($metadata->inheritanceType != ClassMetadataInfo::INHERITANCE_TYPE_NONE) {
+//      $inheritanceClassMap = array();
+//
+//      foreach ($metadata->discriminatorMap as $type => $class) {
+//        $inheritanceClassMap[] .= '"' . $type . '" = "' . $class . '"';
+//      }
+//
+//      return '@' . $this->_annotationsPrefix . 'DiscriminatorMap({' . implode(', ', $inheritanceClassMap) . '})';
+//    }
+//  }
+
+//  private function _generateJoinColumnAnnotation(array $joinColumn)
+//  {
+//    $joinColumnAnnot = array();
+//
+//    if (isset($joinColumn['name'])) {
+//      $joinColumnAnnot[] = 'name="' . $joinColumn['name'] . '"';
+//    }
+//
+//    if (isset($joinColumn['referencedColumnName'])) {
+//      $joinColumnAnnot[] = 'referencedColumnName="' . $joinColumn['referencedColumnName'] . '"';
+//    }
+//
+//    if (isset($joinColumn['unique']) && $joinColumn['unique']) {
+//      $joinColumnAnnot[] = 'unique=' . ($joinColumn['unique'] ? 'true' : 'false');
+//    }
+//
+//    if (isset($joinColumn['nullable'])) {
+//      $joinColumnAnnot[] = 'nullable=' . ($joinColumn['nullable'] ? 'true' : 'false');
+//    }
+//
+//    if (isset($joinColumn['onDelete'])) {
+//      $joinColumnAnnot[] = 'onDelete=' . ($joinColumn['onDelete'] ? 'true' : 'false');
+//    }
+//
+//    if (isset($joinColumn['onUpdate'])) {
+//      $joinColumnAnnot[] = 'onUpdate=' . ($joinColumn['onUpdate'] ? 'true' : 'false');
+//    }
+//
+//    if (isset($joinColumn['columnDefinition'])) {
+//      $joinColumnAnnot[] = 'columnDefinition="' . $joinColumn['columnDefinition'] . '"';
+//    }
+//
+//    return '@' . $this->_annotationsPrefix . 'JoinColumn(' . implode(', ', $joinColumnAnnot) . ')';
+//  }
 
 //  private function _generateEntityAssociationMappingProperties(ClassMetadataInfo $metadata)
 //  {
@@ -1179,7 +1111,7 @@ initialize : function ()
 //  }
   
   
-  
+
   
   
   
@@ -1187,3 +1119,4 @@ initialize : function ()
   
   
 }
+

@@ -39,7 +39,7 @@ class GenerateEntityMootoolsClassCommand extends MootoolsClassCommand
       ->addOption('mapping-type', null, InputOption::VALUE_OPTIONAL, 'The mapping type to to use for the entity.', 'yaml')
       ->addOption('fields', null, InputOption::VALUE_OPTIONAL, 'The fields to create with the new entity.')
       ->setHelp(<<<EOT
-The <info>mootools:generate:entity</info> task (re)generate a new Mootools Class Base entity, creates if needed an extended Mootools Class entity in which you'll write your custom own javascript logic, and (re)generates the Routes and Controllers needed for PHP/JS synchronization via AJAX, all that inside a bundle :
+The <info>mootools:generate:entity</info> task (re)generates a new Mootools Class Base entity, initializes if needed an extended Mootools Class entity in which you'll write your custom own javascript logic, and (re)generates the Routes and Controllers needed for PHP/JS synchronization via AJAX, all that inside a bundle :
 
   <info>./app/console mootools:generate:entity "MyCustomBundle" "MyEntity"</info>
 
@@ -100,6 +100,18 @@ EOT
 ////////////////////////////////////////////////////////////////////////////////
     // Generation (if needed) of the Mootools Entity
     $entityPath = $bundle->getPath().'/Entity/Mootools/'.$entity.'.class.js';
+    
     // TODO
+    
+    if ('annotation' === $mappingType) {
+      $exporter->setEntityGenerator($this->getBaseEntityGenerator());
+      $baseEntityCode = $exporter->exportClassMetadata($class);
+      //$mappingPath = $mappingCode = false;
+    } else {
+      $baseEntityGenerator = $this->getBaseEntityGenerator();
+      $baseEntityCode = $baseEntityGenerator->generateEntityClass($class);
+    }
+    
   }
 }
+
