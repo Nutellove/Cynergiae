@@ -391,167 +391,20 @@ initialize : function ()
 
 
 ////////////////////////////////////////////////////////////////////////////////
+//// ENTITY BODY ///////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////
-//// USELESS ///////////////////////////////////////////////////////////////////
-
-//  /**
-//   * Generated and write entity class to disk for the given ClassMetadataInfo instance
-//   *
-//   * @param ClassMetadataInfo $metadata
-//   * @param string $outputDirectory
-//   * @return void
-//   */
-//  public function writeEntityClass(ClassMetadataInfo $metadata, $outputDirectory)
-//  {
-//    $path = $outputDirectory . '/' . str_replace('\\', DIRECTORY_SEPARATOR, $metadata->name) . $this->_extension;
-//    $dir = dirname($path);
-//
-//    if ( ! is_dir($dir)) {
-//      mkdir($dir, 0777, true);
-//    }
-//
-//    $this->_isNew = !file_exists($path) || (file_exists($path) && $this->_regenerateEntityIfExists);
-//
-//    if ( ! $this->_isNew) {
-//      $this->_parseTokensInEntityFile($path);
-//    }
-//
-//    if ($this->_backupExisting && file_exists($path)) {
-//      $backupPath = dirname($path) . DIRECTORY_SEPARATOR .  "~" . basename($path);
-//      if (!copy($path, $backupPath)) {
-//        throw new \RuntimeException("Attempt to backup overwritten entitiy file but copy operation failed.");
-//      }
-//    }
-//
-//    // If entity doesn't exist or we're re-generating the entities entirely
-//    if ($this->_isNew) {
-//      file_put_contents($path, $this->generateEntityClass($metadata));
-//    // If entity exists and we're allowed to update the entity class
-//    } else if ( ! $this->_isNew && $this->_updateEntityIfExists) {
-//      file_put_contents($path, $this->generateUpdatedEntityClass($metadata, $path));
-//    }
-//  }
-
-
-//  /**
-//   * Generate and write entity classes for the given array of ClassMetadataInfo instances
-//   *
-//   * @param array $metadatas
-//   * @param string $outputDirectory
-//   * @return void
-//   */
-//  public function generate(array $metadatas, $outputDirectory)
-//  {
-//    foreach ($metadatas as $metadata) {
-//      $this->writeEntityClass($metadata, $outputDirectory);
-//    }
-//  }
-
-
-
-
-//  /**
-//   * Generate the updated code for the given ClassMetadataInfo and entity at path
-//   *
-//   * @param ClassMetadataInfo $metadata
-//   * @param string $path
-//   * @return string $code;
-//   */
-//  public function generateUpdatedEntityClass(ClassMetadataInfo $metadata, $path)
-//  {
-//    $currentCode = file_get_contents($path);
-//
-//    $body = $this->_generateEntityBody($metadata);
-//    $body = str_replace('<spaces>', $this->_spaces, $body);
-//    $last = strrpos($currentCode, '}');
-//
-//    return substr($currentCode, 0, $last) . $body . (strlen($body) > 0 ? "\n" : ''). "}";
-//  }
-
-
-
-//  /**
-//   * Set the extension to use when writing php files to disk
-//   *
-//   * @param string $extension
-//   * @return void
-//   */
-//  public function setExtension($extension)
-//  {
-//    $this->_extension = $extension;
-//  }
-
-
-//  /**
-//   * Set whether or not to generate annotations for the entity
-//   *
-//   * @param bool $bool
-//   * @return void
-//   */
-//  public function setGenerateAnnotations($bool)
-//  {
-//    $this->_generateAnnotations = $bool;
-//  }
-
-
-
-//  /**
-//   * Set whether or not to try and update the entity if it already exists
-//   *
-//   * @param bool $bool
-//   * @return void
-//   */
-//  public function setUpdateEntityIfExists($bool)
-//  {
-//    $this->_updateEntityIfExists = $bool;
-//  }
-
-//  /**
-//   * Set whether or not to regenerate the entity if it exists
-//   *
-//   * @param bool $bool
-//   * @return void
-//   */
-//  public function setRegenerateEntityIfExists($bool)
-//  {
-//    $this->_regenerateEntityIfExists = $bool;
-//  }
-
-//  /**
-//   * Set whether or not to generate stub methods for the entity
-//   *
-//   * @param bool $bool
-//   * @return void
-//   */
-//  public function setGenerateStubMethods($bool)
-//  {
-//    $this->_generateEntityStubMethods = $bool;
-//  }
-
-//  /**
-//   * Should an existing entity be backed up if it already exists?
-//   */
-//  public function setBackupExisting($bool)
-//  {
-//    $this->_backupExisting = $bool;
-//  }
-
-//  private function _generateEntityNamespace(ClassMetadataInfo $metadata)
-//  {
-//    if ($this->_hasNamespace($metadata)) {
-//      return 'namespace ' . $this->_getNamespace($metadata) .';';
-//    }
-//  }
-
-  ///// FIXME : CLEANUP THE REST OF THE FILE !
-
+  /**
+   * Generate the code for the Entity Body
+   *
+   * @param  ClassMetaDataInfo $metadata
+   * @return string
+   */
   private function _generateEntityBody(ClassMetadataInfo $metadata)
   {
     $fieldMappingProperties = $this->_generateEntityFieldMappingProperties($metadata);
-    $associationMappingProperties = $this->_generateEntityAssociationMappingProperties($metadata);
     $stubMethods = $this->_generateEntityStubMethods ? $this->_generateEntityStubMethods($metadata) : null;
-    $lifecycleCallbackMethods = $this->_generateEntityLifecycleCallbackMethods($metadata);
+    //$associationMappingProperties = $this->_generateEntityAssociationMappingProperties($metadata);
+    //$lifecycleCallbackMethods = $this->_generateEntityLifecycleCallbackMethods($metadata);
 
     $code = array();
 
@@ -559,9 +412,9 @@ initialize : function ()
       $code[] = $fieldMappingProperties;
     }
 
-    if ($associationMappingProperties) {
-      $code[] = $associationMappingProperties;
-    }
+    //if ($associationMappingProperties) {
+    //  $code[] = $associationMappingProperties;
+    //}
 
     $code[] = $this->_generateEntityConstructor($metadata);
 
@@ -569,12 +422,14 @@ initialize : function ()
       $code[] = $stubMethods;
     }
 
-    if ($lifecycleCallbackMethods) {
-      $code[] = $lifecycleCallbackMethods;
-    }
+    //if ($lifecycleCallbackMethods) {
+    //  $code[] = $lifecycleCallbackMethods;
+    //}
 
     return implode("\n", $code);
   }
+
+////////////////////////////////////////////////////////////////////////////////
 
   private function _generateEntityConstructor(ClassMetadataInfo $metadata)
   {
@@ -592,36 +447,6 @@ initialize : function ()
       return $this->_prefixCodeWithSpaces(str_replace("<collections>", implode("\n", $collections), self::$_constructorMethodTemplate));
     }
     return '';
-  }
-
-  /**
-   * @todo this won't work if there is a namespace in brackets and a class outside of it.
-   * @param string $path
-   */
-  private function _parseTokensInEntityFile($path)
-  {
-    $tokens = token_get_all(file_get_contents($path));
-    $lastSeenNamespace = "";
-    $lastSeenClass = false;
-
-    for ($i = 0; $i < count($tokens); $i++) {
-      $token = $tokens[$i];
-      if ($token[0] == T_NAMESPACE) {
-        $lastSeenNamespace = $tokens[$i+2][1] . "\\";
-      } else if ($token[0] == T_CLASS) {
-        $lastSeenClass = $lastSeenNamespace . $tokens[$i+2][1];
-        $this->_staticReflection[$lastSeenClass]['properties'] = array();
-        $this->_staticReflection[$lastSeenClass]['methods'] = array();
-      } else if ($token[0] == T_FUNCTION) {
-        if ($tokens[$i+2][0] == T_STRING) {
-          $this->_staticReflection[$lastSeenClass]['methods'][] = $tokens[$i+2][1];
-        } else if ($tokens[$i+2][0] == T_AMPERSAND && $tokens[$i+3][0] == T_STRING) {
-          $this->_staticReflection[$lastSeenClass]['methods'][] = $tokens[$i+3][1];
-        }
-      } else if (in_array($token[0], array(T_VAR, T_PUBLIC, T_PRIVATE, T_PROTECTED)) && $tokens[$i+2][0] != T_FUNCTION) {
-        $this->_staticReflection[$lastSeenClass]['properties'][] = substr($tokens[$i+2][1], 1);
-      }
-    }
   }
 
   private function _hasProperty($property, ClassMetadataInfo $metadata)
@@ -647,12 +472,6 @@ initialize : function ()
 
 
 
-//  private function _getClassToExtendName()
-//  {
-//    $refl = new \ReflectionClass($this->_getClassToExtend());
-//
-//    return '\\' . $refl->getName();
-//  }
 
   private function _getClassName(ClassMetadataInfo $metadata)
   {
@@ -665,6 +484,9 @@ initialize : function ()
     return substr($metadata->name, 0, strrpos($metadata->name, '\\'));
   }
 
+////////////////////////////////////////////////////////////////////////////////
+//// ENTITY DOCBLOCKS //////////////////////////////////////////////////////////
+  
   private function _generateEntityDocBlock(ClassMetadataInfo $metadata)
   {
     $lines = array();
@@ -676,7 +498,7 @@ initialize : function ()
 
       $methods = array(
         '_generateTableAnnotation',
-        '_generateInheritanceAnnotation',
+				'_generateInheritanceAnnotation',
         '_generateDiscriminatorColumnAnnotation',
         '_generateDiscriminatorMapAnnotation'
       );
@@ -749,42 +571,9 @@ initialize : function ()
     }
   }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-  private function _generateEntityLifecycleCallbackMethods(ClassMetadataInfo $metadata)
-  {
-    if (isset($metadata->lifecycleCallbacks) && $metadata->lifecycleCallbacks) {
-      $methods = array();
-
-      foreach ($metadata->lifecycleCallbacks as $name => $callbacks) {
-        foreach ($callbacks as $callback) {
-          if ($code = $this->_generateLifecycleCallbackMethod($name, $callback, $metadata)) {
-            $methods[] = $code;
-          }
-        }
-      }
-
-      return implode("\n\n", $methods);
-    }
-
-    return "";
-  }
-
-  private function _generateEntityAssociationMappingProperties(ClassMetadataInfo $metadata)
-  {
-    $lines = array();
-
-    foreach ($metadata->associationMappings as $associationMapping) {
-      if ($this->_hasProperty($associationMapping['fieldName'], $metadata)) {
-        continue;
-      }
-
-      $lines[] = $this->_generateAssociationMappingPropertyDocBlock($associationMapping, $metadata);
-      $lines[] = $this->_spaces . '' . $associationMapping['fieldName']
-           . ($associationMapping['type'] == 'manyToMany' ? ': []' : null) . ",\n";
-    }
-
-    return implode("\n", $lines);
-  }
 
   private function _generateEntityFieldMappingProperties(ClassMetadataInfo $metadata)
   {
@@ -1156,4 +945,245 @@ initialize : function ()
         throw new \InvalidArgumentException('Invalid provided IdGeneratorType: ' . $type);
     }
   }
+  
+  
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//// USELESS ///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+//  /**
+//   * Generated and write entity class to disk for the given ClassMetadataInfo instance
+//   *
+//   * @param ClassMetadataInfo $metadata
+//   * @param string $outputDirectory
+//   * @return void
+//   */
+//  public function writeEntityClass(ClassMetadataInfo $metadata, $outputDirectory)
+//  {
+//    $path = $outputDirectory . '/' . str_replace('\\', DIRECTORY_SEPARATOR, $metadata->name) . $this->_extension;
+//    $dir = dirname($path);
+//
+//    if ( ! is_dir($dir)) {
+//      mkdir($dir, 0777, true);
+//    }
+//
+//    $this->_isNew = !file_exists($path) || (file_exists($path) && $this->_regenerateEntityIfExists);
+//
+//    if ( ! $this->_isNew) {
+//      $this->_parseTokensInEntityFile($path);
+//    }
+//
+//    if ($this->_backupExisting && file_exists($path)) {
+//      $backupPath = dirname($path) . DIRECTORY_SEPARATOR .  "~" . basename($path);
+//      if (!copy($path, $backupPath)) {
+//        throw new \RuntimeException("Attempt to backup overwritten entitiy file but copy operation failed.");
+//      }
+//    }
+//
+//    // If entity doesn't exist or we're re-generating the entities entirely
+//    if ($this->_isNew) {
+//      file_put_contents($path, $this->generateEntityClass($metadata));
+//    // If entity exists and we're allowed to update the entity class
+//    } else if ( ! $this->_isNew && $this->_updateEntityIfExists) {
+//      file_put_contents($path, $this->generateUpdatedEntityClass($metadata, $path));
+//    }
+//  }
+
+
+//  /**
+//   * Generate and write entity classes for the given array of ClassMetadataInfo instances
+//   *
+//   * @param array $metadatas
+//   * @param string $outputDirectory
+//   * @return void
+//   */
+//  public function generate(array $metadatas, $outputDirectory)
+//  {
+//    foreach ($metadatas as $metadata) {
+//      $this->writeEntityClass($metadata, $outputDirectory);
+//    }
+//  }
+
+
+
+
+//  /**
+//   * Generate the updated code for the given ClassMetadataInfo and entity at path
+//   *
+//   * @param ClassMetadataInfo $metadata
+//   * @param string $path
+//   * @return string $code;
+//   */
+//  public function generateUpdatedEntityClass(ClassMetadataInfo $metadata, $path)
+//  {
+//    $currentCode = file_get_contents($path);
+//
+//    $body = $this->_generateEntityBody($metadata);
+//    $body = str_replace('<spaces>', $this->_spaces, $body);
+//    $last = strrpos($currentCode, '}');
+//
+//    return substr($currentCode, 0, $last) . $body . (strlen($body) > 0 ? "\n" : ''). "}";
+//  }
+
+
+
+//  /**
+//   * Set the extension to use when writing php files to disk
+//   *
+//   * @param string $extension
+//   * @return void
+//   */
+//  public function setExtension($extension)
+//  {
+//    $this->_extension = $extension;
+//  }
+
+
+//  /**
+//   * Set whether or not to generate annotations for the entity
+//   *
+//   * @param bool $bool
+//   * @return void
+//   */
+//  public function setGenerateAnnotations($bool)
+//  {
+//    $this->_generateAnnotations = $bool;
+//  }
+
+
+
+//  /**
+//   * Set whether or not to try and update the entity if it already exists
+//   *
+//   * @param bool $bool
+//   * @return void
+//   */
+//  public function setUpdateEntityIfExists($bool)
+//  {
+//    $this->_updateEntityIfExists = $bool;
+//  }
+
+//  /**
+//   * Set whether or not to regenerate the entity if it exists
+//   *
+//   * @param bool $bool
+//   * @return void
+//   */
+//  public function setRegenerateEntityIfExists($bool)
+//  {
+//    $this->_regenerateEntityIfExists = $bool;
+//  }
+
+//  /**
+//   * Set whether or not to generate stub methods for the entity
+//   *
+//   * @param bool $bool
+//   * @return void
+//   */
+//  public function setGenerateStubMethods($bool)
+//  {
+//    $this->_generateEntityStubMethods = $bool;
+//  }
+
+//  /**
+//   * Should an existing entity be backed up if it already exists?
+//   */
+//  public function setBackupExisting($bool)
+//  {
+//    $this->_backupExisting = $bool;
+//  }
+
+//  private function _generateEntityNamespace(ClassMetadataInfo $metadata)
+//  {
+//    if ($this->_hasNamespace($metadata)) {
+//      return 'namespace ' . $this->_getNamespace($metadata) .';';
+//    }
+//  }
+
+//  /**
+//   * @voodo this won't work if there is a namespace in brackets and a class outside of it.
+//   * @param string $path
+//   */
+//  private function _parseTokensInEntityFile($path)
+//  {
+//    $tokens = token_get_all(file_get_contents($path));
+//    $lastSeenNamespace = "";
+//    $lastSeenClass = false;
+//
+//    for ($i = 0; $i < count($tokens); $i++) {
+//      $token = $tokens[$i];
+//      if ($token[0] == T_NAMESPACE) {
+//        $lastSeenNamespace = $tokens[$i+2][1] . "\\";
+//      } else if ($token[0] == T_CLASS) {
+//        $lastSeenClass = $lastSeenNamespace . $tokens[$i+2][1];
+//        $this->_staticReflection[$lastSeenClass]['properties'] = array();
+//        $this->_staticReflection[$lastSeenClass]['methods'] = array();
+//      } else if ($token[0] == T_FUNCTION) {
+//        if ($tokens[$i+2][0] == T_STRING) {
+//          $this->_staticReflection[$lastSeenClass]['methods'][] = $tokens[$i+2][1];
+//        } else if ($tokens[$i+2][0] == T_AMPERSAND && $tokens[$i+3][0] == T_STRING) {
+//          $this->_staticReflection[$lastSeenClass]['methods'][] = $tokens[$i+3][1];
+//        }
+//      } else if (in_array($token[0], array(T_VAR, T_PUBLIC, T_PRIVATE, T_PROTECTED)) && $tokens[$i+2][0] != T_FUNCTION) {
+//        $this->_staticReflection[$lastSeenClass]['properties'][] = substr($tokens[$i+2][1], 1);
+//      }
+//    }
+//  }
+
+
+//  private function _generateEntityLifecycleCallbackMethods(ClassMetadataInfo $metadata)
+//  {
+//    if (isset($metadata->lifecycleCallbacks) && $metadata->lifecycleCallbacks) {
+//      $methods = array();
+//
+//      foreach ($metadata->lifecycleCallbacks as $name => $callbacks) {
+//        foreach ($callbacks as $callback) {
+//          if ($code = $this->_generateLifecycleCallbackMethod($name, $callback, $metadata)) {
+//            $methods[] = $code;
+//          }
+//        }
+//      }
+//
+//      return implode("\n\n", $methods);
+//    }
+//
+//    return "";
+//  }
+
+
+//  private function _generateEntityAssociationMappingProperties(ClassMetadataInfo $metadata)
+//  {
+//    $lines = array();
+//
+//    foreach ($metadata->associationMappings as $associationMapping) {
+//      if ($this->_hasProperty($associationMapping['fieldName'], $metadata)) {
+//        continue;
+//      }
+//
+//      $lines[] = $this->_generateAssociationMappingPropertyDocBlock($associationMapping, $metadata);
+//      $lines[] = $this->_spaces . '' . $associationMapping['fieldName']
+//           . ($associationMapping['type'] == 'manyToMany' ? ': []' : null) . ",\n";
+//    }
+//
+//    return implode("\n", $lines);
+//  }
+  
+
+//  private function _getClassToExtendName()
+//  {
+//    $refl = new \ReflectionClass($this->_getClassToExtend());
+//
+//    return '\\' . $refl->getName();
+//  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
