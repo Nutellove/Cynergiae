@@ -88,7 +88,7 @@ EOT
     $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $baseEntityPath));
 
     if (file_exists($baseEntityPath)) {
-      $output->writeln(sprintf("  > Mootools Base Entity <info>%s</info> already exists, overwriting.", $baseEntityPath));
+      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists, overwriting.', $baseEntityPath));
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     }
 
@@ -100,18 +100,32 @@ EOT
 ////////////////////////////////////////////////////////////////////////////////
     // Generation (if needed) of the Mootools Entity
     $entityPath = $bundle->getPath().'/Entity/Mootools/'.$entity.'.class.js';
-    
+
     // TODO
-    
+
     if ('annotation' === $mappingType) {
-      $exporter->setEntityGenerator($this->getBaseEntityGenerator());
-      $baseEntityCode = $exporter->exportClassMetadata($class);
+      $exporter->setEntityGenerator($this->getEntityGenerator());
+      $entityCode = $exporter->exportClassMetadata($class);
       //$mappingPath = $mappingCode = false;
     } else {
-      $baseEntityGenerator = $this->getBaseEntityGenerator();
-      $baseEntityCode = $baseEntityGenerator->generateEntityClass($class);
+      $entityGenerator = $this->getEntityGenerator();
+      $entityCode = $entityGenerator->generateEntityClass($class);
     }
-    
+
+    $output->writeln(sprintf('  > Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $entityPath));
+
+    if (file_exists($entityPath)) {
+      $output->writeln(sprintf('  > Mootools Entity <info>%s</info> already exists.', $entityPath));
+      //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
+    } else {
+
+      if (!is_dir($dir = dirname($baseEntityPath))) {
+        mkdir($dir, 0777, true);
+      }
+      file_put_contents($entityPath, $entityCode);
+
+    }
+
   }
 }
 
