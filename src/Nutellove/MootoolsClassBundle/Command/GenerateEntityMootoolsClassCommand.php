@@ -103,12 +103,14 @@ EOT
 
     // TODO
 
+    $entityGenerator = $this->getEntityGenerator();
+    $entityGenerator->setClassToExtend ("Base".$bundle->getName().$entity);
+
     if ('annotation' === $mappingType) {
-      $exporter->setEntityGenerator($this->getEntityGenerator());
+      $exporter->setEntityGenerator($entityGenerator);
       $entityCode = $exporter->exportClassMetadata($class);
       //$mappingPath = $mappingCode = false;
     } else {
-      $entityGenerator = $this->getEntityGenerator();
       $entityCode = $entityGenerator->generateEntityClass($class);
     }
 
