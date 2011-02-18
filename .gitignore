@@ -8,6 +8,7 @@ desktop.ini
 .buildpath
 # Vendors (update them via script)
 vendor/*
+vendor_full/*
 # Bundles (excepted my own)
 src/*
 !src/Nutellove

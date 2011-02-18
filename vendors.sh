@@ -2,7 +2,7 @@
 
 # @author Tonioth
 
-DIR=`php -r "echo realpath(dirname(\\$_SERVER['argv'][0]));"`
+DIR=`/opt/lampp/bin/php -r "echo realpath(dirname(\\$_SERVER['argv'][0]));"`
 VENDOR=$DIR/vendor_full
 
 # initialization

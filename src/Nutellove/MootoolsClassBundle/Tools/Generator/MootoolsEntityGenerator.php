@@ -33,7 +33,7 @@ use Doctrine\Common\Util\Inflector;
  *
  * @author  Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-class MootoolsBaseEntityGenerator
+class MootoolsEntityGenerator
 {
 
   /** The extension to use for written javascript files */
@@ -429,9 +429,9 @@ initialize: function ()
 //      }
 //    }
 
-    if ($collections) {
-      return $this->_prefixCodeWithSpaces(str_replace("<collections>", implode("\n", $collections), self::$_constructorMethodTemplate));
-    }
+//    if ($collections) {
+//      return $this->_prefixCodeWithSpaces(str_replace("<collections>", implode("\n", $collections), self::$_constructorMethodTemplate));
+//    }
     return '';
   }
 
