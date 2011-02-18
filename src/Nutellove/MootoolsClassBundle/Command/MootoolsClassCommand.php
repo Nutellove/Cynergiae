@@ -17,8 +17,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Doctrine\ORM\Mapping\Driver\DriverChain;
 use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
 
-use Nutellove\MootoolsClassBundle\Tools\MootoolsEntityGenerator;
-use Nutellove\MootoolsClassBundle\Tools\MootoolsBaseEntityGenerator;
+use Nutellove\MootoolsClassBundle\Tools\Generator\MootoolsEntityGenerator;
+use Nutellove\MootoolsClassBundle\Tools\Generator\MootoolsBaseEntityGenerator;
 use Nutellove\MootoolsClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver;
 
 

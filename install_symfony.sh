@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# @author Tonioth
+# Noob tips :
 # this script HAS to be executed from project's root folder
 # ... and needs access to the internet, obviously
 

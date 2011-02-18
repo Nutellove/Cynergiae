@@ -25,6 +25,7 @@ There are many, **many** things to do to improve this Bundle, such as :
   * Writing a command that does all the Entities within a Bundle
   * Add options in config
 * Next
+  * Abstract Class for Generators (code refactorization)
   * Minifying
 
 # USAGE
