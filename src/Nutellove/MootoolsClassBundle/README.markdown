@@ -1,27 +1,31 @@
 # IMPORTANT
 
-This bundle is **NOT finished nor working** right now. Its aim is to provide easy Mootools Class integration for each Entity you define in the Doctrine 2 ORM.
-The generated classes will provide the usual save() and load() methods (or maybe persist() ?), but from Javascript, and you won't even have to see XHR at all!
+This bundle is **NOT finished nor working** right now. Its would-be aim is to provide a generated doctrine-like environment in javascript based on the same mapping.
 
 There are many, **many** things to do to improve this Bundle, such as :
 
 * Making it work :
   * Javascript
-    * Abstract Class (70%)
-    * Base Class Generation (60%)
-    * Class Initialization (10%)
+    * Abstract Class (80%)
+    * Base Class Generation (80%)
+    * Class Initialization (30%)
   * PHP
     * Abstract Controller (0%)
     * Base Controller Generation (0%)
     * Controller Initialization (0%)
-  * Routing
-  * Find a way to regroup all HTML `<script type="text/javascript">` inclusions needed, maybe generate symlinks under `/web` and/or use a Minifying Bundle
+    * Template loading all files for one Entity, prelude to EM. (=>asset)
+  * Routing (0%)
+  * Asset deployment to `web/` (hook global cmd-line or create one ?)
   * Find how to require Mootools ≥ 1.3 in dependencies
+* Cleaning up my student code :p
+  * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html)
+  * Move Ant & Anthill Entities to Tests
+  * Writing up Tests (I swear I'll take time to write some, and then some more)
+* Release
+  * Writing a command that does all the Entities within a Bundle
   * Add options in config
-* Cleaning up my messy, feature-testing code
-* Move Ant & Anthill Entities to Tests
-* Writing up Tests (I swear I'll take time to write some, and then some more)
-* Writing a command that does all the Entities within a Bundle
+* Next
+  * Minifying
 
 # USAGE
 
@@ -44,7 +48,7 @@ Each Doctrine 2 Entity converted to Mootools will need a total of 6 files :
 
 * Abstract (shared by all Controllers)
 * Base (re-generated each time)
-* Final (initially empty, then user-defined)
+* Final (initially empty, then custom) <- Editing only this !
 
 NOTE : In the above paths, `<Entity>` is your Entity Name, without namespace. (may cause problems!)
 
@@ -55,19 +59,86 @@ But there'll be 3 files, on the same model than JS ones : Abstract, Base, and Fi
 
 Therefore, the first time you execute the command-line for a given Bundle/Entity pair, 4 files will be generated.
 After that, only the 2 Base files will be re-generated.
-If I'm not miskaten, the heritage behavior is similar to the Doctrine 1.2 PHP Classes generation from schema.
 
-## WHY NOT JQUERY?
 
-Hah! Be my guest!
-Mootools is pure javascript awesomeness.
+## WHY MOOTOOLS FIRST ?
+
+Easy. ;)
 
 ## THANKS
 
 - Fabien Potencier, for he taught me *a lot*
 - Jonathan Wage, cause he's awesome too
 - Aaron Newton, kudos to his super-cow-powers
-- *You*, smart FOSS lover !
+- *You*, sneaky FOSS lover !
+
+## FREE
+
+The Carcase
+
+The object that we saw, let us recall, 
+This summer morn when warmth and beauty mingle — 
+At the path's turn, a carcase lay asprawl
+Upon a bed of shingle.
+
+Legs raised, like some old whore far-gone in passion, 
+The burning, deadly, poison-sweating mass 
+Opened its paunch in careless, cynic fashion, 
+Ballooned with evil gas.
+
+On this putrescence the sun blazed in gold, 
+Cooking it to a turn with eager care — 
+So to repay to Nature, hundredfold, 
+What she had mingled there.
+
+The sky, as on the opening of a flower, 
+On this superb obscenity smiled bright. 
+The stench drove at us, with such fearsome power 
+You thought you'd swoon outright.
+
+Flies trumpeted upon the rotten belly 
+Whence larvae poured in legions far and wide, 
+And flowed, like molten and liquescent jelly, 
+Down living rags of hide.
+
+The mass ran down, or, like a wave elated 
+Rolled itself on, and crackled as if frying: 
+You'd think that corpse, by vague breath animated, 
+Drew life from multiplying.
+
+Through that strange world a rustling rumour ran 
+Like rushing water or a gust of air, 
+Or grain that winnowers, with rhythmic fan, 
+Sweep simmering here and there.
+
+It seemed a dream after the forms grew fainter, 
+Or like a sketch that slowly seems to dawn 
+On a forgotten canvas, which the painter 
+From memory has drawn.
+
+Behind the rocks a restless cur that slunk 
+Eyed us with fretful greed to recommence 
+His feast, amidst the bonework, on the chunk 
+That he had torn from thence.
+
+Yet you'll resemble this infection too 
+One day, and stink and sprawl in such a fashion, 
+Star of my eyes, sun of my nature, you, 
+My angel and my passion!
+
+Yes, you must come to this, O queen of graces, 
+At length, when the last sacraments are over, 
+And you go down to moulder in dark places 
+Beneath the grass and clover.
+
+Then tell the vermin as it takes its pleasance 
+And feasts with kisses on that face of yours, 
+I've kept intact in form and godlike essence 
+Our decomposed amours!
+
+— Roy Campbell, Poems of Baudelaire (New York: Pantheon Books, 1952)
+
+# ESSAY (ALSO FREE)
 
 
 
