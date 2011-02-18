@@ -16,7 +16,7 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Template loading all files for one Entity, prelude to EM. (=>asset)
   * Routing (0%)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)
-  * Find how to require Mootools ≥ 1.3 in dependencies
+  * Find how to require Mootools ≥ 1.3 in dependencies (A bundle should not embed third-party libraries written in JavaScript)
 * Cleaning up my student code :p
   * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html)
   * Move Ant & Anthill Entities to Tests
@@ -76,65 +76,65 @@ Easy. ;)
 
 The Carcase
 
-The object that we saw, let us recall, 
-This summer morn when warmth and beauty mingle — 
-At the path's turn, a carcase lay asprawl
-Upon a bed of shingle.
+> The object that we saw, let us recall,
+> This summer morn when warmth and beauty mingle —
+> At the path's turn, a carcase lay asprawl
+> Upon a bed of shingle.
 
-Legs raised, like some old whore far-gone in passion, 
-The burning, deadly, poison-sweating mass 
-Opened its paunch in careless, cynic fashion, 
-Ballooned with evil gas.
+> Legs raised, like some old whore far-gone in passion,
+> The burning, deadly, poison-sweating mass
+> Opened its paunch in careless, cynic fashion,
+> Ballooned with evil gas.
 
-On this putrescence the sun blazed in gold, 
-Cooking it to a turn with eager care — 
-So to repay to Nature, hundredfold, 
-What she had mingled there.
+> On this putrescence the sun blazed in gold, 
+> Cooking it to a turn with eager care — 
+> So to repay to Nature, hundredfold, 
+> What she had mingled there.
 
-The sky, as on the opening of a flower, 
-On this superb obscenity smiled bright. 
-The stench drove at us, with such fearsome power 
-You thought you'd swoon outright.
+> The sky, as on the opening of a flower, 
+> On this superb obscenity smiled bright. 
+> The stench drove at us, with such fearsome power 
+> You thought you'd swoon outright.
 
-Flies trumpeted upon the rotten belly 
-Whence larvae poured in legions far and wide, 
-And flowed, like molten and liquescent jelly, 
-Down living rags of hide.
+> Flies trumpeted upon the rotten belly 
+> Whence larvae poured in legions far and wide, 
+> And flowed, like molten and liquescent jelly, 
+> Down living rags of hide.
 
-The mass ran down, or, like a wave elated 
-Rolled itself on, and crackled as if frying: 
-You'd think that corpse, by vague breath animated, 
-Drew life from multiplying.
+> The mass ran down, or, like a wave elated 
+> Rolled itself on, and crackled as if frying: 
+> You'd think that corpse, by vague breath animated, 
+> Drew life from multiplying.
 
-Through that strange world a rustling rumour ran 
-Like rushing water or a gust of air, 
-Or grain that winnowers, with rhythmic fan, 
-Sweep simmering here and there.
+> Through that strange world a rustling rumour ran 
+> Like rushing water or a gust of air, 
+> Or grain that winnowers, with rhythmic fan, 
+> Sweep simmering here and there.
 
-It seemed a dream after the forms grew fainter, 
-Or like a sketch that slowly seems to dawn 
-On a forgotten canvas, which the painter 
-From memory has drawn.
+> It seemed a dream after the forms grew fainter, 
+> Or like a sketch that slowly seems to dawn 
+> On a forgotten canvas, which the painter 
+> From memory has drawn.
 
-Behind the rocks a restless cur that slunk 
-Eyed us with fretful greed to recommence 
-His feast, amidst the bonework, on the chunk 
-That he had torn from thence.
+> Behind the rocks a restless cur that slunk 
+> Eyed us with fretful greed to recommence 
+> His feast, amidst the bonework, on the chunk 
+> That he had torn from thence.
 
-Yet you'll resemble this infection too 
-One day, and stink and sprawl in such a fashion, 
-Star of my eyes, sun of my nature, you, 
-My angel and my passion!
+> Yet you'll resemble this infection too 
+> One day, and stink and sprawl in such a fashion, 
+> Star of my eyes, sun of my nature, you, 
+> My angel and my passion!
 
-Yes, you must come to this, O queen of graces, 
-At length, when the last sacraments are over, 
-And you go down to moulder in dark places 
-Beneath the grass and clover.
+> Yes, you must come to this, O queen of graces, 
+> At length, when the last sacraments are over, 
+> And you go down to moulder in dark places 
+> Beneath the grass and clover.
 
-Then tell the vermin as it takes its pleasance 
-And feasts with kisses on that face of yours, 
-I've kept intact in form and godlike essence 
-Our decomposed amours!
+> Then tell the vermin as it takes its pleasance 
+> And feasts with kisses on that face of yours, 
+> I've kept intact in form and godlike essence 
+> Our decomposed amours!
 
 — Roy Campbell, Poems of Baudelaire (New York: Pantheon Books, 1952)
 
