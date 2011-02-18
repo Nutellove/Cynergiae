@@ -65,6 +65,8 @@ abstract class MootoolsClassCommand extends DoctrineCommand
         // TODO : get space value from options, and default to 4
         $entityGenerator->setNumSpaces(2);
 
+        // setClassToExtend is done rimwards
+
         return $entityGenerator;
     }
 

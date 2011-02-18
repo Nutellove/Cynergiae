@@ -26,7 +26,12 @@ There are many, **many** things to do to improve this Bundle, such as :
   * Add options in config
 * Next
   * Abstract Class for Generators (code refactorization)
-  * Minifying
+  * Minifying => Assetic :)
+* Future
+  * Adding new JS Entity Classes :
+    * Pure JS (CoffeeScript looks good)
+    * jQuery
+  * JS Entity Manager
 
 # USAGE
 
