@@ -2,6 +2,6 @@ hello:
     pattern:  /hello/{name}
     defaults: { _controller: JavascriptClassBundle:Hello:index }
 
-#jsclass:
-#    pattern:  /jsclass/{bundle}/{entity}
-#    defaults: { _controller: JavascriptClassBundle:Ant:index }
+jsclass:
+    pattern:  /jsclass/{bundle}/{entity}
+    defaults: { _controller: JavascriptClassBundle:Entity\Ant:index }

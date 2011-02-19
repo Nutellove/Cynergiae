@@ -20,10 +20,10 @@ Nutellove\JavascriptClassBundle\Entity\Ant:
       type: boolean
       default: false
       mootools: rw
-  manyToOne:
-    anthill:
-      targetEntity: Anthill
-      inversedBy: ants
+#  manyToOne:
+#    anthill:
+#      targetEntity: Anthill
+#      inversedBy: ants
 
 #  oneToOne:
 #    address:
