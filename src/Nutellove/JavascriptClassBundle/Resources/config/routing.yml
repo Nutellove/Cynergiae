@@ -1,0 +1,6 @@
+hello:
+    pattern:  /hello/{name}
+    defaults: { _controller: JavascriptClassBundle:Hello:index }
+
+#jsclass:
+#    pattern:  /jsclass/{bundle}/{name}

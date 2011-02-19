@@ -26,7 +26,7 @@ doctrine.dbal:
 doctrine.orm:
     auto_generate_proxy_classes: %kernel.debug%
     mappings:
-        MootoolsClassBundle: ~
+        JavascriptClassBundle: ~
 
 ## Swiftmailer Configuration
 #swiftmailer.config:

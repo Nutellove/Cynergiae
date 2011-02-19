@@ -19,7 +19,7 @@ class AppKernel extends Kernel
       //new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
 
       // register your bundles
-      new Nutellove\MootoolsClassBundle\MootoolsClassBundle(),
+      new Nutellove\JavascriptClassBundle\JavascriptClassBundle(),
     );
 
     if ($this->isDebug()) {
