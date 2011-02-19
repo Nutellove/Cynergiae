@@ -1,6 +1,6 @@
 <?php
 
-namespace Nutellove\JavascriptClassBundle\Controller\Entity;
+namespace Nutellove\JavascriptClassBundle\Controller\Entity\Base;
 
 use Nutellove\JavascriptClassBundle\Controller\AbstractEntityController;
 

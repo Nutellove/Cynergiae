@@ -2,20 +2,23 @@
 
 This bundle is **NOT finished nor working** right now. Its would-be aim is to provide a generated doctrine-like environment in javascript based on the same mapping.
 However, its realistic, first-release aim will *not* provide an Entity Manager nor support for Entity Associations.
+Therefore, for now, only basic stuff like accessors and mutators for Entity fields, but hey, it's better than nothing !
+
+## TODO
 
 There are many, **many** things to do to improve this Bundle, such as :
 
 * Making it work :
-  * Javascript
+  * Javascript (mootools)
     * Abstract Class (80%)
     * Base Class Generation (90%)
     * Class Initialization (done)
   * PHP
-    * Abstract Controller (0%)
-    * Base Controller Generation (0%)
-    * Controller Initialization (0%)
+    * Abstract Controller (10%)
+    * Base Controller Generation (10%)
+    * Controller Initialization (10%)
     * Template loading all files for one Entity, prelude to EM. (=>asset)
-  * Routing (0%)
+  * Routing (10%)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)
   * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
 * Cleaning up my student code :p
