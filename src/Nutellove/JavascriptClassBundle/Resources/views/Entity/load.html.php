@@ -11,13 +11,15 @@ JSON
 
 Parameters Dump
 
-<?php echo $parameters_dump ?>
+<?php var_dump ($parameters) ?>
 
 
 
-Entity
 
-<?php echo $entity ?>
+Entity Dump
+
+<?php var_dump ($entity) ?>
+
 
 </pre>
 </code>

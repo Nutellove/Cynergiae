@@ -31,7 +31,8 @@ class AbstractEntityController extends Controller
     $json = json_encode($parameters);
 
     return $this->render('JavascriptClassBundle:Entity:load.html.php', array(
-      'entity' => print_r($entity,1),
+      'entity' => $entity,
+      'parameters' => $parameters,
       'parameters_dump' => print_r ($parameters,1),
       'json' => $json,
     ));
@@ -55,7 +56,7 @@ class AbstractEntityController extends Controller
       ->add('where', 'e.id = :id');
 
 
-    $entity = $qe->setParameter('id', $id)->getQuery()->getResult();
+    $entity = $qe->setParameter('id', $id)->getQuery()->getSingleResult();
 
     return $entity;
   }
@@ -85,6 +86,8 @@ class AbstractEntityController extends Controller
         }
       }
     }
+
+    return $parameters;
   }
 
   protected function getRenderer()
