@@ -1,0 +1,12 @@
+
+jsclass_entity_ant:
+    pattern:  /jsclass/JavascriptClassBundle/Ant
+    defaults: { _controller: JavascriptClassBundle:Entity\Ant:index }
+
+jsclass_entity_ant_load:
+    pattern:  /jsclass/javascriptclassbundle/ant/load/{id}
+    defaults: { _controller: JavascriptClassBundle:Entity\Ant:load }
+
+jsclass_entity_ant_save:
+    pattern:  /jsclass/javascriptclassbundle/ant/save
+    defaults: { _controller: JavascriptClassBundle:Entity\Ant:save }

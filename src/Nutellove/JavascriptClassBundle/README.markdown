@@ -4,6 +4,12 @@ This bundle is **NOT finished nor working** right now. Its would-be aim is to pr
 However, its realistic, first-release aim will *not* provide an Entity Manager nor support for Entity Associations.
 Therefore, for now, only basic stuff like accessors and mutators for Entity fields, but hey, it's better than nothing !
 
+## DEVCOMMENT
+
+  $ app/console_dev doctrine:generate:entities JavascriptClassBundle
+  $ app/console_dev doctrine:schema:create
+  
+
 ## TODO
 
 There are many, **many** things to do to improve this Bundle, such as :
@@ -14,11 +20,11 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Base Class Generation (90%)
     * Class Initialization (done)
   * PHP
-    * Abstract Controller (40%)
-    * Base Controller Generation (30%)
+    * Abstract Controller (60%)
+    * Base Controller Generation (50%)
     * Controller Initialization (30%)
     * Template loading all files for one Entity, prelude to EM. (=>asset)
-  * Routing (20%)
+  * Routing (50%)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)
   * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
 * Cleaning up my student code :p

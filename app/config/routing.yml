@@ -2,5 +2,5 @@ homepage:
     pattern:  /
     defaults: { _controller: FrameworkBundle:Default:index }
 
-mootoolsClass:
-    resource: @JavascriptClassBundle/Resources/config/routing.yml
+javascriptClass:
+    resource: @JavascriptClassBundle/Resources/config/routing/routing.yml

@@ -1,0 +1,6 @@
+#jsclass:
+#    pattern:  /jsclass/{bundle}/{entity}
+#    defaults: { _controller: JavascriptClassBundle:Entity\Ant:index }
+
+jsclass_generated:
+    resource: @JavascriptClassBundle/Resources/config/routing/generated_routing.yml
