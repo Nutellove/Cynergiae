@@ -9,8 +9,10 @@ class AntController extends BaseAntController
 
   public function indexAction()
   {
-    $bundleName = $this->getBundleName();
-    return $this->render('JavascriptClassBundle:Entity:index.html.php', array('name' => $bundleName));
+    $entity = $this->getEntity(1);
+    return $this->render('JavascriptClassBundle:Entity:index.html.php', array(
+      'entity' => print_r($entity,1)
+    ));
   }
 
 }

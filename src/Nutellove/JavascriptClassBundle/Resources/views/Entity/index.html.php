@@ -1,3 +1,7 @@
 <?php $view->extend('JavascriptClassBundle::layout.html.php') ?>
 
-Hello <?php echo $name ?> !!
+<code>
+<pre>
+Hello <?php echo $entity ?> !!
+</pre>
+</code>

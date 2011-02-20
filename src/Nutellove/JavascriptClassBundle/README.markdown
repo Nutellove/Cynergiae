@@ -6,8 +6,9 @@ Therefore, for now, only basic stuff like accessors and mutators for Entity fiel
 
 ## DEVCOMMENT
 
-  $ app/console_dev doctrine:generate:entities JavascriptClassBundle
-  $ app/console_dev doctrine:schema:create
+    $ app/console_dev doctrine:generate:entities JavascriptClassBundle
+
+    $ app/console_dev doctrine:schema:create
   
 
 ## TODO

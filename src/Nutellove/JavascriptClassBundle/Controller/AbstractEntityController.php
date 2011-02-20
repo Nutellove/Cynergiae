@@ -3,6 +3,7 @@
 namespace Nutellove\JavascriptClassBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+//use Symfony\Framework\DoctrineBundle\Controller\DoctrineController as Controller;
 use Doctrine\Common\Util\Inflector; // Inflector::camelize()
 
 class AbstractEntityController extends Controller
@@ -18,15 +19,21 @@ class AbstractEntityController extends Controller
 //    // return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
 //  }
 
-  public function getEntity($bundleName, $entityName, $id)
+  public function getEntity($id)
   {
+    $bundleName = $this->getBundleName();
+    $entityName = $this->getEntityName();
+
     // Get Entity from Doctrine
-    $em = $this->getEntityManager();
+    $em = $this->get('doctrine.orm.entity_manager');
     $qe = $em->createQueryBuilder()
       ->select ('e')
       ->from   ($bundleName.':'.$entityName, 'e')
-      ->where  ('e.id = ?', $id);
-    $entity = $qe->execute();
+      ->add('where', 'e.id = :id');
+
+
+    $entity = $qe->setParameter('id', $id)->getQuery()->getResult();
+
     return $entity;
   }
 
