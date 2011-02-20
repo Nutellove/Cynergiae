@@ -11,4 +11,19 @@ class AntController extends BaseAntController
 
         return $this->render('JavascriptClassBundle:Entity:index.html.php', array('name' => $bundle));
     }
+
+    public function getJavascriptMapping()
+    {
+      static $map;
+      if (!$map){
+        $map = array (
+          'is_hungry' => array (
+            'read'  => true,
+            'write' => true,
+            'role'  => 'parameter',
+          ),
+        );
+      }
+      return $map;
+    }
 }

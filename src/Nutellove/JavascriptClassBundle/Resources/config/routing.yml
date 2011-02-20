@@ -5,3 +5,6 @@ hello:
 jsclass:
     pattern:  /jsclass/{bundle}/{entity}
     defaults: { _controller: JavascriptClassBundle:Entity\Ant:index }
+
+gwah:
+    resource: @JavascriptClassBundle/Resources/config/routing2.yml

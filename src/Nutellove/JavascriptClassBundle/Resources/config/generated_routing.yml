@@ -1,0 +1,7 @@
+
+jsclass_entity_ant:
+    pattern:  /jsclass/javascriptclassbundle/ant
+    defaults: { _controller: JavascriptClassBundle:Entity\Ant:index }
+
+
+

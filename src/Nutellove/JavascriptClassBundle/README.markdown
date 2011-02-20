@@ -14,11 +14,11 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Base Class Generation (90%)
     * Class Initialization (done)
   * PHP
-    * Abstract Controller (10%)
-    * Base Controller Generation (10%)
-    * Controller Initialization (10%)
+    * Abstract Controller (40%)
+    * Base Controller Generation (30%)
+    * Controller Initialization (30%)
     * Template loading all files for one Entity, prelude to EM. (=>asset)
-  * Routing (10%)
+  * Routing (20%)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)
   * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
 * Cleaning up my student code :p
@@ -76,11 +76,6 @@ Each Doctrine 2 Entity converted to Mootools will need a total of 6 files :
 * Final (initially empty, then custom) <- Editing only this !
 
 NOTE : In the above paths, `<Entity>` is your Entity Name, without namespace. (may cause problems!)
-
-TODO :)
-But there'll be 3 files, on the same model than JS ones : Abstract, Base, and Final.
-
-
 
 Therefore, the first time you execute the command-line for a given Bundle/Entity pair, 4 files will be generated.
 After that, only the 2 Base files will be re-generated.
