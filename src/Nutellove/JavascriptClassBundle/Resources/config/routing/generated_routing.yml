@@ -4,9 +4,9 @@ jsclass_entity_ant:
     defaults: { _controller: JavascriptClassBundle:Entity\Ant:index }
 
 jsclass_entity_ant_load:
-    pattern:  /jsclass/javascriptclassbundle/ant/load/{id}
+    pattern:  /jsclass/JavascriptClassBundle/Ant/load/{id}
     defaults: { _controller: JavascriptClassBundle:Entity\Ant:load }
 
 jsclass_entity_ant_save:
-    pattern:  /jsclass/javascriptclassbundle/ant/save
+    pattern:  /jsclass/JavascriptClassBundle/Ant/save
     defaults: { _controller: JavascriptClassBundle:Entity\Ant:save }

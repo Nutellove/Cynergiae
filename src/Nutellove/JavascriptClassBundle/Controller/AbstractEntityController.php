@@ -3,7 +3,7 @@
 namespace Nutellove\JavascriptClassBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-//use Symfony\Framework\DoctrineBundle\Controller\DoctrineController as Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\Common\Util\Inflector; // Inflector::camelize()
 
 class AbstractEntityController extends Controller
@@ -18,6 +18,29 @@ class AbstractEntityController extends Controller
 //  {
 //    // return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
 //  }
+
+
+
+  public function loadAction($id)
+  {
+    $entity = $this->getEntity($id);
+    if (!$entity) {
+      throw new NotFoundHttpException('The entity does not exist.');
+    }
+    $parameters = $this->getParametersFromEntity ($entity);
+    $json = json_encode($parameters);
+
+    return $this->render('JavascriptClassBundle:Entity:load.html.php', array(
+      'entity' => print_r($entity,1),
+      'parameters_dump' => print_r ($parameters,1),
+      'json' => $json,
+    ));
+  }
+
+
+////////////////////////////////////////////////////////////////////////////////
+//// TOOLS /////////////////////////////////////////////////////////////////////
+
 
   public function getEntity($id)
   {
