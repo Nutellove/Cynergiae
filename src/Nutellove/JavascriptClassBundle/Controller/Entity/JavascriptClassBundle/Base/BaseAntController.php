@@ -1,6 +1,8 @@
 <?php
 
-namespace Nutellove\JavascriptClassBundle\Controller\Entity\Base;
+ // FIXME : GENERATE THIS FILE !
+
+namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base;
 
 use Nutellove\JavascriptClassBundle\Controller\AbstractEntityController;
 

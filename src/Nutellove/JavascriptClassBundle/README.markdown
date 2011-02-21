@@ -17,13 +17,13 @@ There are many, **many** things to do to improve this Bundle, such as :
 
 * Making it work :
   * Javascript (mootools)
-    * Abstract Class (80%)
+    * Abstract Class (90%)
     * Base Class Generation (90%)
     * Class Initialization (done)
   * PHP
-    * Abstract Controller (60%)
+    * Abstract Controller (70%)
     * Base Controller Generation (50%)
-    * Controller Initialization (30%)
+    * Controller Initialization (40%)
     * Template loading all files for one Entity, prelude to EM. (=>asset)
   * Routing (50%)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)

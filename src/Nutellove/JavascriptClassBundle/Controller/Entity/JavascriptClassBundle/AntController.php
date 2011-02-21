@@ -1,8 +1,10 @@
 <?php
 
-namespace Nutellove\JavascriptClassBundle\Controller\Entity;
+ // FIXME : INITIALIZE THIS FILE !
 
-use Nutellove\JavascriptClassBundle\Controller\Entity\Base\BaseAntController;
+namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle;
+
+use Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base\BaseAntController;
 
 class AntController extends BaseAntController
 {
