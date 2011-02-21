@@ -2,5 +2,9 @@
 #    pattern:  /jsclass/{bundle}/{entity}
 #    defaults: { _controller: JavascriptClassBundle:Entity\Ant:index }
 
-jsclass_generated:
-    resource: @JavascriptClassBundle/Resources/config/routing/generated_routing.yml
+#jsclass_generated:
+#    resource: @JavascriptClassBundle/Resources/config/routing/generated_routing.yml
+
+jsclass_entity_load:
+    pattern:  /jsclass/{bundleName}/{entityName}/load/{id}
+    defaults: { _controller: JavascriptClassBundle:Front:load, _format: json }
