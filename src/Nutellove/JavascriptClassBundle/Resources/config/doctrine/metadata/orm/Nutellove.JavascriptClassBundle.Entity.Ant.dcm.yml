@@ -12,14 +12,14 @@ Nutellove\JavascriptClassBundle\Entity\Ant:
     name:
       type: string
       length: 50
-      mootools: read
+      js: read
     size:
       type: integer
       default: 10
     is_hungry:
       type: boolean
       default: false
-      mootools: rw
+      js: rw
 #  manyToOne:
 #    anthill:
 #      targetEntity: Anthill

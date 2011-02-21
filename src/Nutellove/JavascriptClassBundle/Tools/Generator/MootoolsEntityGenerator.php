@@ -40,7 +40,7 @@ class MootoolsEntityGenerator
   private $_extension = '.class.js';
 
   /** The name of the attribute that holds mootools information **/
-  private $_mootoolsAttributeName = 'mootools';
+  private $_mootoolsAttributeName = 'js';
 
   /** Whether or not the current ClassMetadataInfo instance is new or old */
   private $_isNew = true;

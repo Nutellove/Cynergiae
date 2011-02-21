@@ -40,7 +40,7 @@ class AbstractControllerEntityGenerator
   protected $_extension = '.php';
 
   /** The name of the attribute that holds the javascript mapping information **/
-  protected $_javascriptAttributeName = 'javascript';
+  protected $_javascriptAttributeName = 'js';
 
   /** Whether or not the current ClassMetadataInfo instance is new or old */
   protected $_isNew = true;
