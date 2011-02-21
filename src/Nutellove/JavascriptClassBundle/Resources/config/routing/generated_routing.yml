@@ -5,8 +5,8 @@ jsclass_entity_ant:
 
 jsclass_entity_ant_load:
     pattern:  /jsclass/JavascriptClassBundle/Ant/load/{id}
-    defaults: { _controller: JavascriptClassBundle:Entity\Ant:load }
+    defaults: { _controller: JavascriptClassBundle:Entity\Ant:load, _format: json }
 
 jsclass_entity_ant_save:
     pattern:  /jsclass/JavascriptClassBundle/Ant/save
-    defaults: { _controller: JavascriptClassBundle:Entity\Ant:save }
+    defaults: { _controller: JavascriptClassBundle:Entity\Ant:save, _format: json }

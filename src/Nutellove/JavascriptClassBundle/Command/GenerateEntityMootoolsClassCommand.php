@@ -29,6 +29,11 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
  */
 class GenerateEntityMootoolsClassCommand extends MootoolsClassCommand
 {
+  //protected $_js_framework_name   = 'mootools';
+  protected $_js_framework_folder = 'Mootools';
+
+
+
   protected function configure()
   {
     $this
@@ -74,7 +79,7 @@ EOT
     // Generation of the Base Mootools Entity
     $output->writeln(sprintf('Generating Mootools Entities for "<info>%s</info>"', $bundle->getName()));
 
-    $baseEntityPath = $bundle->getPath().'/Entity/Mootools/Base/Base'.$entity.'.class.js';
+    $baseEntityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/Base/Base'.$entity.'.class.js';
 
     if ('annotation' === $mappingType) {
       $exporter->setEntityGenerator($this->getBaseEntityGenerator());
@@ -99,9 +104,7 @@ EOT
 
 ////////////////////////////////////////////////////////////////////////////////
     // Generation (if needed) of the Mootools Entity
-    $entityPath = $bundle->getPath().'/Entity/Mootools/'.$entity.'.class.js';
-
-    // TODO
+    $entityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/'.$entity.'.class.js';
 
     $entityGenerator = $this->getEntityGenerator();
     $entityGenerator->setClassToExtend ("Base".$bundle->getName().$entity);
@@ -121,7 +124,7 @@ EOT
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     } else {
 
-      if (!is_dir($dir = dirname($baseEntityPath))) {
+      if (!is_dir($dir = dirname($entityPath))) {
         mkdir($dir, 0777, true);
       }
       file_put_contents($entityPath, $entityCode);

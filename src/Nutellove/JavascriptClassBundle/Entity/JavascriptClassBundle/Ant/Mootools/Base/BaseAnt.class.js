@@ -78,6 +78,6 @@ var BaseAnt = new Class({
   getIsHungry: function ()
   {
     return this.getParameter("is_hungry");
-  },
+  }
   
 });

@@ -13,11 +13,10 @@ class AbstractEntityController extends Controller
 
   public $entity;
 
-// TODO : throw, as this should be overriden
-//  public function indexAction()
-//  {
-//    // return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
-//  }
+  public function indexAction()
+  {
+    throw new NotFoundHttpException('The indexAction should be overriden.');
+  }
 
 
 
@@ -30,11 +29,12 @@ class AbstractEntityController extends Controller
     $parameters = $this->getParametersFromEntity ($entity);
     $json = json_encode($parameters);
 
-    return $this->render('JavascriptClassBundle:Entity:load.html.php', array(
-      'entity' => $entity,
-      'parameters' => $parameters,
-      'parameters_dump' => print_r ($parameters,1),
+    return $this->render('JavascriptClassBundle:Entity:load.json.php', array(
       'json' => $json,
+//      'entity' => $entity,
+//      'parameters' => $parameters,
+//      'parameters_dump' => print_r ($parameters,1),
+//      'test' => $this->getRenderer(),
     ));
   }
 
@@ -90,6 +90,7 @@ class AbstractEntityController extends Controller
     return $parameters;
   }
 
+  // FIXME
   protected function getRenderer()
   {
     return $this->container->getParameter('jsclass.template.renderer');

@@ -1,5 +1,7 @@
 <?php $view->extend('JavascriptClassBundle::layout.html.php') ?>
 
+<?php echo $test ?>
+
 <code>
 <pre>
 

@@ -34,6 +34,15 @@ use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver
 abstract class MootoolsClassCommand extends DoctrineCommand
 {
 
+    protected function getJsFrameworkFolder () {
+      if (empty($this->_js_framework_folder)) {
+        return 'Mootools';
+      } else {
+        return $this->_js_framework_folder;
+      }
+    }
+
+
     protected function getBaseEntityGenerator()
     {
         $entityGenerator = new MootoolsBaseEntityGenerator();
