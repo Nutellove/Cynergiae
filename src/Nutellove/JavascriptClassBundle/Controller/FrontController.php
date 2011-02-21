@@ -22,5 +22,16 @@ class FrontController extends Controller
   }
 
 
+  public function saveAction($bundleName, $entityName, $id)
+  {
+    $controllerClass = __NAMESPACE__."\\Entity\\$bundleName\\$entityName"."Controller";
+    if ( ! class_exists($controllerClass) ) {
+      throw new NotFoundHttpException('The targeted Controller does not exist.');
+    }
 
+    $controllerABC = "JavascriptClassBundle:Entity\\$bundleName\\$entityName:save";
+    $response = $this->forward ($controllerABC, array('id' => $id));
+
+    return $response;
+  }
 }
