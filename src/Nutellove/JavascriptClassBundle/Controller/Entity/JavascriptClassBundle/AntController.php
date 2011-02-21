@@ -9,14 +9,15 @@ use Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base
 class AntController extends BaseAntController
 {
 
-  public function indexAction()
+  public function loadAction($id)
   {
-    $entity = $this->getEntity(1);
-    return $this->render('JavascriptClassBundle:Entity:index.html.php', array(
-      'entity' => print_r($entity,1)
-    ));
+    return parent::loadAction($id);
   }
 
+  public function saveAction($id)
+  {
+    return parent::loadAction($id);
+  }
 
 
 }
