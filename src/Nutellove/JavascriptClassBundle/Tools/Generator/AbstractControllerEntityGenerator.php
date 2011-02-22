@@ -226,6 +226,12 @@ class AbstractControllerEntityGenerator
     return substr($metadata->name, 0, strrpos($metadata->name, '\\'));
   }
 
+  // FIXME ?
+  protected function _getBundleName(ClassMetadataInfo $metadata)
+  {
+    return substr($metadata->name, strrpos($metadata->name, '\\') + 1);
+  }
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
