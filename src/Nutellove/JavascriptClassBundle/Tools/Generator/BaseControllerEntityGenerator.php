@@ -108,6 +108,21 @@ class <entityClassName>Controller <entityExtends>
 <spaces>}
 ';
 
+  protected static $_getJavascriptMappingTemplate =
+'
+  public function getJavascriptMapping()
+  {
+    static $map;
+    if (!$map){
+      $map = array (
+<mappingArrays>
+      );
+    }
+    return $map;
+  }
+';
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
   /**
@@ -211,18 +226,43 @@ class <entityClassName>Controller <entityExtends>
 
   protected function generateMethodGetJavascriptMapping(ClassMetadataInfo $metadata)
   {
-    // FIXME
-
     $placeHolders = array(
-      '<entityName>',
+      '<mappingArrays>',
     );
 
     $replacements = array(
-      $this->_getClassName($metadata),
+      $this->_generateJavascriptMappingArrays($metadata),
     );
 
-    $code = str_replace($placeHolders, $replacements, self::$_getEntityNameTemplate);
+    $code = str_replace($placeHolders, $replacements, self::$_getJavascriptMappingTemplate);
     return str_replace('<spaces>', $this->_spaces, $code);
   }
+
+  // FIXME
+
+  protected function generateJavascriptMappingArrays(ClassMetadataInfo $metadata)
+  {
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
