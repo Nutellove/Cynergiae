@@ -238,11 +238,29 @@ class <entityClassName>Controller <entityExtends>
     return str_replace('<spaces>', $this->_spaces, $code);
   }
 
-  // FIXME
 
+//          'is_hungry' => array (
+//            'read'  => true,
+//            'write' => false,
+//            'role'  => 'parameter',
+//          ),
   protected function generateJavascriptMappingArrays(ClassMetadataInfo $metadata)
   {
+    $code = array(); $space = $this->_spaces.$this->_spaces.$this->_spaces.$this->_spaces; // Space Code @.@
+    foreach ($metadata->fieldMappings as $fieldMapping) {
+      if ( $this->_hasJavascriptAttribute ($fieldMapping) ) {
 
+        $a  = $spaces."'".$fieldMapping['fieldName']."' => array (\n";
+        $a .= $spaces.$this->_spaces."'read'  => ".(($this->_canJavascriptReadField  ($fieldMapping))?'true':'false').",\n";
+        $a .= $spaces.$this->_spaces."'write' => ".(($this->_canJavascriptWriteField ($fieldMapping))?'true':'false').",\n";
+        $a .= $spaces.$this->_spaces."'role'  => 'parameter'\n";
+        $a .= $spaces."),";
+
+        $code[] = $a;
+      }
+    }
+
+    return implode ("\n", $code);
   }
 
 

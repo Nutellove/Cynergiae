@@ -114,6 +114,16 @@ class AbstractControllerEntityGenerator
 
 ////////////////////////////////////////////////////////////////////////////////
 
+  protected function _hasJavascriptAttribute ($fieldMapping)
+  {
+    // Can always read ID
+    if ( $this->_isIdField($fieldMapping) ) {
+      return true;
+    }
+
+    return isset($fieldMapping[$this->_javascriptAttributeName]);
+  }
+
   /**
    * Check if the field associated to the passed $fieldMapping is the ID
    * @param  array $fieldMapping
