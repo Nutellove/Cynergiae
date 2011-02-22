@@ -31,7 +31,7 @@ use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-abstract class MootoolsClassCommand extends DoctrineCommand
+abstract class JavascriptClassCommand extends DoctrineCommand
 {
 
     protected function getJsFrameworkFolder () {

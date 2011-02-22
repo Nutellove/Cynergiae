@@ -21,13 +21,15 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Base Class Generation (90%)
     * Class Initialization (done)
   * PHP
-    * Abstract Controller (70%)
-    * Base Controller Generation (50%)
-    * Controller Initialization (40%)
+    * Abstract Controller (90%)
+    * Base Controller Generation (90%)
+    * Controller Initialization (90%)
     * Template loading all files for one Entity, prelude to EM. (=>asset)
-  * Routing (50%)
+  * Routing (80%)
+  * Commands (50%)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)
   * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
+  * Create a JavascriptClassTestBundle
 * Cleaning up my student code :p
   * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html)
   * Move Ant & Anthill Entities to Tests

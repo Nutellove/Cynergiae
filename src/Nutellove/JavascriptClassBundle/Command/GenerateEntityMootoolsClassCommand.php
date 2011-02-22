@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-class GenerateEntityMootoolsClassCommand extends MootoolsClassCommand
+class GenerateEntityMootoolsClassCommand extends JavascriptClassCommand
 {
   //protected $_js_framework_name   = 'mootools';
   protected $_js_framework_folder = 'Mootools';
