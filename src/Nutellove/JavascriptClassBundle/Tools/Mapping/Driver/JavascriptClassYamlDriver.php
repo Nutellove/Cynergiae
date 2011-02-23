@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping\Driver\YamlDriver;
  * That driver looks for the `mootools` attribute in addition of the usual field
  * attributes (type, length, ...)
  */
-class MootoolsClassYamlDriver extends YamlDriver {
+class JavascriptClassYamlDriver extends YamlDriver {
 
   /**
    * @override

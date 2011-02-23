@@ -17,8 +17,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Doctrine\ORM\Mapping\Driver\DriverChain;
 use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
 
-use Nutellove\JavascriptClassBundle\Tools\Generator\MootoolsEntityGenerator;
-use Nutellove\JavascriptClassBundle\Tools\Generator\MootoolsBaseEntityGenerator;
+use Nutellove\JavascriptClassBundle\Tools\Generator\Mootools\EntityGenerator;
+use Nutellove\JavascriptClassBundle\Tools\Generator\Mootools\BaseEntityGenerator;
 use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\JavascriptClassYamlDriver;
 
 
@@ -52,7 +52,7 @@ abstract class JavascriptClassCommand extends DoctrineCommand
 
     protected function getBaseEntityGenerator()
     {
-        $entityGenerator = new MootoolsBaseEntityGenerator();
+        $entityGenerator = new BaseEntityGenerator();
         if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
             $entityGenerator->setAnnotationPrefix("orm:");
         }
@@ -73,7 +73,7 @@ abstract class JavascriptClassCommand extends DoctrineCommand
 
     protected function getEntityGenerator()
     {
-        $entityGenerator = new MootoolsEntityGenerator();
+        $entityGenerator = new EntityGenerator();
         if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
             $entityGenerator->setAnnotationPrefix("orm:");
         }
