@@ -7,6 +7,10 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ *
+ *     NOT USED !
+ *
  */
 
 namespace Nutellove\JavascriptClassBundle\Command;
@@ -31,7 +35,7 @@ use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\JavascriptClassYamlDriv
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-abstract class JavascriptClassCommand extends DoctrineCommand
+abstract class AbstractClassCommand extends DoctrineCommand
 {
     /**
      * This is the (default) name of the Js Framework used
