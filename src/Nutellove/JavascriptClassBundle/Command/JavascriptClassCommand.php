@@ -19,6 +19,8 @@ use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
 
 use Nutellove\JavascriptClassBundle\Tools\Generator\Mootools\EntityGenerator;
 use Nutellove\JavascriptClassBundle\Tools\Generator\Mootools\BaseEntityGenerator;
+use Nutellove\JavascriptClassBundle\Tools\Generator\ControllerEntityGenerator;
+use Nutellove\JavascriptClassBundle\Tools\Generator\BaseControllerEntityGenerator;
 use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\JavascriptClassYamlDriver;
 
 
@@ -36,6 +38,7 @@ abstract class JavascriptClassCommand extends DoctrineCommand
     /**
      * This is the (default) name of the Js Framework used
      * Precisely, this is the name of the folder holding the Generators
+     * so it is used in namespaces too
      * @var string
      */
     protected $_js_framework_folder = 'Mootools';
@@ -50,7 +53,7 @@ abstract class JavascriptClassCommand extends DoctrineCommand
     }
 
 
-    protected function getBaseEntityGenerator()
+    protected function getMootoolsBaseEntityGenerator()
     {
         $entityGenerator = new BaseEntityGenerator();
         if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
@@ -64,14 +67,14 @@ abstract class JavascriptClassCommand extends DoctrineCommand
 //        $entityGenerator->setUpdateEntityIfExists(false);
 
         // Let's extend the Base Abstract Class
-        $entityGenerator->setClassToExtend ("BaseEntityAbstract");
+        $entityGenerator->setClassToExtend ("BaseEntityAbstract");  // this oughta be done rimwards too
         // TODO : get space value from options, and default to 4
         $entityGenerator->setNumSpaces(2);
 
         return $entityGenerator;
     }
 
-    protected function getEntityGenerator()
+    protected function getMootoolsEntityGenerator()
     {
         $entityGenerator = new EntityGenerator();
         if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
@@ -85,6 +88,39 @@ abstract class JavascriptClassCommand extends DoctrineCommand
 
         return $entityGenerator;
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    protected function getBaseControllerGenerator()
+    {
+        $controllerGenerator = new BaseControllerEntityGenerator();
+        if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
+            $controllerGenerator->setAnnotationPrefix("orm:");
+        }
+
+        // Let's extend the Base Abstract Class
+        $controllerGenerator->setClassToExtend ("BaseEntityAbstract");
+        // TODO : get space value from options, and default to 4
+        $controllerGenerator->setNumSpaces(2);
+
+        return $controllerGenerator;
+    }
+
+    protected function getControllerGenerator()
+    {
+        $controllerGenerator = new ControllerEntityGenerator();
+        if (version_compare(\Doctrine\ORM\Version::VERSION, "2.0.2-DEV") >= 0) {
+            $controllerGenerator->setAnnotationPrefix("orm:");
+        }
+
+        // TODO : get space value from options, and default to 4
+        $controllerGenerator->setNumSpaces(2);
+
+        // setClassToExtend is done rimwards
+
+        return $controllerGenerator;
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// METADATAS /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected function getBundleMetadatas(Bundle $bundle)
     {
