@@ -6,6 +6,8 @@ desktop.ini
 .settings/*
 .project
 .buildpath
+# PhpStorm
+.idea/*
 # Vendors (update them via script)
 vendor/*
 vendor_full/*

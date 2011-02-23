@@ -33,6 +33,12 @@ use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver
  */
 abstract class JavascriptClassCommand extends DoctrineCommand
 {
+    /**
+     * This is the (default) name of the Js Framework used
+     * Precisely, this is the name of the folder holding the Generators
+     * @var string
+     */
+    protected $_js_framework_folder = 'Mootools';
 
     protected function getJsFrameworkFolder () {
       if (empty($this->_js_framework_folder)) {
