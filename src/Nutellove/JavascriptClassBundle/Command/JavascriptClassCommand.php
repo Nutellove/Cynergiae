@@ -19,7 +19,7 @@ use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
 
 use Nutellove\JavascriptClassBundle\Tools\Generator\MootoolsEntityGenerator;
 use Nutellove\JavascriptClassBundle\Tools\Generator\MootoolsBaseEntityGenerator;
-use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\MootoolsClassYamlDriver;
+use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\JavascriptClassYamlDriver;
 
 
 /**
@@ -40,12 +40,13 @@ abstract class JavascriptClassCommand extends DoctrineCommand
      */
     protected $_js_framework_folder = 'Mootools';
 
-    protected function getJsFrameworkFolder () {
-      if (empty($this->_js_framework_folder)) {
-        return 'Mootools';
-      } else {
+    /**
+     * Accessor for the Js Framework Folder Name
+     * @return string
+     */
+    protected function getJsFrameworkFolder ()
+    {
         return $this->_js_framework_folder;
-      }
     }
 
 
@@ -92,7 +93,7 @@ abstract class JavascriptClassCommand extends DoctrineCommand
         $bundleMetadatas = array();
         // We need to add our own Customized Drivers for the mootools field attribute
         $driverChain = new DriverChain();
-        $driverChain->addDriver(new MootoolsClassYamlDriver(
+        $driverChain->addDriver(new JavascriptClassYamlDriver(
             array(
                 0 => __DIR__ . '/../Resources/config/doctrine/metadata/orm'
             )),
