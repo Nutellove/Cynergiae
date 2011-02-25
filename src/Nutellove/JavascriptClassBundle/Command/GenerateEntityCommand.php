@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-class GenerateEntityMootoolsClassCommand extends JavascriptClassCommand
+class GenerateEntityCommand extends JavascriptClassCommand
 {
   //protected $_js_framework_name   = 'mootools';
   protected $_js_framework_folder = 'Mootools';
@@ -37,12 +37,12 @@ class GenerateEntityMootoolsClassCommand extends JavascriptClassCommand
   protected function configure()
   {
     $this
-      ->setName('mootools:generate:entity')
-      ->setDescription('Generate a new Mootools Class entity inside a bundle.')
-      ->addArgument('bundle', InputArgument::REQUIRED, 'The bundle to initialize the entity in.')
-      ->addArgument('entity', InputArgument::REQUIRED, 'The entity class to initialize.')
-      ->addOption('mapping-type', null, InputOption::VALUE_OPTIONAL, 'The mapping type to to use for the entity.', 'yaml')
-      ->addOption('fields', null, InputOption::VALUE_OPTIONAL, 'The fields to create with the new entity.')
+      ->setName('jsclass:generate:entity')
+      ->setDescription('Generate javascript mootools classes providing xhr-managed persistence for an entity in a bundle from its yaml mapping.')
+      ->addArgument('bundle', InputArgument::REQUIRED, 'The name of the bundle (case-sensitive).')
+      ->addArgument('entity', InputArgument::REQUIRED, 'The name of the entity (case-sensitive).')
+      ->addOption('mapping-type', null, InputOption::VALUE_OPTIONAL, 'The mapping type to to use for the entity. (USELESS OPTION)', 'yaml')
+      ->addOption('fields', null, InputOption::VALUE_OPTIONAL, 'The fields to create with the new entity. (USELESS TOO)')
       ->setHelp(<<<EOT
 The <info>mootools:generate:entity</info> task (re)generates a new Mootools Class Base entity, initializes if needed an extended Mootools Class entity in which you'll write your custom own javascript logic, and (re)generates the Routes and Controllers needed for PHP/JS synchronization via AJAX, all that inside a bundle :
 

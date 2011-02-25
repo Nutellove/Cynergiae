@@ -1,8 +1,12 @@
 # IMPORTANT
 
+Generate javascript mootools classes providing xhr-managed persistence for an entity in a bundle from its yaml mapping.
+
 This bundle is **NOT finished nor working** right now. Its would-be aim is to provide a generated doctrine-like environment in javascript based on the same mapping.
 However, its realistic, first-release aim will *not* provide an Entity Manager nor support for Entity Associations.
 Therefore, for now, only basic stuff like accessors and mutators for Entity fields, but hey, it's better than nothing !
+
+Also, authentication
 
 ## DEVCOMMENT
 
@@ -17,16 +21,16 @@ There are many, **many** things to do to improve this Bundle, such as :
 
 * Making it work :
   * Javascript (mootools)
-    * Abstract Class (90%)
-    * Base Class Generation (90%)
+    * Abstract Class (done)
+    * Base Class Generation (done)
     * Class Initialization (done)
   * PHP
-    * Abstract Controller (90%)
-    * Base Controller Generation (90%)
-    * Controller Initialization (90%)
+    * Abstract Controller (done)
+    * Base Controller Generation (done)
+    * Controller Initialization (done)
     * Template loading all files for one Entity, prelude to EM. (=>asset)
-  * Routing (80%)
-  * Commands (50%)
+  * Routing (85%)
+  * Commands (75%)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)
   * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
   * Create a JavascriptClassTestBundle
@@ -34,7 +38,8 @@ There are many, **many** things to do to improve this Bundle, such as :
   * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html)
   * Move Ant & Anthill Entities to Tests
   * Writing up Tests (I swear I'll take time to write some, and then some more)
-* Release
+  * Extensive Testing
+ * Release
   * Writing a command that does all the Entities within a Bundle
   * Add options in config
 * Next
@@ -42,9 +47,10 @@ There are many, **many** things to do to improve this Bundle, such as :
   * Minifying => Assetic :)
 * Future
   * Adding new JS Entity Classes :
-    * Pure JS (CoffeeScript looks good)
+    * Pure JS (CoffeeScript <3 except for implement)
     * jQuery
-  * JS Entity Manager
+   * Authentication, User rights management, etc. Think.
+   * JS Entity Manager
   * Collections
   * Entity Associations
     * One-to-One
@@ -63,7 +69,7 @@ There are many, **many** things to do to improve this Bundle, such as :
 
 # USAGE
 
-    $ app/console mootools:generate:entity <bundle> <entity>
+    $ app/console jsclass:generate:entity <bundle> <entity>
 
 Replace `<bundle>` and `<entity>` by the names of the Bundle and Entity you want to
 generate the Mootools Classes of.
@@ -106,13 +112,10 @@ Easy. ;)
 **The Carcase**
 
 
-The object that we saw, let us recall,
-
-This summer morn when warmth and beauty mingle —
-
-At the path's turn, a carcase lay asprawl
-
-Upon a bed of shingle.
+* The object that we saw, let us recall,
+* This summer morn when warmth and beauty mingle —
+* At the path's turn, a carcase lay asprawl
+* Upon a bed of shingle.
 
 
 
@@ -230,6 +233,6 @@ Our decomposed amours!
 
 # ESSAY
 
-Compare this scene to children watching the adults' world.
+Associate this scene to children watching the adults' world.
 
-I want your copies by next monday.
+I want your copies by the end of the semester.
