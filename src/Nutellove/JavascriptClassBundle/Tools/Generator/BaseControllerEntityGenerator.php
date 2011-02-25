@@ -165,16 +165,15 @@ class <entityClassName>Controller <entityExtends>
 
   private function _generateEntityNamespace(ClassMetadataInfo $metadata)
   {
-    if ($this->_hasNamespace($metadata)) {
-      return 'namespace ' . $this->_getNamespace($metadata) .';';
-    }
+    return 'namespace Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata).'\\Base\\'.$this->_getClassName($metadata).'Controller;';
+//    if ($this->_hasNamespace($metadata)) {
+//      return 'namespace ' . $this->_getNamespace($metadata) .';';
+//    }
   }
 
   private function _generateEntityUse(ClassMetadataInfo $metadata)
   {
-    if ($this->_hasNamespace($metadata)) {
-      return 'use ' . $this->_getNamespace($metadata) .'\Base\Base'.$this->_getClassName($metadata).'Controller;';
-    }
+    return 'use Nutellove\JavascriptClassBundle\Controller\AbstractEntityController;';
   }
 
   protected function _generateEntityClassName(ClassMetadataInfo $metadata)
@@ -186,7 +185,7 @@ class <entityClassName>Controller <entityExtends>
   {
     $r = "";
     if ( $this->_extendsClass() ) {
-      $r .= $this->_spaces . " extends Base" . $this->_getClassName($metadata) . "Controller";
+      $r .= "extends AbstractEntityController";
     }
     return $r;
   }

@@ -1,6 +1,6 @@
 <?php
 
- // FIXME : GENERATE THIS FILE !
+ // NOT USED, FOR SNIPPET PURPOSE ONLY (Removed the Base in filename)
 
 namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base;
 

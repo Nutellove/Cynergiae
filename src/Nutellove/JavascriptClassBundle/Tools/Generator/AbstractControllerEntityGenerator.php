@@ -233,13 +233,18 @@ class AbstractControllerEntityGenerator
 
   protected function _getNamespace(ClassMetadataInfo $metadata)
   {
-    return substr($metadata->name, 0, strrpos($metadata->name, '\\'));
+    return $metadata->namespace;
+//    return substr($metadata->name, 0, strrpos($metadata->name, '\\'));
   }
 
-  // FIXME ?
   protected function _getBundleName(ClassMetadataInfo $metadata)
   {
-    return substr($metadata->name, strrpos($metadata->name, '\\') + 1);
+    $a = strpos ($metadata->namespace, '\\');
+    $b = strpos ($metadata->namespace, '\\', $a+1);
+//    var_dump($metadata->namespace);
+//    var_dump ($a);
+//    var_dump ($b);
+    return substr($metadata->name, $a+1, $b-$a-1);
   }
 
 ////////////////////////////////////////////////////////////////////////////////
