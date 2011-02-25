@@ -14,3 +14,6 @@ vendor_full/*
 # Bundles (excepted my own)
 src/*
 !src/Nutellove
+# Assets generated from bundles
+web/bundles
+web/bundles/*

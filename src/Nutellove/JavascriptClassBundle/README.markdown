@@ -29,16 +29,16 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Base Controller Generation (done)
     * Controller Initialization (done)
     * Template loading all files for one Entity, prelude to EM. (=>asset)
-  * Routing (85%)
-  * Commands (75%)
+  * Routing (done)
+  * Commands (done)
   * Asset deployment to `web/` (hook global cmd-line or create one ?)
-  * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
   * Create a JavascriptClassTestBundle
 * Cleaning up my student code :p
   * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html)
   * Move Ant & Anthill Entities to Tests
   * Writing up Tests (I swear I'll take time to write some, and then some more)
   * Extensive Testing
+  * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
  * Release
   * Writing a command that does all the Entities within a Bundle
   * Add options in config
@@ -119,13 +119,10 @@ Easy. ;)
 
 
 
-Legs raised, like some old whore far-gone in passion,
-
-The burning, deadly, poison-sweating mass
-
-Opened its paunch in careless, cynic fashion,
-
-Ballooned with evil gas.
+  * Legs raised, like some old whore far-gone in passion,
+  * The burning, deadly, poison-sweating mass
+  * Opened its paunch in careless, cynic fashion,
+  * Ballooned with evil gas.
 
 
 

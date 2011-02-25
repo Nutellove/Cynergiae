@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+ * Front Controller to avoid generating routes
+ * Is this the best way of dealing with routes ?
+ */
+
 namespace Nutellove\JavascriptClassBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
