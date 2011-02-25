@@ -78,7 +78,7 @@ EOT
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation of the Base Mootools Entity
-    $output->writeln(sprintf('Generating Mootools Entities for "<info>%s</info>"', $bundle->getName()));
+    $output->writeln(sprintf('Generating Mootools Javascript Entities for "<info>%s</info>"', $fullEntityClassName));
 
     $baseEntityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/Base/Base'.$entity.'.class.js';
 
@@ -92,10 +92,10 @@ EOT
       $baseEntityCode = $baseEntityGenerator->generateEntityClass($class);
     }
 
-    $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $baseEntityPath));
+    $output->writeln(sprintf('  > Base Js Entity for into <info>%s</info>', $baseEntityPath));
 
     if (file_exists($baseEntityPath)) {
-      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists, overwriting.', $baseEntityPath));
+      $output->writeln(sprintf('    > Already existing, overwriting.'));
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     }
 
@@ -119,10 +119,10 @@ EOT
       $entityCode = $entityGenerator->generateEntityClass($class);
     }
 
-    $output->writeln(sprintf('  > Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $entityPath));
+    $output->writeln(sprintf('  > Js Entity into <info>%s</info>', $entityPath));
 
     if (file_exists($entityPath)) {
-      $output->writeln(sprintf('  > Mootools Entity <info>%s</info> already exists.', $entityPath));
+      $output->writeln(sprintf('    > Already exists, left untouched'));
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     } else {
 
@@ -135,7 +135,7 @@ EOT
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation of the Base Controller
-    $output->writeln(sprintf('Generating Controllers for "<info>%s</info>"', $bundle->getName()));
+    $output->writeln(sprintf('Generating Controllers for "<info>%s</info>"', $fullEntityClassName));
 
     $baseControllerPath = $javascriptClassBundle->getPath().'/Controller/Entity/'.$bundle->getName().'/Base/'.$entity.'Controller.php';
 
@@ -149,10 +149,11 @@ EOT
       $baseControllerCode = $baseControllerGenerator->generateEntityClass($class);
     }
 
-    $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $baseControllerPath));
+    $output->writeln(sprintf('  > Base Entity Controller into <info>%s</info>', $baseControllerPath));
 
     if (file_exists($baseControllerPath)) {
-      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists, overwriting.', $baseControllerPath));
+      $output->writeln(sprintf('    > Already existing, overwriting.'));
+//      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists, overwriting.', $baseControllerPath));
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     }
 
@@ -177,10 +178,11 @@ EOT
       $controllerCode = $controllerGenerator->generateEntityClass($class);
     }
 
-    $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $controllerPath));
+    $output->writeln(sprintf('  > Entity Controller into <info>%s</info>', $controllerPath));
 
     if (file_exists($controllerPath)) {
-      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists.', $controllerPath));
+      $output->writeln(sprintf('    > Already exists, left untouched'));
+//      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists.', $controllerPath));
       //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     } else {
       if (!is_dir($dir = dirname($controllerPath))) {
