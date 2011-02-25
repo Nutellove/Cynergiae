@@ -33,7 +33,7 @@ use Nutellove\JavascriptClassBundle\Tools\Mapping\Driver\JavascriptClassYamlDriv
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-abstract class JavascriptClassCommand extends DoctrineCommand
+abstract class AbstractCommand extends DoctrineCommand
 {
     /**
      * This is the (default) name of the Js Framework used

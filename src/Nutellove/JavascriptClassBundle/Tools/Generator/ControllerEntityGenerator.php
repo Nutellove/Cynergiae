@@ -55,7 +55,8 @@ class ControllerEntityGenerator extends AbstractControllerEntityGenerator
 //}
 
   protected static $_classTemplate =
-'
+'<?php
+
 /**
  * Auto-initialized by JavascriptClassBundle,
  * This is the Controller Class where you put your custom logic
@@ -116,16 +117,18 @@ class <entityClassName>Controller <entityExtends>
 
   private function _generateEntityNamespace(ClassMetadataInfo $metadata)
   {
-    if ($this->_hasNamespace($metadata)) {
-      return 'namespace ' . $this->_getNamespace($metadata) .';';
-    }
+    return 'namespace Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata);
+//    if ($this->_hasNamespace($metadata)) {
+//      return 'namespace ' . $this->_getNamespace($metadata) .';';
+//    }
   }
 
   private function _generateEntityUse(ClassMetadataInfo $metadata)
   {
-    if ($this->_hasNamespace($metadata)) {
-      return 'use ' . $this->_getNamespace($metadata) .'\Base\Base'.$this->_getClassName($metadata).'Controller;';
-    }
+    return 'use Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata).'\\Base\\'.$this->_getClassName($metadata).'Controller;';
+//    if ($this->_hasNamespace($metadata)) {
+//      return 'use ' . $this->_getNamespace($metadata) .'\Base\Base'.$this->_getClassName($metadata).'Controller;';
+//    }
   }
 
   protected function _generateEntityClassName(ClassMetadataInfo $metadata)

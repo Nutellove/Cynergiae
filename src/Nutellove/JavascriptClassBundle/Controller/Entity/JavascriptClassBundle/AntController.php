@@ -1,14 +1,16 @@
 <?php
 
- // FIXME : INITIALIZE THIS FILE !
+/**
+ * Auto-initialized by JavascriptClassBundle,
+ * This is the Controller Class where you put your custom logic
+ */
 
-namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle;
+namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle
 
-use Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base\BaseAntController;
+use Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base\AntController;
 
-class AntController extends BaseAntController
+class AntController 
 {
-
   public function loadAction($id)
   {
     return parent::loadAction($id);
@@ -18,6 +20,4 @@ class AntController extends BaseAntController
   {
     return parent::loadAction($id);
   }
-
-
 }

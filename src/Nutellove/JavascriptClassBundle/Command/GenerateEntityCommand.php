@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
  *
  * @author Antoine Goutenoir <antoine.goutenoir@gmail.com>
  */
-class GenerateEntityCommand extends JavascriptClassCommand
+class GenerateEntityCommand extends AbstractCommand
 {
   //protected $_js_framework_name   = 'mootools';
   protected $_js_framework_folder = 'Mootools';
@@ -135,7 +135,7 @@ EOT
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation of the Base Controller
-    $output->writeln(sprintf('Generating Mootools Entities for "<info>%s</info>"', $bundle->getName()));
+    $output->writeln(sprintf('Generating Controllers for "<info>%s</info>"', $bundle->getName()));
 
     $baseControllerPath = $javascriptClassBundle->getPath().'/Controller/Entity/'.$bundle->getName().'/Base/'.$entity.'Controller.php';
 
@@ -157,8 +157,36 @@ EOT
     }
 
     if (!is_dir($dir = dirname($baseControllerPath))) {
-        mkdir($dir, 0777, true);
+      mkdir($dir, 0777, true);
     }
     file_put_contents($baseControllerPath, $baseControllerCode);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Generation of the Controller (if needed)
+   // $output->writeln(sprintf('Generating Mootools Entities for "<info>%s</info>"', $bundle->getName()));
+
+    $controllerPath = $javascriptClassBundle->getPath().'/Controller/Entity/'.$bundle->getName().'/'.$entity.'Controller.php';
+
+    $controllerGenerator = $this->getControllerGenerator();
+
+    if ('annotation' === $mappingType) {
+      $exporter->setEntityGenerator($controllerGenerator);
+      $controllerCode = $exporter->exportClassMetadata($class);
+      //$mappingPath = $mappingCode = false;
+    } else {
+      $controllerCode = $controllerGenerator->generateEntityClass($class);
+    }
+
+    $output->writeln(sprintf('  > Base Entity for <comment>%s</comment> into <info>%s</info>', $fullEntityClassName, $controllerPath));
+
+    if (file_exists($controllerPath)) {
+      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists.', $controllerPath));
+      //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
+    } else {
+      if (!is_dir($dir = dirname($controllerPath))) {
+        mkdir($dir, 0777, true);
+      }
+      file_put_contents($controllerPath, $controllerCode);
+    }
   }
 }
