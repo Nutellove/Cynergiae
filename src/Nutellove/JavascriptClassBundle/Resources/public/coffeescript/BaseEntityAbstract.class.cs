@@ -1,15 +1,28 @@
-class AbstractBaseEntity
+class Options
+  options: {}
+  setOptions: (o) ->
+    for own key, value of o
+      @options[key] = value
+    this
+
+class AbstractBaseEntity extends Options
   entityProperties: {}
   hasLoaded: false
   hasChanged: false
   
-  constructor: (@bundle, @entity, options) ->
+  constructor: (@bundle, @entity, options) -> @setOptions options
+
   log:   (msg) -> console?.log?   msg ; this
   error: (msg) -> console?.error? msg ; this
+
+  _getBundleName:     () -> @bundle
+  _getEntityName:     () -> @entity
   _getFullEntityName: () -> @bundle + '/' + @entity
+
   _getLogPrefix: () ->
     r = ' - #'+i if i=this.getId?()
     this._getFullEntityName() + r
+
   _getProperty: (fieldName) ->
     if this.entityProperties[fieldName]?
       this.entityProperties[fieldName]
@@ -25,15 +38,14 @@ class AbstractBaseEntity
 
 class BaseEntity extends AbstractBaseEntity
   /* FOO VAR */
-  foo
+  foo: 'prout'
   #constructor: (@bundle, @entity) ->
 
-  _getBundleName: () -> 'JavascriptClassBundle'
-  _getEntityName: () -> 'Ant'
   getFoo: () -> this._getProperty "foo"
   setFoo: () -> this._setProperty "foo"
 
 class Entity extends BaseEntity
-  move: ->
-    alert "Slithering..."
-    super 5
+
+#a = new Entity('JavascriptClassBundle', 'Ant', {})
+#a.setFoo "BEER"
+#alert a.getFoo()
