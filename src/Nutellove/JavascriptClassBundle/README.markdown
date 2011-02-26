@@ -31,10 +31,10 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Template loading all files for one Entity, prelude to EM. (=>asset)
   * Routing (done)
   * Commands (done)
-  * Asset deployment to `web/` (hook global cmd-line or create one ?)
+  * Asset deployment to `web/` : app/console_dev assets:install web (done)
   * Create a JavascriptClassTestBundle
 * Cleaning up my student code :p
-  * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html)
+  * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html) except for spaces
   * Move Ant & Anthill Entities to Tests
   * Writing up Tests (I swear I'll take time to write some, and then some more)
   * Extensive Testing
