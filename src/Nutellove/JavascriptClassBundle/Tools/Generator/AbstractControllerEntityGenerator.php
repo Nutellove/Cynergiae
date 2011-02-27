@@ -121,7 +121,7 @@ class AbstractControllerEntityGenerator
       return true;
     }
 
-    return isset($fieldMapping[$this->_javascriptAttributeName]);
+    return isset($fieldMapping['options'][$this->_javascriptAttributeName]);
   }
 
   /**

@@ -13,7 +13,7 @@ var BaseEntityAbstract = new Class({
    ,debugMode: true
   },
 
-  entityProperties: {},
+  //entityProperties: null,
   entityMethods: {},
 
   hasLoaded: false,
@@ -31,6 +31,9 @@ var BaseEntityAbstract = new Class({
     this.bundle = bundle;
     this.entity = entity;
     this.setOptions (options);
+    this.entityProperties = new Object();
+
+    //return this; // TODO : Find out what that would change
   },
 
   /**
@@ -73,8 +76,8 @@ var BaseEntityAbstract = new Class({
   _getLogPrefix: function()
   {
     var r = this._getFullEntityName();
-    if (this.getId && this.getId()) {
-      r += ' - #' + this.getId();
+    if (this.id) {
+      r += ' - #' + this.id;
     }
 
     return r;
@@ -89,7 +92,7 @@ var BaseEntityAbstract = new Class({
 
   _getProperty: function(varName)
   {
-    if (this.entityProperties[varName] != null) {
+    if (typeof this.entityProperties[varName] != "undefined" && this.entityProperties[varName] !== null) {
       return this.entityProperties[varName];
     } else {
       this.log ("Property '"+varName+"' is null.");
@@ -99,7 +102,7 @@ var BaseEntityAbstract = new Class({
 
   _setProperty: function(varName, varValue)
   {
-    if (this.entityProperties[varName] != null) {
+    if (typeof this.entityProperties[varName] != "undefined" && this.entityProperties[varName] !== null) {
       if (this.entityProperties[varName] != varValue) {
         this.entityProperties[varName] = varValue;
         this.hasChanged = true;
@@ -165,11 +168,16 @@ var BaseEntityAbstract = new Class({
   /**
    * Loads the passed JSON in the properties of the JS Entity
    */
-  loadJSON: function(jsonProperties)
+  loadJSON: function(json)
   {
-    this.log (jsonProperties);
-    this.entityProperties = jsonProperties;
-    this.hasLoaded = true;
+    this.log ('Loading following JSON :');
+    this.log (json);
+    if (json['id'] !== this.id) {
+      this.error ('JSON received has ID \'' + json['id'] + '\'.');
+    } else {
+      this.entityProperties = json['parameters'];
+      this.hasLoaded = true;
+    }
   },
 
   /**
