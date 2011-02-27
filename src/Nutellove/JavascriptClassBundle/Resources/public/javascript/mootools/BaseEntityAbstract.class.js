@@ -172,7 +172,7 @@ var BaseEntityAbstract = new Class({
   {
     this.log ('Loading following JSON :');
     this.log (json);
-    if (json['id'] !== this.id) {
+    if (json['id'] != this.id) {
       this.error ('JSON received has ID \'' + json['id'] + '\'.');
     } else {
       this.entityProperties = json['parameters'];

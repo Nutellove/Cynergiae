@@ -6,18 +6,20 @@ This bundle is **NOT finished nor working** right now. Its would-be aim is to pr
 However, its realistic, first-release aim will *not* provide an Entity Manager nor support for Entity Associations.
 Therefore, for now, only basic stuff like accessors and mutators for Entity fields, but hey, it's better than nothing !
 
-Also, authentication
+Also, authentication and security are inexistant.
 
 ## DEVCOMMENT
 
     $ app/console_dev doctrine:generate:entities JavascriptClassBundle
 
     $ app/console_dev doctrine:schema:create
+
+    $ app/console_dev assets:install web
   
 
 ## TODO
 
-There are many, **many** things to do to improve this Bundle, such as :
+There are **many** things to do to improve this Bundle, such as :
 
 * Making it work :
   * Javascript (mootools)
@@ -31,17 +33,18 @@ There are many, **many** things to do to improve this Bundle, such as :
     * Template loading all files for one Entity, prelude to EM. (=>asset)
   * Routing (done)
   * Commands (done)
-  * Asset deployment to `web/` : app/console_dev assets:install web (done)
-  * Create a JavascriptClassTestBundle
+  * Moving JS Generated Entities to Resource/public (0%)
+  * Asset deployment to `web/` : `app/console_dev assets:install web`
+ * Release
+  * Writing a command that does all the Entities within a Bundle
+  * Add options in config
 * Cleaning up my student code :p
+  * Create a JavascriptClassTestBundle
   * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html) except for spaces
   * Move Ant & Anthill Entities to Tests
   * Writing up Tests (I swear I'll take time to write some, and then some more)
   * Extensive Testing
   * Mootools ≥ 1.3 in dependencies (Quote : A bundle should not embed third-party libraries written in JavaScript)
- * Release
-  * Writing a command that does all the Entities within a Bundle
-  * Add options in config
 * Next
   * Abstract Class for Generators (code refactorization)
   * Minifying => Assetic :)
@@ -49,7 +52,7 @@ There are many, **many** things to do to improve this Bundle, such as :
   * Adding new JS Entity Classes :
     * Pure JS (CoffeeScript <3 except for implement)
     * jQuery
-   * Authentication, User rights management, etc. Think.
+   * Authentication, User rights management, Security. Think.
    * JS Entity Manager
   * Collections
   * Entity Associations
@@ -82,7 +85,7 @@ Each Doctrine 2 Entity converted to Mootools will need a total of 6 files :
 
 * `Nutellove/JavascriptClassBundle/Resources/js/BaseEntityAbstract.class.js` is a static (non-generated) Class that holds the XHR magic
 * `Entity/Mootools/Base/Base<Entity>.class.js` is a generated Mootools Entity Base Class that extends the above BaseEntityAbstract Class, you should *not* manually edit this file
-* `Entity/Mootools/<Entity>.class.js` extends the above Base class, is initially generated empty and not overwritten, so you might write your custom logic inside 
+* `Entity/Mootools/<Entity>.class.js` extends the above Base class, is initially generated (almost) empty and not overwritten, so you might write your custom logic inside
 
 ### PHP AJAX Controllers
 
@@ -126,13 +129,10 @@ Easy. ;)
 
 
 
-On this putrescence the sun blazed in gold, 
-
-Cooking it to a turn with eager care — 
-
-So to repay to Nature, hundredfold, 
-
-What she had mingled there.
+    * On this putrescence the sun blazed in gold,
+    * Cooking it to a turn with eager care —
+    * So to repay to Nature, hundredfold,
+    * What she had mingled there.
 
 
 
