@@ -57,7 +57,7 @@ class AbstractEntityController extends Controller
       throw new NotFoundHttpException('JSON Parameters are missing.');
     }
 
-    $this->setParametersInEntity($parameters, $entity);
+    $this->setParametersInEntity($json['parameters'], $entity);
 
     $parameters = $this->getParametersFromEntity ($entity);
     $json = array (
