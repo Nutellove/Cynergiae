@@ -25,5 +25,42 @@ var BaseAnt = new Class({
   },
   
 
-nothing: function(){alert('Nothing is cool.')}
+  
+  /**
+   * Get name
+   *
+   * @return string  name
+   */
+  getName: function ()
+  {
+    return this.getParameter("name");
+  },
+  
+
+  
+  /**
+   * Set is_hungry
+   *
+   * @param boolean  isHungry
+   */
+  setIsHungry: function (isHungry)
+  {
+    return this.setParameter("is_hungry", isHungry);
+  },
+  
+
+  
+  /**
+   * Get is_hungry
+   *
+   * @return boolean  isHungry
+   */
+  getIsHungry: function ()
+  {
+    return this.getParameter("is_hungry");
+  },
+  
+
+  nothing: function(){alert('Nothing is cool.')} // ;)
+
 });

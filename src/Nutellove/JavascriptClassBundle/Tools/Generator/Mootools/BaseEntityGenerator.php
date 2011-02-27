@@ -239,7 +239,7 @@ initialize: function ()
     // Properties Accessors
     foreach ($metadata->fieldMappings as $fieldMapping) {
       
-      var_dump($fieldMapping);
+      //var_dump($fieldMapping);
 
       // Setter, do we need it ?
       if ( $this->_canJavascriptWriteField ($fieldMapping) ) {
@@ -276,7 +276,7 @@ initialize: function ()
 //      }
 //    }
 
-    $methods[] = 'nothing: function(){alert(\'Nothing is cool.\')}';
+    $methods[] = $this->_spaces.'nothing: function(){alert(\'Nothing is cool.\')} // ;)'."\n";
 
     return implode("\n\n", $methods);
   }
@@ -310,8 +310,8 @@ initialize: function ()
     if ( $this->_isIdField($fieldMapping) ) {
       return false;
     }
-    if ( isset($fieldMapping[$this->_mootoolsAttributeName]) ) {
-      switch ($fieldMapping[$this->_mootoolsAttributeName]) {
+    if ( isset($fieldMapping['options'][$this->_mootoolsAttributeName]) ) {
+      switch ($fieldMapping['options'][$this->_mootoolsAttributeName]) {
         case 'read write':
         case 'readwrite':
         case 'write':
@@ -337,8 +337,8 @@ initialize: function ()
     if ( $this->_isIdField($fieldMapping) ) {
       return true;
     }
-    if ( isset($fieldMapping[$this->_mootoolsAttributeName]) ) {
-      switch ($fieldMapping[$this->_mootoolsAttributeName]) {
+    if ( isset($fieldMapping['options'][$this->_mootoolsAttributeName]) ) {
+      switch ($fieldMapping['options'][$this->_mootoolsAttributeName]) {
         case 'read write':
         case 'readwrite':
         case 'read':

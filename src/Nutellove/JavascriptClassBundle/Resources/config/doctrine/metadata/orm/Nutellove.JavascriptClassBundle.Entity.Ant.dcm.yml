@@ -21,7 +21,8 @@ Nutellove\JavascriptClassBundle\Entity\Ant:
     is_hungry:
       type: boolean
       default: false
-      js: rw
+      options:
+        js: rw
 #  manyToOne:
 #    anthill:
 #      targetEntity: Anthill

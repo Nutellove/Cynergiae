@@ -294,8 +294,8 @@ initialize: function ()
     if ( $this->_isIdField($fieldMapping) ) {
       return false;
     }
-    if ( isset($fieldMapping[$this->_mootoolsAttributeName]) ) {
-      switch ($fieldMapping[$this->_mootoolsAttributeName]) {
+    if ( isset($fieldMapping['options'][$this->_mootoolsAttributeName]) ) {
+      switch ($fieldMapping['options'][$this->_mootoolsAttributeName]) {
         case 'read write':
         case 'readwrite':
         case 'write':
@@ -321,8 +321,8 @@ initialize: function ()
     if ( $this->_isIdField($fieldMapping) ) {
       return true;
     }
-    if ( isset($fieldMapping[$this->_mootoolsAttributeName]) ) {
-      switch ($fieldMapping[$this->_mootoolsAttributeName]) {
+    if ( isset($fieldMapping['options'][$this->_mootoolsAttributeName]) ) {
+      switch ($fieldMapping['options'][$this->_mootoolsAttributeName]) {
         case 'read write':
         case 'readwrite':
         case 'read':

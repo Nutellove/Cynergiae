@@ -149,8 +149,8 @@ class AbstractControllerEntityGenerator
     if ( $this->_isIdField($fieldMapping) ) {
       return false;
     }
-    if ( isset($fieldMapping[$this->_javascriptAttributeName]) ) {
-      switch ($fieldMapping[$this->_javascriptAttributeName]) {
+    if ( isset($fieldMapping['options'][$this->_javascriptAttributeName]) ) {
+      switch ($fieldMapping['options'][$this->_javascriptAttributeName]) {
         case 'read write':
         case 'readwrite':
         case 'write':
@@ -176,8 +176,8 @@ class AbstractControllerEntityGenerator
     if ( $this->_isIdField($fieldMapping) ) {
       return true;
     }
-    if ( isset($fieldMapping[$this->_javascriptAttributeName]) ) {
-      switch ($fieldMapping[$this->_javascriptAttributeName]) {
+    if ( isset($fieldMapping['options'][$this->_javascriptAttributeName]) ) {
+      switch ($fieldMapping['options'][$this->_javascriptAttributeName]) {
         case 'read write':
         case 'readwrite':
         case 'read':
