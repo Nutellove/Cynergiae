@@ -12,26 +12,6 @@ var BaseAnt = new Class({
 
   Extends: [BaseEntityAbstract],
 
-  /**
-   * @var integer id
-   */
-  id,
-
-  /**
-   * @var string name
-   */
-  name,
-
-  /**
-   * @var integer size
-   */
-  size,
-
-  /**
-   * @var boolean is_hungry
-   */
-  is_hungry,
-
 
   
   /**
@@ -44,4 +24,6 @@ var BaseAnt = new Class({
     return this.getParameter("id");
   },
   
+
+nothing: function(){alert('Nothing is cool.')}
 });

@@ -108,7 +108,7 @@ var Base<entityClassName> = new Class({
  */
 <methodName>: function (<variableName>)
 {
-<spaces>this.setParameter("<fieldName>", <variableName>);
+<spaces>return this.setParameter("<fieldName>", <variableName>);
 },
 ';
 
@@ -235,8 +235,12 @@ initialize: function ()
   {
     $methods = array();
 
+
     // Properties Accessors
     foreach ($metadata->fieldMappings as $fieldMapping) {
+      
+      var_dump($fieldMapping);
+
       // Setter, do we need it ?
       if ( $this->_canJavascriptWriteField ($fieldMapping) ) {
         if ( ! isset($fieldMapping['id']) || ! $fieldMapping['id'] || $metadata->generatorType == ClassMetadataInfo::GENERATOR_TYPE_NONE) {
@@ -271,6 +275,8 @@ initialize: function ()
 //        }
 //      }
 //    }
+
+    $methods[] = 'nothing: function(){alert(\'Nothing is cool.\')}';
 
     return implode("\n\n", $methods);
   }
@@ -499,9 +505,9 @@ initialize: function ()
         continue;
       }
 
-      $lines[] = $this->_generateFieldMappingPropertyDocBlock($fieldMapping, $metadata);
-      $lines[] = $this->_spaces . '' . $fieldMapping['fieldName']
-           . (isset($fieldMapping['default']) ? ': ' . var_export($fieldMapping['default'], true) : null) . ",\n";
+//      $lines[] = $this->_generateFieldMappingPropertyDocBlock($fieldMapping, $metadata);
+//      $lines[] = $this->_spaces . '' . $fieldMapping['fieldName']
+//           . (isset($fieldMapping['default']) ? ': ' . var_export($fieldMapping['default'], true) : null) . ",\n";
     }
 
     return implode("\n", $lines);
