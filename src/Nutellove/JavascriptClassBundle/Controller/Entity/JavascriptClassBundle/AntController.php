@@ -7,9 +7,9 @@
 
 namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle;
 
-use Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base\AntController;
+use Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base\AntController as BaseAntController;
 
-class AntController 
+class AntController extends BaseAntController
 {
   public function loadAction($id)
   {

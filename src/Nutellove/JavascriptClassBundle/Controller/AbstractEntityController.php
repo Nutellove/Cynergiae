@@ -4,6 +4,7 @@ namespace Nutellove\JavascriptClassBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Util\Inflector; // Inflector::camelize()
 
 class AbstractEntityController extends Controller

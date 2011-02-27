@@ -82,7 +82,7 @@ var BaseEntityAbstract = new Class({
 
   _getControllerUrl: function()
   {
-    return this.options.controllerBaseUrl +'/'+ this.bundle +'/'+ this.entity +'/';
+    return '/'+this.options.controllerBaseUrl +'/'+ this.bundle +'/'+ this.entity +'/';
   },
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -145,7 +145,7 @@ var BaseEntityAbstract = new Class({
     if (!this.loadRequest) {
       var that = this; // better than bind() sometimes
       this.loadRequest = new Request.JSON ({
-        url:       this._getControllerUrl() + 'load',
+        url:       this._getControllerUrl() + 'load/' + this.id,
         method:    'get',
         onSuccess: function(json, text){
           that.loadJSON (json);
@@ -187,8 +187,9 @@ var BaseEntityAbstract = new Class({
   /**
    * Fetches data from PHP/Database and inject it into the Class
    */
-  load: function()
+  load: function(id)
   {
+    this.id = id;
     this.initializeLoadRequest();
     this.loadRequest.send();
 

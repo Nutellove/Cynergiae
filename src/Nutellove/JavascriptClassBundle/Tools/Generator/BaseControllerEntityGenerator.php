@@ -165,7 +165,7 @@ class <entityClassName>Controller <entityExtends>
 
   private function _generateEntityNamespace(ClassMetadataInfo $metadata)
   {
-    return 'namespace Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata).'\\Base\\'.$this->_getClassName($metadata).'Controller;';
+    return 'namespace Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata).'\\Base;';
 //    if ($this->_hasNamespace($metadata)) {
 //      return 'namespace ' . $this->_getNamespace($metadata) .';';
 //    }

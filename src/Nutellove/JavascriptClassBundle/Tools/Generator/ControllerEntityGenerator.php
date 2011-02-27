@@ -122,7 +122,7 @@ class <entityClassName>Controller <entityExtends>
 
   private function _generateEntityUse(ClassMetadataInfo $metadata)
   {
-    return 'use Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata).'\\Base\\'.$this->_getClassName($metadata).'Controller;';
+    return 'use Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata).'\\Base\\'.$this->_getClassName($metadata).'Controller as Base'.$this->_getClassName($metadata).'Controller;';
 //    if ($this->_hasNamespace($metadata)) {
 //      return 'use ' . $this->_getNamespace($metadata) .'\Base\Base'.$this->_getClassName($metadata).'Controller;';
 //    }
@@ -135,11 +135,11 @@ class <entityClassName>Controller <entityExtends>
 
   protected function _generateEntityExtends(ClassMetadataInfo $metadata)
   {
-    $r = "";
-    if ( $this->_extendsClass() ) {
-      $r .= $this->_spaces . " extends Base" . $this->_getClassName($metadata) . "Controller";
-    }
-    return $r;
+    return "extends Base" . $this->_getClassName($metadata) . "Controller";
+//    $r = "";
+//    if ( $this->_extendsClass() ) {
+//      $r .= $this->_spaces . " extends Base" . $this->_getClassName($metadata) . "Controller";
+//    }
   }
 
 ////////////////////////////////////////////////////////////////////////////////
