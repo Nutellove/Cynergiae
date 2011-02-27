@@ -21,7 +21,7 @@
 namespace Nutellove\JavascriptClassBundle\Tools\Generator;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Doctrine\ORM\Mapping\AssociationMapping;
+//use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\Common\Util\Inflector;
 use Nutellove\JavascriptClassBundle\Tools\Generator\AbstractControllerEntityGenerator;
 
@@ -262,23 +262,6 @@ class <entityClassName>Controller <entityExtends>
 
     return implode ("\n", $code);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

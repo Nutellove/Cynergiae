@@ -9,7 +9,8 @@ var BaseEntityAbstract = new Class({
 
   Implements: [Options],
   options: {
-    controllerBaseUrl: 'mootools' // The left-most part of the controller route
+    controllerBaseUrl: 'jsclass' // The left-most part of the controller route
+   ,debugMode: true
   },
 
   entityProperties: {},
@@ -32,19 +33,31 @@ var BaseEntityAbstract = new Class({
     this.setOptions (options);
   },
 
+  /**
+   * Logs msg (which can be any type) to the console if it exists and debugMode is set to true
+   * @param  msg
+   * @return this
+   */
   log: function(msg)
   {
-    if (console && console.log) {
+    if (this.options.debugMode && console && console.log) {
       console.log (this._getLogPrefix(), msg);
     }
 
     return this;
   },
 
+  /**
+   * Logs error msg (which can be any type) to the console if it exists
+   * @param  msg
+   * @return this
+   */
   error: function(msg)
   {
     if (console && console.error) {
       console.error (this._getLogPrefix(), msg);
+    } else {
+      alert ("Error with "+this._getLogPrefix()+". Activate the console and reload for more details.");
     }
 
     return this;
@@ -109,7 +122,7 @@ var BaseEntityAbstract = new Class({
    */
   initializeSaveRequest: function(){
     if (!this.saveRequest) {
-      var that = this; // better than bind() sometimes
+      var that = this; // better than bind() sometimes, but here I can't think of a reason. For the lulz ?
       this.saveRequest = new Request.JSON ({
         url:       this._getControllerUrl() + 'save',
         method:    'post',

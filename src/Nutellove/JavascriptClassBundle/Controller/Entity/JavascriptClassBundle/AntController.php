@@ -5,7 +5,7 @@
  * This is the Controller Class where you put your custom logic
  */
 
-namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle
+namespace Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle;
 
 use Nutellove\JavascriptClassBundle\Controller\Entity\JavascriptClassBundle\Base\AntController;
 

@@ -21,7 +21,7 @@
 namespace Nutellove\JavascriptClassBundle\Tools\Generator;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Doctrine\ORM\Mapping\AssociationMapping;
+//use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\Common\Util\Inflector;
 use Nutellove\JavascriptClassBundle\Tools\Generator\AbstractControllerEntityGenerator;
 
@@ -117,10 +117,7 @@ class <entityClassName>Controller <entityExtends>
 
   private function _generateEntityNamespace(ClassMetadataInfo $metadata)
   {
-    return 'namespace Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata);
-//    if ($this->_hasNamespace($metadata)) {
-//      return 'namespace ' . $this->_getNamespace($metadata) .';';
-//    }
+    return 'namespace Nutellove\\JavascriptClassBundle\\Controller\\Entity\\'.$this->_getBundleName($metadata).';';
   }
 
   private function _generateEntityUse(ClassMetadataInfo $metadata)

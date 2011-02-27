@@ -131,14 +131,11 @@ var Base<entityClassName> = new Class({
 
   private static $_constructorMethodTemplate =
 '
-initialize: function ()
-{
-<spaces>// Call parent constructor
-<spaces>this.parent (<bundleName>, <entityName>);
-<spaces>/* COLLECTIONS FROM ASSOCIATIONS
-<spaces><collections>
-<spaces>*/
-},
+<spaces>initialize: function (options)
+<spaces>{
+<spaces><spaces>// Call parent constructor
+<spaces><spaces>this.parent (\'<bundleName>\', \'<entityName>\', options);
+<spaces>},
 ';
 
 //  private static $_lifecycleCallbackMethodTemplate =
@@ -207,7 +204,8 @@ initialize: function ()
       '<entityExtends>',
       '<entityImplements>',
       '<entityClassName>',
-      '<entityBody>'
+      '<entityConstructor>',
+      '<entityBody>',
     );
 
     $replacements = array(
@@ -216,6 +214,7 @@ initialize: function ()
       $this->_generateEntityExtends($metadata),
       $this->_generateEntityImplements($metadata),
       $this->_generateEntityClassName($metadata),
+      $this->_generateEntityConstructor($metadata),
       $this->_generateEntityBody($metadata)
     );
 
@@ -276,7 +275,7 @@ initialize: function ()
 //      }
 //    }
 
-    $methods[] = $this->_spaces.'nothing: function(){alert(\'Nothing is cool.\')} // ;)'."\n";
+    $methods[] = $this->_spaces.'georges: function(){alert(\'\\\\o/ GEOOORGES! \\\\o/\')} // ;)'."\n";
 
     return implode("\n\n", $methods);
   }
@@ -424,6 +423,16 @@ initialize: function ()
   }
 
 ////////////////////////////////////////////////////////////////////////////////
+  protected function _getBundleName(ClassMetadataInfo $metadata)
+  {
+    $a = strpos ($metadata->namespace, '\\');
+    $b = strpos ($metadata->namespace, '\\', $a+1);
+//    var_dump($metadata->namespace);
+//    var_dump ($a);
+//    var_dump ($b);
+    return substr($metadata->name, $a+1, $b-$a-1);
+  }
+////////////////////////////////////////////////////////////////////////////////
 
   private function _generateEntityConstructor(ClassMetadataInfo $metadata)
   {
@@ -431,12 +440,18 @@ initialize: function ()
       return '';
     }
 
-    $search = array (
-      '<collections>',
+    $placeHolders = array (
       '<entityName>',
       '<bundleName>',
     );
 
+    $replacements = array(
+      $this->_getClassName($metadata),
+      $this->_getBundleName($metadata),
+    );
+
+    $code = str_replace($placeHolders, $replacements, self::$_constructorMethodTemplate);
+    return str_replace('<spaces>', $this->_spaces, $code);
 
 //    $collections = array();
 //    foreach ($metadata->associationMappings AS $mapping) {
@@ -448,7 +463,7 @@ initialize: function ()
 //    if ($collections) {
 //      return $this->_prefixCodeWithSpaces(str_replace("<collections>", implode("\n", $collections), self::$_constructorMethodTemplate));
 //    }
-    return '';
+    //return '';
   }
 
   private function _hasProperty($property, ClassMetadataInfo $metadata)
