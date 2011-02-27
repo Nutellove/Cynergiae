@@ -13,7 +13,7 @@ It Works!
 window.addEvent('domready', function(){
   $('result_box').set('html', '<em>I am the result box</em>');
 
-
+  ant = new Ant('JavascriptClassBundle', 'Ant', {});
 
 
 });

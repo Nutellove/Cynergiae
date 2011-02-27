@@ -21,7 +21,7 @@ var BaseAnt = new Class({
    */
   getId: function ()
   {
-    return this.getParameter("id");
+    return this._getProperty("id");
   },
   
 
@@ -33,7 +33,7 @@ var BaseAnt = new Class({
    */
   getName: function ()
   {
-    return this.getParameter("name");
+    return this._getProperty("name");
   },
   
 
@@ -45,7 +45,7 @@ var BaseAnt = new Class({
    */
   setIsHungry: function (isHungry)
   {
-    return this.setParameter("is_hungry", isHungry);
+    return this._setProperty("is_hungry", isHungry);
   },
   
 
@@ -57,7 +57,7 @@ var BaseAnt = new Class({
    */
   getIsHungry: function ()
   {
-    return this.getParameter("is_hungry");
+    return this._getProperty("is_hungry");
   },
   
 

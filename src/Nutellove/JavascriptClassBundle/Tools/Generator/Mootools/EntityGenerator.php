@@ -71,7 +71,8 @@ class EntityGenerator
 
 var <entityClassName> = new Class({
 <entityExtends>
-<entityImplements>
+
+<spaces>customMethod: function(){alert(this.getId())}
 
 });
 ';
@@ -85,7 +86,7 @@ var <entityClassName> = new Class({
  */
 <methodName>: function ()
 {
-<spaces>return this.getParameter("<fieldName>");
+<spaces>return this._getProperty("<fieldName>");
 },
 ';
 
@@ -98,7 +99,7 @@ var <entityClassName> = new Class({
  */
 <methodName>: function (<variableName>)
 {
-<spaces>this.setParameter("<fieldName>", <variableName>);
+<spaces>return this._setProperty("<fieldName>", <variableName>);
 },
 ';
 
@@ -360,7 +361,7 @@ initialize: function ()
   {
     $r = "\n";
     if ( $this->_extendsClass() ) {
-      $r .= $this->_spaces . "Extends: [" . $this->_getClassToExtend() . "],";
+      $r .= $this->_spaces . "Extends: Base" . $this->_getClassName($metadata) . ",";
     }
     return $r;
   }
@@ -403,6 +404,8 @@ initialize: function ()
     //if ($lifecycleCallbackMethods) {
     //  $code[] = $lifecycleCallbackMethods;
     //}
+
+    $code[] = "customMethod: function(){alert(this.getId())}\n";
 
     return implode("\n", $code);
   }

@@ -7,7 +7,8 @@
 
 var Ant = new Class({
 
-  Extends: [BaseJavascriptClassBundleAnt],
+  Extends: [BaseAnt],
 
+  customMethod: function(){alert(this.getId())}
 
 });

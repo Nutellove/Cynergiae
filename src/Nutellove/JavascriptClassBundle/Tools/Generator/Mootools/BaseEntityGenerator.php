@@ -95,7 +95,7 @@ var Base<entityClassName> = new Class({
  */
 <methodName>: function ()
 {
-<spaces>return this.getParameter("<fieldName>");
+<spaces>return this._getProperty("<fieldName>");
 },
 ';
 
@@ -108,7 +108,7 @@ var Base<entityClassName> = new Class({
  */
 <methodName>: function (<variableName>)
 {
-<spaces>return this.setParameter("<fieldName>", <variableName>);
+<spaces>return this._setProperty("<fieldName>", <variableName>);
 },
 ';
 
@@ -376,7 +376,7 @@ initialize: function ()
   {
     $r = "\n";
     if ( $this->_extendsClass() ) {
-      $r .= $this->_spaces . "Extends: [" . $this->_getClassToExtend() . "],";
+      $r .= $this->_spaces . "Extends: " . $this->_getClassToExtend() . ",";
     }
     return $r;
   }
