@@ -32,7 +32,7 @@ There are **many** things to do to improve this Bundle, such as :
     * Controller Initialization (done)
   * Routing (done)
   * Commands (done)
-  * Moving JS Generated Entities to Resource/public (0%)
+  * Moving JS Generated Entities to Resource/public (done)
   * Asset deployment to `web/` : `app/console_dev assets:install web`
 * Release
   * Writing a command that does all the Entities within a Bundle

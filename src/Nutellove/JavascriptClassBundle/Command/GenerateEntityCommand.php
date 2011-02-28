@@ -80,7 +80,8 @@ EOT
     // Generation of the Base Mootools Entity
     $output->writeln(sprintf('Generating Mootools Javascript Entities for "<info>%s</info>"', $fullEntityClassName));
 
-    $baseEntityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/Base/Base'.$entity.'.class.js';
+    $baseEntityPath = $bundle->getPath().'/Resources/public/jsclass/'.strtolower($this->getJsFrameworkFolder()).'/entity/'.strtolower($bundle->getName()).'/base/Base'.$entity.'.class.js';
+//    $baseEntityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/Base/Base'.$entity.'.class.js';
 
     $baseEntityGenerator = $this->getMootoolsBaseEntityGenerator();
 
@@ -106,7 +107,8 @@ EOT
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation (if needed) of the Mootools Entity
-    $entityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/'.$entity.'.class.js';
+//    $entityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/'.$entity.'.class.js';
+    $entityPath = $bundle->getPath().'/Resources/public/jsclass/'.strtolower($this->getJsFrameworkFolder()).'/entity/'.strtolower($bundle->getName()).'/'.$entity.'.class.js';
 
     $entityGenerator = $this->getMootoolsEntityGenerator();
     $entityGenerator->setClassToExtend ("Base".$bundle->getName().$entity);
