@@ -9,3 +9,7 @@ jsclass_debug_page:
 jsclass_entity_load:
     pattern:  /jsclass/{bundleName}/{entityName}/load/{id}
     defaults: { _controller: JavascriptClassBundle:Front:load, _format: json }
+
+jsclass_entity_save:
+    pattern:  /jsclass/{bundleName}/{entityName}/save/{id}
+    defaults: { _controller: JavascriptClassBundle:Front:save, _format: json }

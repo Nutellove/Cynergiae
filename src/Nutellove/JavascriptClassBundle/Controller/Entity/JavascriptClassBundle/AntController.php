@@ -18,6 +18,6 @@ class AntController extends BaseAntController
 
   public function saveAction($id)
   {
-    return parent::loadAction($id);
+    return parent::saveAction($id);
   }
 }

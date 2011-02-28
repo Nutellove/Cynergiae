@@ -53,11 +53,11 @@ class AbstractEntityController extends Controller
     $json = $request->request->get('json');
     $json = json_decode($json);
 
-    if ( !isset($json['parameters']) || empty($json['parameters'])) {
+    if ( !isset($json->parameters) || empty($json->parameters)) {
       throw new NotFoundHttpException('JSON Parameters are missing.');
     }
 
-    $this->setParametersInEntity($json['parameters'], $entity);
+    $this->setParametersInEntity((array)$json->parameters, $entity);
 
     $parameters = $this->getParametersFromEntity ($entity);
     $json = array (
@@ -66,11 +66,6 @@ class AbstractEntityController extends Controller
     );
 
     return new Response(json_encode($json));
-//    return $this->render('JavascriptClassBundle:Entity:load.json.php', array(
-//      'json' => json_encode($json),
-//      'entity' => $entity,
-//      'parameters' => $parameters,
-//    ));
   }
 
 
@@ -106,7 +101,7 @@ class AbstractEntityController extends Controller
    * @param $parameters
    * @param $entity
    */
-  public function setParametersInEntity(array $parameters, $entity)
+  public function setParametersInEntity($parameters, $entity)
   {
     $map = $this->getJavascriptMapping();
     foreach ($map as $field => $params){

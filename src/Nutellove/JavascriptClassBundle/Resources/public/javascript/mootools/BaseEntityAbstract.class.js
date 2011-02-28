@@ -127,7 +127,7 @@ var BaseEntityAbstract = new Class({
     if (!this.saveRequest) {
       var that = this; // better than bind() sometimes, but here I can't think of a reason. For the lulz ?
       this.saveRequest = new Request.JSON ({
-        url:       this._getControllerUrl() + 'save',
+        url:       this._getControllerUrl() + 'save/' + this.id,
         method:    'post',
         onSuccess: function(json, text){
           that.log ("Save of "+that._getFullEntityName()+" successful.");
@@ -185,9 +185,11 @@ var BaseEntityAbstract = new Class({
    */
   saveJSON: function()
   {
-    var json = JSON.encode(this.entityProperties);
-
-    return json;
+    var jsonObject = new Object();
+    jsonObject['id'] = this.id;
+    jsonObject['parameters'] = this.entityProperties;
+    
+    return JSON.encode(jsonObject);
   },
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -211,7 +213,8 @@ var BaseEntityAbstract = new Class({
   {
     if (this.hasLoaded && this.hasChanged) {
       this.initializeSaveRequest();
-      this.saveRequest.post(this.entityProperties);
+      var json = this.saveJSON();
+      this.saveRequest.post('json='+json);
     } else {
       this.log("Trying to save though nothing has changed.");
     }

@@ -19,22 +19,28 @@ window.addEvent('domready', function(){
   ant = new Ant({controllerBaseUrl: 'cynergiae_git/web/jsclass'});
 
   box = function(s){
-    $('result_box').set('html', s);
+    $('result_box').set('html', $('result_box').get('html')+'<br />'+s);
   };
 
   $('doGeorges').addEvent('click', function(e){
     ant.georges();
   });
 
+  $('getName').addEvent('click', function(e){
+    box(ant.getName());
+  });
+
+  $('setHungry').addEvent('click', function(e){
+    box(ant.setIsHungry(true));
+  });
+
   $('doLoad').addEvent('click', function(e){
     ant.load(1);
   });
 
-  $('getName').addEvent('click', function(e){
-    alert(ant.getName());
-    ant.getName();
+  $('doSave').addEvent('click', function(e){
+    ant.save();
   });
-
 
 });
 </script>
@@ -42,6 +48,8 @@ window.addEvent('domready', function(){
   <input id="doGeorges" type="button" value="Georges ?" />
   <input id="doLoad" type="button" value="Load" />
   <input id="getName" type="button" value="getName" />
+  <input id="setHungry" type="button" value="setHungry" />
+  <input id="doSave" type="button" value="Save" />
 </p>
 
 <div id="result_box"></div>
