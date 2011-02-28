@@ -30,12 +30,11 @@ There are **many** things to do to improve this Bundle, such as :
     * Abstract Controller (done)
     * Base Controller Generation (done)
     * Controller Initialization (done)
-    * Template loading all files for one Entity, prelude to EM. (=>asset)
   * Routing (done)
   * Commands (done)
   * Moving JS Generated Entities to Resource/public (0%)
   * Asset deployment to `web/` : `app/console_dev assets:install web`
- * Release
+* Release
   * Writing a command that does all the Entities within a Bundle
   * Add options in config
 * Cleaning up my student code :p
@@ -120,29 +119,20 @@ Easy. ;)
 * At the path's turn, a carcase lay asprawl
 * Upon a bed of shingle.
 
+* Legs raised, like some old whore far-gone in passion,
+* The burning, deadly, poison-sweating mass
+* Opened its paunch in careless, cynic fashion,
+* Ballooned with evil gas.
 
+* On this putrescence the sun blazed in gold,
+* Cooking it to a turn with eager care —
+* So to repay to Nature, hundredfold,
+* What she had mingled there.
 
-  * Legs raised, like some old whore far-gone in passion,
-  * The burning, deadly, poison-sweating mass
-  * Opened its paunch in careless, cynic fashion,
-  * Ballooned with evil gas.
-
-
-
-    * On this putrescence the sun blazed in gold,
-    * Cooking it to a turn with eager care —
-    * So to repay to Nature, hundredfold,
-    * What she had mingled there.
-
-
-
-The sky, as on the opening of a flower, 
-
-On this superb obscenity smiled bright. 
-
-The stench drove at us, with such fearsome power 
-
-You thought you'd swoon outright.
+* The sky, as on the opening of a flower,
+* On this superb obscenity smiled bright.
+* The stench drove at us, with such fearsome power
+* You thought you'd swoon outright.
 
 
 
