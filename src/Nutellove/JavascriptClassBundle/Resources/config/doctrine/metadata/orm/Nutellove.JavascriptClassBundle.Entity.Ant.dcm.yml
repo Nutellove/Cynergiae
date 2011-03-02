@@ -12,7 +12,6 @@ Nutellove\JavascriptClassBundle\Entity\Ant:
     name:
       type: string
       length: 50
-      js: read
       options:
         js: read
     size:

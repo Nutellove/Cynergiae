@@ -44,9 +44,9 @@ class GenerateEntityCommand extends AbstractCommand
       ->addOption('mapping-type', null, InputOption::VALUE_OPTIONAL, 'The mapping type to to use for the entity. (USELESS OPTION)', 'yaml')
       ->addOption('fields', null, InputOption::VALUE_OPTIONAL, 'The fields to create with the new entity. (USELESS TOO)')
       ->setHelp(<<<EOT
-The <info>mootools:generate:entity</info> task (re)generates a new Mootools Class Base entity, initializes if needed an extended Mootools Class entity in which you'll write your custom own javascript logic, and (re)generates the Routes and Controllers needed for PHP/JS synchronization via AJAX, all that inside a bundle :
+The <info>jsclass:generate:entity</info> task (re)generates a new Mootools Class Base entity, initializes if needed an extended Mootools Class entity in which you'll write your custom own javascript logic, and (re)generates the Controllers needed for PHP/JS synchronization via AJAX, all that inside a bundle :
 
-  <info>./app/console mootools:generate:entity "MyCustomBundle" "MyEntity"</info>
+  <info>./app/console jsclass:generate:entity MyBundle MyEntity</info>
 
 EOT
     );
@@ -66,23 +66,23 @@ EOT
     $fullEntityClassName = $bundle->getNamespace().'\\Entity\\'.$entity;
     $mappingType = $input->getOption('mapping-type');
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Fetching the metadata for this Bundle/Entity
     $metadatas = $this->getBundleMetadatas($bundle);
     $class = $metadatas[$fullEntityClassName];
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Setup a new exporter for the mapping type specified
     $cme = new ClassMetadataExporter();
     $exporter = $cme->getExporter($mappingType);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation of the Base Mootools Entity
     $output->writeln(sprintf('Generating Mootools Javascript Entities for "<info>%s</info>"', $fullEntityClassName));
 
-    $baseEntityPath = $bundle->getPath().'/Resources/public/jsclass/'.strtolower($this->getJsFrameworkFolder()).'/entity/'.strtolower($bundle->getName()).'/base/Base'.$entity.'.class.js';
-//    $baseEntityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/Base/Base'.$entity.'.class.js';
-
+    $baseEntityPath = $bundle->getPath().'/Resources/public/jsclass/'.strtolower($this->getJsFrameworkFolder()).
+                      '/entity/'.strtolower($bundle->getName()).'/base/Base'.$entity.'.class.js';
     $baseEntityGenerator = $this->getMootoolsBaseEntityGenerator();
 
     if ('annotation' === $mappingType) {
@@ -105,10 +105,11 @@ EOT
     }
     file_put_contents($baseEntityPath, $baseEntityCode);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation (if needed) of the Mootools Entity
-//    $entityPath = $bundle->getPath().'/Entity/JavascriptClassBundle/'.$entity.'/'.$this->getJsFrameworkFolder().'/'.$entity.'.class.js';
-    $entityPath = $bundle->getPath().'/Resources/public/jsclass/'.strtolower($this->getJsFrameworkFolder()).'/entity/'.strtolower($bundle->getName()).'/'.$entity.'.class.js';
+    $entityPath = $bundle->getPath().'/Resources/public/jsclass/'.strtolower($this->getJsFrameworkFolder()).
+                  '/entity/'.strtolower($bundle->getName()).'/'.$entity.'.class.js';
 
     $entityGenerator = $this->getMootoolsEntityGenerator();
     $entityGenerator->setClassToExtend ("Base".$bundle->getName().$entity);
@@ -125,7 +126,6 @@ EOT
 
     if (file_exists($entityPath)) {
       $output->writeln(sprintf('    > Already exists, left untouched'));
-      //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     } else {
 
       if (!is_dir($dir = dirname($entityPath))) {
@@ -135,7 +135,8 @@ EOT
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation of the Base Controller
     $output->writeln(sprintf('Generating Controllers for "<info>%s</info>"', $fullEntityClassName));
 
@@ -155,8 +156,6 @@ EOT
 
     if (file_exists($baseControllerPath)) {
       $output->writeln(sprintf('    > Already existing, overwriting.'));
-//      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists, overwriting.', $baseControllerPath));
-      //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     }
 
     if (!is_dir($dir = dirname($baseControllerPath))) {
@@ -164,9 +163,9 @@ EOT
     }
     file_put_contents($baseControllerPath, $baseControllerCode);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Generation of the Controller (if needed)
-   // $output->writeln(sprintf('Generating Mootools Entities for "<info>%s</info>"', $bundle->getName()));
 
     $controllerPath = $javascriptClassBundle->getPath().'/Controller/Entity/'.$bundle->getName().'/'.$entity.'Controller.php';
 
@@ -175,7 +174,6 @@ EOT
     if ('annotation' === $mappingType) {
       $exporter->setEntityGenerator($controllerGenerator);
       $controllerCode = $exporter->exportClassMetadata($class);
-      //$mappingPath = $mappingCode = false;
     } else {
       $controllerCode = $controllerGenerator->generateEntityClass($class);
     }
@@ -184,8 +182,6 @@ EOT
 
     if (file_exists($controllerPath)) {
       $output->writeln(sprintf('    > Already exists, left untouched'));
-//      $output->writeln(sprintf('  > Mootools Base Entity <info>%s</info> already exists.', $controllerPath));
-      //throw new \RuntimeException(sprintf("Mootools Base Entity %s already exists.", $class->name));
     } else {
       if (!is_dir($dir = dirname($controllerPath))) {
         mkdir($dir, 0777, true);
