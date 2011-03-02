@@ -71,6 +71,7 @@ There are **many** things to do to improve this Bundle, such as :
       * Bidirectional
       * Self-referencing
 
+
 # USAGE
 
     $ app/console jsclass:generate:entity <bundle> <entity>
