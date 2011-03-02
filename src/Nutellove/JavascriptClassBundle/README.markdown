@@ -38,7 +38,9 @@ There are **many** things to do to improve this Bundle, such as :
   * Writing a command that does all the Entities within a Bundle
   * Add options in config
 * Cleaning up my student code :p
-  * Create a JavascriptClassTestBundle
+  * Create a JavascriptClassBundle git repo
+  * Create a JavascriptClassTestBundle git repo
+  * Use git submodules
   * Validate [the guidelines](http://docs.symfony-reloaded.org/guides/bundles/best_practices.html) except for spaces
   * Move Ant & Anthill Entities to Tests
   * Writing up Tests (I swear I'll take time to write some, and then some more)
@@ -114,10 +116,11 @@ Easy. ;)
 **The Carcase**
 
 
-* The object that we saw, let us recall,
-* This summer morn when warmth and beauty mingle —
-* At the path's turn, a carcase lay asprawl
-* Upon a bed of shingle.
+The object that we saw, let us recall,
+This summer morn when warmth and beauty mingle —
+At the path's turn, a carcase lay asprawl
+Upon a bed of shingle.
+
 
 * Legs raised, like some old whore far-gone in passion,
 * The burning, deadly, poison-sweating mass
