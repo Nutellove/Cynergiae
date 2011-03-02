@@ -42,7 +42,7 @@ class GenerateEntityCommand extends AbstractCommand
       ->addArgument('bundle', InputArgument::REQUIRED, 'The name of the bundle (case-sensitive).')
       ->addArgument('entity', InputArgument::REQUIRED, 'The name of the entity (case-sensitive).')
       ->addOption('mapping-type', null, InputOption::VALUE_OPTIONAL, 'The mapping type to to use for the entity. (USELESS OPTION)', 'yaml')
-      ->addOption('fields', null, InputOption::VALUE_OPTIONAL, 'The fields to create with the new entity. (USELESS TOO)')
+      ->addOption('framework', null, InputOption::VALUE_OPTIONAL, 'The javascript framework for which your want to generate classes. (USELESS TOO)', 'Mootools')
       ->setHelp(<<<EOT
 The <info>jsclass:generate:entity</info> task (re)generates a new Mootools Class Base entity, initializes if needed an extended Mootools Class entity in which you'll write your custom own javascript logic, and (re)generates the Controllers needed for PHP/JS synchronization via AJAX, all that inside a bundle :
 
@@ -188,5 +188,7 @@ EOT
       }
       file_put_contents($controllerPath, $controllerCode);
     }
+
+    var_dump($this->container->getParameter('nutellove_jsclass.generator.framework'));
   }
 }
