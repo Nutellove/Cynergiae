@@ -12,9 +12,9 @@ desktop.ini
 vendor/*
 vendor_full/*
 # Bundles (except my own)
-!src/Nutellove
-!src/Nutellove/*
-src/*
+#!src/Nutellove
+#!src/Nutellove/*
+#src/*
 
 # Assets generated from bundles
 web/bundles
