@@ -1,0 +1,3 @@
+[submodule "src/Nutellove/JavascriptClassBundle"]
+	path = src/Nutellove/JavascriptClassBundle
+	url = https://github.com/AntoineGoutenoir/JavascriptClassBundle.git

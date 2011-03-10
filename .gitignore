@@ -11,9 +11,11 @@ desktop.ini
 # Vendors (update them via script)
 vendor/*
 vendor_full/*
-# Bundles (excepted my own)
-src/*
+# Bundles (except my own)
 !src/Nutellove
+!src/Nutellove/*
+src/*
+
 # Assets generated from bundles
 web/bundles
 web/bundles/*

@@ -1,7 +1,0 @@
-# NOT USED
-
-javascript_class.config:
-  # Name of the template renderer
-  template: php
-  # Number of spaces used for indentation
-  spaces: 4
