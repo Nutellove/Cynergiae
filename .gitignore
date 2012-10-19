@@ -1,12 +1,27 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Ignore bundler config
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
 # Stoopid Windows© files
 .DS_Store
 Thumbs.db
 desktop.ini
+
 # KDE
 .directory
+
 # Eclipse-generated files
 .settings/*
 .project
 .buildpath
+
 # PhpStorm
 .idea/*
