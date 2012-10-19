@@ -2,20 +2,11 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+# KDE
+.directory
 # Eclipse-generated files
 .settings/*
 .project
 .buildpath
 # PhpStorm
 .idea/*
-# Vendors (update them via script)
-vendor/*
-vendor_full/*
-# Bundles (except my own)
-#!src/Nutellove
-#!src/Nutellove/*
-#src/*
-
-# Assets generated from bundles
-web/bundles
-web/bundles/*
